@@ -7,7 +7,7 @@ const ContactUs = () => {
     lastName: '',
     email: '',
     mobile: '',
-    msg: ''
+    message: ''
   });
 
   const handleChange = (e) => {
@@ -32,11 +32,12 @@ const ContactUs = () => {
           lastName: '',
           email: '',
           mobile: '',
-          msg: ''
+          message: ''
         });
       } else {
-        console.error('API Error:', response.statusText);
-        alert('Failed to submit the form. Please try again.');
+        const errorData = await response.json();
+        console.error('API Error:', errorData);
+        alert('Failed to submit the form: ' + errorData.message);
       }
     } catch (error) {
       console.error('Fetch error:', error);
@@ -174,13 +175,13 @@ const ContactUs = () => {
             </div>
             {/* Message */}
             <div style={{ marginBottom: '1.5rem' }}>
-              <label htmlFor="msg" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              <label htmlFor="message" style={{ display: 'block', marginBottom: '0.5rem' }}>
                 Message
               </label>
               <textarea
-                id="msg"
-                name="msg"
-                value={formData.msg}
+                id="message"
+                name="message"
+                value={formData.message}
                 onChange={handleChange}
                 rows={4}
                 required
@@ -214,7 +215,7 @@ const ContactUs = () => {
           </form>
 
           {/* Map */}
-          <div
+          {/* <div
             style={{
               background: 'white',
               padding: '1rem',
@@ -237,7 +238,7 @@ const ContactUs = () => {
               allowFullScreen=""
               loading="lazy"
             />
-          </div>
+          </div> */}
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function generateSlug(title) {
   return title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
@@ -52,13 +53,11 @@ export default function InfrastructureGrid() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Replace this URL with your real API endpoint
-    fetch('MY api URLL')
-      .then(res => {
-        if (!res.ok) throw new Error('API error');
-        return res.json();
-      })
-      .then(data => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://15.206.189.17:4000/api/get/category'); // Update with your actual API endpoint
+        console.log('API Response:', response.data); // Log the response data
+        const data = response.data;
         // Ensure each item has a slug, generating if not present
         const processedData = Array.isArray(data)
           ? data.map(item => ({
@@ -67,16 +66,19 @@ export default function InfrastructureGrid() {
           }))
           : staticInfrastructure;
         setInfra(processedData);
-        setLoading(false);
-      })
-      .catch(() => {
+      } catch (error) {
+        console.error('Error fetching data:', error); // Log the error
         setInfra(staticInfrastructure);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem',background:"#f5f5f5" }}>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', background: "#f5f5f5" }}>
       <p style={{
         fontWeight: 400,
         fontSize: '1.125rem',
@@ -87,7 +89,7 @@ export default function InfrastructureGrid() {
         textAlign: 'center',
         padding: '0 1rem'
       }}>
-        At Learnitfy, we empower individuals and organizations to thrive in the digital age through high-quality, flexible, and career-focused IT training. Whether you're looking to start a new tech career or upskill your team, our expertly designed courses are built to meet the demands of today’s fast-evolving IT landscape. .
+        At Learnitfy, we empower individuals and organizations to thrive in the digital age through high-quality, flexible, and career-focused IT training. Whether you're looking to start a new tech career or upskill your team, our expertly designed courses are built to meet the demands of today's fast-evolving IT landscape.
       </p>
 
       <motion.div
@@ -105,7 +107,7 @@ export default function InfrastructureGrid() {
           infra.map((item, index) => (
             <Link
               key={index}
-              to={`/courses/${item.slug}`}
+              to={`/courses/${item.slug}`} // Leave space for the link
               className="infra-link"
             >
               <div

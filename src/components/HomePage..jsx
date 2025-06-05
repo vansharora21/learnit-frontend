@@ -194,71 +194,70 @@ export default function HomePage() {
       </div>
 
       {/* Stats and Training Modes Section */}
-      <section className="training-modes-section" style={{ background: "#f5f5f5" }}>
-        <div className="container">
-          <div className="row align-items-center flex-column flex-md-row">
-            {/* Left: Training Modes */}
-            <div className="col-md-6 mb-5 mb-md-0">
-              <p style={{ color: '#222', fontSize: '1.1rem', marginBottom: 4 }}>
-                Choose your own comfortable learning experience.
-              </p>
-              <h2 style={{ fontWeight: 700, fontSize: '2rem', marginBottom: 24, fontFamily: 'Ubuntu, sans-serif' }}>
-                <span style={{ color: 'rgb(249, 169, 30)', fontFamily: 'Ubuntu, sans-serif' }}>Training</span> Patterns
-              </h2>
-              <div style={{ fontSize: '1.18rem', fontWeight: 500, marginBottom: 10 }}>
-                <span style={{ fontWeight: 600 }}>Live Virtual Training</span>
-              </div>
-              <ul style={{ marginLeft: 0, marginBottom: 18, color: '#555', fontSize: '1rem', paddingLeft: 22 }}>
-                <li style={{ marginBottom: 8, listStyle: 'none', position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: -18, color: '#888' }}>&#8250;</span>
-                  Schedule your sessions at your comfortable timings.
-                </li>
-                <li style={{ marginBottom: 8, listStyle: 'none', position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: -18, color: '#888' }}>&#8250;</span>
-                  Instructor led training with practical lab sessions.
-                </li>
-                <li style={{ marginBottom: 8, listStyle: 'none', position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: -18, color: '#888' }}>&#8250;</span>
-                  Real time projects and certification guidance.
-                </li>
-              </ul>
-              <div style={{ fontSize: '1.18rem', fontWeight: 500, marginBottom: 10 }}>
-                <span style={{ fontWeight: 600 }}>Live Classroom Training</span>
-              </div>
-              <ul style={{ marginLeft: 0, marginBottom: 18, color: '#555', fontSize: '1rem', paddingLeft: 22 }}>
-                <li style={{ marginBottom: 8, listStyle: 'none', position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: -18, color: '#888' }}>&#8250;</span>
-                  Schedule your sessions at your comfortable timings.
-                </li>
-                <li style={{ marginBottom: 8, listStyle: 'none', position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: -18, color: '#888' }}>&#8250;</span>
-                  Instructor led training with practical lab sessions.
-                </li>
-                <li style={{ marginBottom: 8, listStyle: 'none', position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: -18, color: '#888' }}>&#8250;</span>
-                  Real time projects and certification guidance.
-                </li>
-              </ul>
-            </div>
-            {/* Right: Image */}
-            <div className="col-md-6 d-flex justify-content-center align-items-center">
-              <img
-                src="https://miro.medium.com/v2/resize:fit:800/0*AGsPW_0Fptw9iVE2.jpg"
-                alt="Training Patterns"
-                style={{
-                  maxWidth: "100%",
-                  borderRadius: "16px",
-                  boxShadow: "0 4px 18px rgba(60,60,60,0.12)",
-                  background: "#fff",
-                  width: "420px",
-                  height: "auto",
-                  objectFit: "cover"
-                }}
-              />
-            </div>
-          </div>
+      <section className="training-modes-section py-5" style={{ background: "#f5f5f5" }}>
+  <div className="container">
+    <div className="row align-items-center">
+      {/* Left Column */}
+      <div className="col-12 col-md-6 mb-4 mb-md-0">
+        <p className="text-dark fs-6 mb-1">
+          Choose your own comfortable learning experience.
+        </p>
+        <h2 className="fw-bold fs-3 mb-4" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
+          <span style={{ color: 'rgb(249, 169, 30)' }}>Training</span> Patterns
+        </h2>
+
+        {/* Live Virtual Training */}
+        <div className="fw-medium fs-5 mb-2">
+          <strong>Live Virtual Training</strong>
         </div>
-      </section>
+        <ul className="ps-4 mb-4 text-secondary fs-6">
+          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+            Schedule your sessions at your comfortable timings.
+          </li>
+          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+            Instructor led training with practical lab sessions.
+          </li>
+          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+            Real time projects and certification guidance.
+          </li>
+        </ul>
+
+        {/* Live Classroom Training */}
+        <div className="fw-medium fs-5 mb-2">
+          <strong>Live Classroom Training</strong>
+        </div>
+        <ul className="ps-4 mb-4 text-secondary fs-6">
+          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+            Schedule your sessions at your comfortable timings.
+          </li>
+          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+            Instructor led training with practical lab sessions.
+          </li>
+          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+            Real time projects and certification guidance.
+          </li>
+        </ul>
+      </div>
+
+      {/* Right Column */}
+      <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
+        <img
+          src="https://miro.medium.com/v2/resize:fit:800/0*AGsPW_0Fptw9iVE2.jpg"
+          alt="Training Patterns"
+          className="img-fluid rounded shadow"
+          style={{ maxWidth: '100%', width: '100%', maxWidth: '420px', background: '#fff' }}
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 

@@ -83,7 +83,7 @@ export default function Footer() {
           </div>
           
           {/* Map on the right */}
-          <div className="col-12 col-md-4 d-flex align-items-stretch justify-content-center justify-content-md-end">
+          {/* <div className="col-12 col-md-4 d-flex align-items-stretch justify-content-center justify-content-md-end">
             <div style={{ width: '100%', height: '100%', borderRadius: '12px', overflow: 'hidden', minHeight: '180px' }}>
               <iframe
                 title="Location Map"
@@ -96,7 +96,7 @@ export default function Footer() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

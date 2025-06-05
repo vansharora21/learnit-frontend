@@ -34,8 +34,8 @@ const timelineData = [
 
 export default function CorporateTrainingTimeline() {
   return (
-    <div style={{background: "#f5f5f5", paddingTop:'1rem' , paddingBottom:'1rem'}}>
-      <div className="container" style={{paddingTop: '1rem', paddingBottom: '1rem'}}>
+    <div style={{ background: "#f5f5f5", paddingTop: '1rem', paddingBottom: '1rem' }}>
+      <div className="container" style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
         {/* Header */}
         <div className="row">
           <div className="col-12 text-center mb-5">
@@ -49,7 +49,7 @@ export default function CorporateTrainingTimeline() {
         {/* Timeline */}
         <div className="position-relative">
           {/* Vertical Line */}
-          <div 
+          <div
             className="position-absolute top-0 start-50 translate-middle-x bg-secondary"
             style={{
               width: '3px',
@@ -63,7 +63,7 @@ export default function CorporateTrainingTimeline() {
               {item.side === "left" ? (
                 <>
                   {/* Left Content */}
-                  <div className="col-md-5 offset-md-0 text-md-end d-flex flex-column justify-content-center">
+                  <div className="col-md-5 text-md-end d-flex flex-column justify-content-center">
                     <div className="pe-md-4">
                       <h5 className="fw-bold text-primary mb-2">{item.period}</h5>
                       <h5 className="fw-semibold mb-3">{item.title}</h5>
@@ -73,8 +73,8 @@ export default function CorporateTrainingTimeline() {
                   {/* Center Image */}
                   <div className="col-md-2 text-center position-relative">
                     <div className="position-relative d-inline-block">
-                      <img 
-                        src={item.img} 
+                      <img
+                        src={item.img}
                         alt={item.title}
                         className="rounded-circle border border-4 border-dark-subtle"
                         style={{
@@ -97,13 +97,13 @@ export default function CorporateTrainingTimeline() {
                   {/* Center Image */}
                   <div className="col-md-2 text-center position-relative">
                     <div className="position-relative d-inline-block">
-                      <img 
-                        src={item.img} 
+                      <img
+                        src={item.img}
                         alt={item.title}
                         className="rounded-circle border border-4 border-dark-subtle"
                         style={{
                           width: '80px',
-                          height: '80px', 
+                          height: '80px',
                           objectFit: 'cover',
                           position: 'relative',
                           zIndex: 2
@@ -127,7 +127,7 @@ export default function CorporateTrainingTimeline() {
           {/* Final Circle - "Welcome Aboard" */}
           <div className="row">
             <div className="col-12 text-center">
-              <div 
+              <div
                 className="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle border border-4 border-dark-subtle fw-bold"
                 style={{
                   width: '120px',
@@ -138,7 +138,7 @@ export default function CorporateTrainingTimeline() {
                   zIndex: 2
                 }}
               >
-                Welcome<br/>Aboard
+                Welcome<br />Aboard
               </div>
             </div>
           </div>
@@ -165,6 +165,12 @@ export default function CorporateTrainingTimeline() {
           }
           .text-md-end {
             text-align: left !important;
+          }
+        }
+        @media (max-width: 991px) {
+          .position-absolute.start-50 {
+            left: 50% !important;
+            transform: translateX(-50%) !important;
           }
         }
       `}</style>
