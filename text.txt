@@ -1,0 +1,2 @@
+get course = "http://15.206.189.17:4000/api/admin/get/courses"
+brichure = "http://15.206.189.17:4000/api/user/send/brochure"

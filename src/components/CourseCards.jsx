@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function generateSlug(title) {
   return title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
@@ -50,6 +51,15 @@ const staticInfrastructure = [
 export default function InfrastructureGrid() {
   const [infra, setInfra] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const GetCourses = () => {
+  const respose = axios.get("http://15.206.189.17:4000/api/admin/get/courses");
+  console.log("here is the responsee:", respose)
+};
+
+useEffect(()=>{
+  GetCourses()
+},[])
 
   useEffect(() => {
     // Replace this URL with your real API endpoint

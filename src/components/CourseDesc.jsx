@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { FiClock, FiDownload, FiMonitor, FiFileText, FiAward, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import FAQSection from './FAQSection';
+import { header } from 'framer-motion/client';
+import axios from 'axios';
 const CourseDropdown = ({ title, children }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -54,6 +56,18 @@ const CourseDescription = () => {
     const formRef = useRef(null);
     const brochureFormRef = useRef(null);
     const courseContentRef = useRef(null);
+
+
+    useEffect(()=>{
+        const PostBrochure = () =>{
+            const response = axios.post("http://15.206.189.17:4000/api/user/send/brochure",{
+            header:{
+
+            }
+        });
+        console.log("here is the response:", response)
+        }
+    },[])
 
     // Handle outside clicks to close dropdowns
     useEffect(() => {
@@ -654,6 +668,7 @@ const CourseDescription = () => {
                                             />
                                         </div>
                                         <button
+                                        onClick={PostBrochure()}
                                             type="submit"
                                             style={{
                                                 backgroundColor: 'orange',
