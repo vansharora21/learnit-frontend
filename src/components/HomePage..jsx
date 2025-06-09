@@ -111,7 +111,7 @@ function ImageSlider() {
         }
         .custom-search-btn {
           display: flex;
-          border-radius: 16px;
+          border-radius: 1px;
           align-items: center;
           background:rgb(249, 169, 30);
           color: #fff;

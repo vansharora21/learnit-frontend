@@ -7,53 +7,15 @@ export function generateSlug(title) {
   return title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
 }
 
-// Your new course categories with icons
-const staticInfrastructure = [
-  {
-    title: "Cloud Computing",
-    icon: "https://img.icons8.com/color/48/000000/cloud.png",
-    badge: "New",
-  },
-  {
-    title: "Data Science & Analytics",
-    icon: "https://img.icons8.com/color/48/000000/combo-chart--v1.png",
-    badge: "Trending",
-  },
-  {
-    title: "Machine Learning & Gen AI",
-    icon: "https://img.icons8.com/color/48/000000/artificial-intelligence.png",
-  },
-  {
-    title: "ERP (Salesforce, SAP, Oracle)",
-    icon: "https://img.icons8.com/color/48/000000/business.png",
-  },
-  {
-    title: "Networking (Cisco, Juniper, Nokia)",
-    icon: "https://img.icons8.com/color/48/000000/ethernet.png",
-  },
-  {
-    title: "Content Management System",
-    icon: "https://img.icons8.com/color/48/000000/content-management-system.png",
-  },
-  {
-    title: "Software Development",
-    icon: "https://img.icons8.com/color/48/000000/code.png",
-  },
-  {
-    title: "Web Technologies (React, Node, Angular)",
-    icon: "https://img.icons8.com/color/48/000000/web.png",
-  },
-].map(item => ({
-  ...item,
-  slug: generateSlug(item.title),
-}));
+// Static fallback data (optional – can be empty or include defaults)
+const staticInfrastructure = [];
 
 export default function CategoryCards() {
   const [infra, setInfra] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getCategoryData = async () => {
       try {
         const response = await axios.get('http://15.206.189.17:4000/api/admin/get/category'); // Update with your actual API endpoint
         console.log('API Response:', response.data); // Log the response data
@@ -81,7 +43,7 @@ export default function CategoryCards() {
       }
     };
 
-    fetchData();
+    getCategoryData();
   }, []);
 
   return (
@@ -110,39 +72,36 @@ export default function CategoryCards() {
           Array.from({ length: 8 }).map((_, i) => (
             <div className="infra-card skeleton" key={i} />
           ))
+        ) : infra.length === 0 ? (
+          <div style={{ textAlign: 'center', width: '100%', padding: '2rem 1rem', color: '#555' }}>
+            <p>No categories available at the moment. Please check back later.</p>
+          </div>
         ) : (
-          infra.length > 0 ? (
-            infra.map((item, index) => (
-              <Link
-                key={index}
-                to={`/courses/${item.slug}`} // Leave space for the link
-                className="infra-link"
+          infra.map((item, index) => (
+            <Link
+              key={index}
+              to={`/courses/${item.slug}`}
+              className="infra-link"
+            >
+              <div
+                className={`infra-card${item.highlight ? ' highlight' : ''}`}
+                tabIndex={0}
+                role="button"
+                aria-label={item.categoryName}
               >
-                <div
-                  className={`infra-card${item.highlight ? ' highlight' : ''}`}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={item.title}
-                >
-                  <div className="infra-icon">
-                    {item.icon ? (
-                      <img src={item.icon} alt={item.title} />
-                    ) : (
-                      <div style={{ width: '40px', height: '40px', background: '#f6f8fa', borderRadius: '50%' }} />
-                    )}
-                    {item.badge && (
-                      <span className="infra-badge">{item.badge}</span>
-                    )}
-                  </div>
-                  <div className="infra-title">{item.title}</div>
+                <div className="infra-icon">
+                  <img src={item.icon} alt={`${item.categoryName} icon`} />
+                  {item.badge && (
+                    <span className="infra-badge">{item.categoryName}</span>
+                  )}
                 </div>
-              </Link>
-            ))
-          ) : (
-            <p style={{ textAlign: 'center', color: '#444' }}>No courses available at the moment.</p>
-          )
+                <div className="infra-title">{item.categoryName}</div>
+              </div>
+            </Link>
+          ))
         )}
       </motion.div>
+
       <style jsx>{`
         .infra-grid-container {
           display: grid;
