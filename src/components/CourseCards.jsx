@@ -7,74 +7,38 @@ function generateSlug(title) {
   return title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
 }
 
-// Your new course categories with icons
-const staticInfrastructure = [
-  {
-    title: "Cloud Computing",
-    icon: "https://img.icons8.com/color/48/000000/cloud.png",
-    badge: "New",
-  },
-  {
-    title: "Data Science & Analytics",
-    icon: "https://img.icons8.com/color/48/000000/combo-chart--v1.png",
-    badge: "Trending",
-  },
-  {
-    title: "Machine Learning & Gen AI",
-    icon: "https://img.icons8.com/color/48/000000/artificial-intelligence.png",
-  },
-  {
-    title: "ERP (Salesforce, SAP, Oracle)",
-    icon: "https://img.icons8.com/color/48/000000/business.png",
-  },
-  {
-    title: "Networking (Cisco, Juniper, Nokia)",
-    icon: "https://img.icons8.com/color/48/000000/ethernet.png",
-  },
-  {
-    title: "Content Management System",
-    icon: "https://img.icons8.com/color/48/000000/content-management-system.png",
-  },
-  {
-    title: "Software Development",
-    icon: "https://img.icons8.com/color/48/000000/code.png",
-  },
-  {
-    title: "Web Technologies (React, Node, Angular)",
-    icon: "https://img.icons8.com/color/48/000000/web.png",
-  },
-].map(item => ({
-  ...item,
-  slug: generateSlug(item.title),
-}));
+// Static fallback data (optional – can be empty or include defaults)
+const staticInfrastructure = [];
 
 export default function InfrastructureGrid() {
   const [infra, setInfra] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getCategoryData = async () => {
       try {
-        const response = await axios.get('http://15.206.189.17:4000/api/get/category'); // Update with your actual API endpoint
-        console.log('API Response:', response.data); // Log the response data
-        const data = response.data;
-        // Ensure each item has a slug, generating if not present
-        const processedData = Array.isArray(data)
-          ? data.map(item => ({
-            ...item,
-            slug: item.slug || generateSlug(item.title),
-          }))
+        const response = await axios.get("http://15.206.189.17:4000/api/admin/get/category");
+        const CatData = response.data.data;
+        console.log("Fetched Category Data:", CatData);
+        const image = CatData.logo;
+        const processedData = Array.isArray(CatData)
+          ? CatData.map(item => ({
+              ...item,
+              slug: item.slug || generateSlug(item.categoryName),
+              icon: item.icon || (image)
+            }))
           : staticInfrastructure;
+
         setInfra(processedData);
       } catch (error) {
-        console.error('Error fetching data:', error); // Log the error
+        console.error("Error fetching data:", error);
         setInfra(staticInfrastructure);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    getCategoryData();
   }, []);
 
   return (
@@ -103,31 +67,36 @@ export default function InfrastructureGrid() {
           Array.from({ length: 8 }).map((_, i) => (
             <div className="infra-card skeleton" key={i} />
           ))
+        ) : infra.length === 0 ? (
+          <div style={{ textAlign: 'center', width: '100%', padding: '2rem 1rem', color: '#555' }}>
+            <p>No categories available at the moment. Please check back later.</p>
+          </div>
         ) : (
           infra.map((item, index) => (
             <Link
               key={index}
-              to={`/courses/${item.slug}`} // Leave space for the link
+              to={`/courses/${item.slug}`}
               className="infra-link"
             >
               <div
                 className={`infra-card${item.highlight ? ' highlight' : ''}`}
                 tabIndex={0}
                 role="button"
-                aria-label={item.title}
+                aria-label={item.categoryName}
               >
                 <div className="infra-icon">
-                  <img src={item.icon} alt={item.title} />
+                  <img src={item.icon} alt={`${item.categoryName} icon`} />
                   {item.badge && (
-                    <span className="infra-badge">{item.badge}</span>
+                    <span className="infra-badge">{item.categoryName}</span>
                   )}
                 </div>
-                <div className="infra-title">{item.title}</div>
+                <div className="infra-title">{item.categoryName}</div>
               </div>
             </Link>
           ))
         )}
       </motion.div>
+
       <style jsx>{`
         .infra-grid-container {
           display: grid;

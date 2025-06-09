@@ -94,7 +94,7 @@ function ImageSlider() {
               <p className="fs-3 mb-4" style={{ fontSize: 'clamp(1rem, 2.5vw, 2rem)' }}>{img.subtext}</p>
             </div>
             <div className="w-100 d-flex justify-content-center" style={{ maxWidth: 700 }}>
-              <SearchBar />
+              <SearchBar/>
             </div>
           </div>
         </div>
