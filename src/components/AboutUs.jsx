@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import logo from './Assets/3D.png';
 // Sample images for team members
-const teamImages = {
-  'Alex Chen': 'https://via.placeholder.com/150', // Replace with actual image URLs
-  'Priya Sharma': 'https://via.placeholder.com/150',
-  'Jamal Roberts': 'https://via.placeholder.com/150',
-  'Maria Lopez': 'https://via.placeholder.com/150',
-};
+// const teamImages = {
+//   'Alex Chen': 'https://via.placeholde r.com/150', // Replace with actual image URLs
+//   'Priya Sharma': 'https://via.placeholder.com/150',
+//   'Jamal Roberts': 'https://via.placeholder.com/150',
+//   'Maria Lopez': 'https://via.placeholder.com/150',
+// };
 
 function AboutUsPage() {
   return (
@@ -65,7 +65,7 @@ function AboutUsPage() {
           </Link>
         </div>
         <div className="hero-animation" style={{ flex: 1, minWidth: '300px', height: '300px', background: '#F4F4F4', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <img src="" alt="EdTech Illustration" style={{ maxWidth: '100%', maxHeight: '100%', borderRadius: '16px' }} />
+          <img src={logo} alt="EdTech Illustration" style={{ maxWidth: '100%', maxHeight: '100%', borderRadius: '16px' }} />
         </div>
       </section>
 
@@ -166,7 +166,7 @@ function AboutUsPage() {
         </div>
       </section>
       {/* Meet Our Team */}
-      <section className="team" style={{ margin: '3rem 0' }}>
+      {/* <section className="team" style={{ margin: '3rem 0' }}>
         <h2 style={{ fontFamily: "'Poppins', sans-serif", marginBottom: '2rem', color: '#333' }}>Meet Our Team</h2>
         <div className="team-grid" style={{
           display: 'grid',
@@ -217,29 +217,79 @@ function AboutUsPage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
 
 
       {/* Our Journey Section */}
-      <section className="journey" style={{ margin: '3rem 0' }}>
-        <h2 style={{ fontFamily: "'Poppins', sans-serif", marginBottom: '2rem', color: '#333' }}>Our Journey</h2>
-        <div className="journey-card" style={{
-          background: '#fff',
-          borderRadius: '12px',
-          padding: '2rem',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-          marginBottom: '2rem',
-        }}>
-          <p style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-            Learnitfy was born out of a real-world challenge that many IT professionals face—keeping pace with rapidly changing technologies while working full-time. Having the availability of other online courses, there was a prominent gap between theoretical learning and real industry demands.
-            The idea for Learnitfy emerged during a large enterprise project, where teams across different regions struggled even after they took the training. The reason, due to lack of proper, structured training. It became clear that now businesses needed more than just training—they needed customized, hands-on learning experiences that aligned with real-time projects.
-            In 2025, Learnitfy was founded with a clear mission: to bridge the gap between technical knowledge and practical application through industry-oriented, expert-led training.
-            Every course that we design reflects our core belief: learning should be practical, flexible, and immediately applicable. That's why Learnitfy continues to focus on interactive, instructor-led sessions, live projects, and personalized support which makes learning more engaging and outcome-driven.
-            Today, we stand for more than just training—it represents a dedication to helping individuals and organizations stay ahead to lead the digital future with confidence.
-          </p>
-        </div>
-      </section>
+      <section className="journey-section" style={{ margin: '3rem 0' }}>
+  <h2 style={{
+    fontFamily: "'Poppins', sans-serif",
+    marginBottom: '2rem',
+    color: '#333',
+    textAlign: 'center',
+    fontSize: '2rem',
+    fontWeight: 600
+  }}>
+    Our Journey
+  </h2>
+  <div className="journey" style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gridTemplateRows: 'repeat(2, 1fr)',
+    gap: '1.5rem',
+    maxWidth: '900px',
+    margin: '0 auto'
+  }}>
+    <div className="journey-card">
+      <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#333', margin: 0 }}>
+        Learnitfy was born out of a real-world challenge that many IT professionals face—keeping pace with rapidly changing technologies while working full-time. Having the availability of other online courses, there was a prominent gap between theoretical learning and real industry demands.
+      </p>
+    </div>
+    <div className="journey-card">
+      <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#333', margin: 0 }}>
+        The idea for Learnitfy emerged during a large enterprise project, where teams across different regions struggled even after they took the training. The reason, due to lack of proper, structured training. It became clear that now businesses needed more than just training—they needed customized, hands-on learning experiences that aligned with real-time projects.
+      </p>
+    </div>
+    <div className="journey-card">
+      <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#333', margin: 0 }}>
+        In 2025, Learnitfy was founded with a clear mission: to bridge the gap between technical knowledge and practical application through industry-oriented, expert-led training. Every course that we design reflects our core belief: learning should be practical, flexible, and immediately applicable.
+      </p>
+    </div>
+    <div className="journey-card">
+      <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#333', margin: 0 }}>
+        That's why Learnitfy continues to focus on interactive, instructor-led sessions, live projects, and personalized support which makes learning more engaging and outcome-driven. Today, we stand for more than just training—it represents a dedication to helping individuals and organizations stay ahead to lead the digital future with confidence.
+      </p>
+    </div>
+  </div>
+  <style jsx>{`
+    .journey-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s;
+      border: 2px solid transparent;
+      cursor: pointer;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .journey-card:hover {
+      border-color: #ff6b00;
+      box-shadow: 0 6px 20px rgba(255,107,0,0.18);
+      background: #fff7ef;
+    }
+    @media (max-width: 800px) {
+      .journey {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+      }
+    }
+  `}</style>
+</section>
+
 
       {/* Footer CTA */}
       <section className="footer-cta" style={{

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CourseCards from './CourseCards';
 import Timeline from './Tmeline';
+import SearchBar from './SearchBar';
 
 const sliderImages = [
   {
@@ -19,27 +20,6 @@ const sliderImages = [
     subtext: "Join thousands of successful graduates.",
   },
 ];
-
-function SearchBar() {
-  return (
-    <form className="custom-search-bar" autoComplete="off">
-      <input
-        type="text"
-        className="custom-search-input"
-        placeholder="e.g. Web Development"
-      />
-      <button type="submit" className="custom-search-btn">
-        <span className="custom-search-icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-            <circle cx="9" cy="9" r="7" stroke="white" strokeWidth="2" />
-            <line x1="14.5" y1="14.5" x2="18" y2="18" stroke="white" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </span>
-        <span className="custom-search-label">Search</span>
-      </button>
-    </form>
-  );
-}
 
 function ImageSlider() {
   const [current, setCurrent] = useState(0);
@@ -93,9 +73,6 @@ function ImageSlider() {
               </h1>
               <p className="fs-3 mb-4" style={{ fontSize: 'clamp(1rem, 2.5vw, 2rem)' }}>{img.subtext}</p>
             </div>
-            <div className="w-100 d-flex justify-content-center" style={{ maxWidth: 700 }}>
-              <SearchBar />
-            </div>
           </div>
         </div>
       ))}
@@ -107,13 +84,13 @@ function ImageSlider() {
       <style>{`
         .custom-search-bar {
           display: flex;
-          align-items: center;
           background: #fff;
-          border-radius: 12px;
+          border-radius: 16px;
           box-shadow: 0 2px 16px rgba(60, 60, 60, 0.10);
-          padding: 0.5rem 0.5rem 0.5rem 1.2rem;
+          padding: 0.5 rem 0.5rem 0.5rem 1.2rem;
           max-width: 700px;
-          width: 100%;
+          width: 650px;
+
           transition: box-shadow 0.25s;
         }
         .custom-search-bar:focus-within {
@@ -134,6 +111,7 @@ function ImageSlider() {
         }
         .custom-search-btn {
           display: flex;
+          border-radius: 16px;
           align-items: center;
           background:rgb(249, 169, 30);
           color: #fff;
@@ -180,6 +158,10 @@ export default function HomePage() {
       {/* Hero Section with Image Slider */}
       <div className="bg-dark text-white position-relative overflow-hidden" style={{ minHeight: '70vh', height: '90vh', maxHeight: '800px' }}>
         <ImageSlider />
+        {/* Search Bar positioned on top of the ImageSlider */}
+        <div className="search-bar-container position-absolute top-50 start-50 translate-middle-x" style={{ zIndex: 3, marginTop: '100px' }}>
+          <SearchBar />
+        </div>
       </div>
 
       {/* Course Categories Section */}
@@ -195,68 +177,68 @@ export default function HomePage() {
 
       {/* Stats and Training Modes Section */}
       <section className="training-modes-section py-5" style={{ background: "#f5f5f5" }}>
-  <div className="container">
-    <div className="row align-items-center">
-      {/* Left Column */}
-      <div className="col-12 col-md-6 mb-4 mb-md-0">
-        <p className="text-dark fs-6 mb-1">
-          Choose your own comfortable learning experience.
-        </p>
-        <h2 className="fw-bold fs-3 mb-4" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
-          <span style={{ color: 'rgb(249, 169, 30)' }}>Training</span> Patterns
-        </h2>
+        <div className="container">
+          <div className="row align-items-center">
+            {/* Left Column */}
+            <div className="col-12 col-md-6 mb-4 mb-md-0">
+              <p className="text-dark fs-6 mb-1">
+                Choose your own comfortable learning experience.
+              </p>
+              <h2 className="fw-bold fs-3 mb-4" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
+                <span style={{ color: 'rgb(249, 169, 30)' }}>Training</span> Patterns
+              </h2>
 
-        {/* Live Virtual Training */}
-        <div className="fw-medium fs-5 mb-2">
-          <strong>Live Virtual Training</strong>
+              {/* Live Virtual Training */}
+              <div className="fw-medium fs-5 mb-2">
+                <strong>Live Virtual Training</strong>
+              </div>
+              <ul className="ps-4 mb-4 text-secondary fs-6">
+                <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+                  Schedule your sessions at your comfortable timings.
+                </li>
+                <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+                  Instructor led training with practical lab sessions.
+                </li>
+                <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+                  Real time projects and certification guidance.
+                </li>
+              </ul>
+
+              {/* Live Classroom Training */}
+              <div className="fw-medium fs-5 mb-2">
+                <strong>Live Classroom Training</strong>
+              </div>
+              <ul className="ps-4 mb-4 text-secondary fs-6">
+                <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+                  Schedule your sessions at your comfortable timings.
+                </li>
+                <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+                  Instructor led training with practical lab sessions.
+                </li>
+                <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
+                  Real time projects and certification guidance.
+                </li>
+              </ul>
+            </div>
+
+            {/* Right Column */}
+            <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
+              <img
+                src="https://miro.medium.com/v2/resize:fit:800/0*AGsPW_0Fptw9iVE2.jpg"
+                alt="Training Patterns"
+                className="img-fluid rounded shadow"
+                style={{ maxWidth: '100%', width: '100%', maxWidth: '420px', background: '#fff' }}
+              />
+            </div>
+          </div>
         </div>
-        <ul className="ps-4 mb-4 text-secondary fs-6">
-          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
-            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
-            Schedule your sessions at your comfortable timings.
-          </li>
-          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
-            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
-            Instructor led training with practical lab sessions.
-          </li>
-          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
-            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
-            Real time projects and certification guidance.
-          </li>
-        </ul>
-
-        {/* Live Classroom Training */}
-        <div className="fw-medium fs-5 mb-2">
-          <strong>Live Classroom Training</strong>
-        </div>
-        <ul className="ps-4 mb-4 text-secondary fs-6">
-          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
-            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
-            Schedule your sessions at your comfortable timings.
-          </li>
-          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
-            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
-            Instructor led training with practical lab sessions.
-          </li>
-          <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
-            <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
-            Real time projects and certification guidance.
-          </li>
-        </ul>
-      </div>
-
-      {/* Right Column */}
-      <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
-        <img
-          src="https://miro.medium.com/v2/resize:fit:800/0*AGsPW_0Fptw9iVE2.jpg"
-          alt="Training Patterns"
-          className="img-fluid rounded shadow"
-          style={{ maxWidth: '100%', width: '100%', maxWidth: '420px', background: '#fff' }}
-        />
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
 
 

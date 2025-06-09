@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { FiClock, FiDownload, FiMonitor, FiFileText, FiAward, FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import CertificateSection from './Certificate';
+
 // CourseDropdown (unchanged)
 const CourseDropdown = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,12 +23,12 @@ const CourseDropdown = ({ title, children }) => {
   );
 };
 
-// FAQItem (new, for the integrated FAQ accordion)
+// FAQItem (accordion)
 const FAQItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
   return (
     <div
-      style={{ borderBottom: '1px solid #ddd', padding: '12px 0', cursor: 'pointer' }}
+      style={{ borderBottom: '1px solid #ddd', padding: '12px ', cursor: 'pointer' }}
       onClick={() => setOpen(!open)}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: '600', fontSize: '16px', color: '#333' }}>
@@ -43,7 +44,7 @@ const FAQItem = ({ question, answer }) => {
   );
 };
 
-// FAQsSection (new, for the integrated FAQ accordion)
+// FAQsSection (accordion)
 const FAQsSectionIntegrated = () => {
   const faqs = [
     {
@@ -79,7 +80,7 @@ const FAQsSectionIntegrated = () => {
   );
 };
 
-// AboutSection (new)
+// AboutSection
 const AboutSection = () => {
   const [readMore, setReadMore] = useState(false);
   const bulletPoints = [
@@ -111,7 +112,7 @@ const AboutSection = () => {
   );
 };
 
-// TabbedSection (new, to switch between About and FAQs)
+// TabbedSection (About/FAQs)
 const TabbedSection = () => {
   const [activeTab, setActiveTab] = useState('About');
   const tabs = ['About', 'FAQs'];
@@ -142,9 +143,10 @@ const TabbedSection = () => {
   );
 };
 
-// CourseDescription (main component, unchanged except for inserting TabbedSection)
 const CourseDescription = () => {
   const { title } = useParams();
+
+  // For sidebar forms
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isBrochureFormOpen, setIsBrochureFormOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -155,6 +157,13 @@ const CourseDescription = () => {
   const formRef = useRef(null);
   const brochureFormRef = useRef(null);
   const courseContentRef = useRef(null);
+
+  // For pricing card dropdown
+  const [isEnrollDropdownOpen, setIsEnrollDropdownOpen] = useState(false);
+  const [enrollName, setEnrollName] = useState('');
+  const [enrollMobile, setEnrollMobile] = useState('');
+  const [enrollEmail, setEnrollEmail] = useState('');
+  const [enrollInquiry, setEnrollInquiry] = useState('');
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -193,7 +202,7 @@ const CourseDescription = () => {
     setIsBrochureFormOpen(false);
   };
 
-  // ... (courses and defaultCourse data unchanged, as in your original file)
+  // Example courses data (use your real data here)
   const courses = {
     "sitecore-content-management-training-certification-course": {
       title: "Sitecore Content Management Training",
@@ -228,21 +237,9 @@ const CourseDescription = () => {
         { icon: "resources", text: "100+ downloadable resources" },
         { icon: "access", text: "Lifetime access" },
         { icon: "certificate", text: "Certificate of completion" }
-      ],
-      leftFeatures: [
-        "Learn Sitecore Content Hub architecture",
-        "Master Data Asset Management (DAM) system",
-        "Understand content lifecycle management",
-        "Create and manage taxonomies"
-      ],
-      rightFeatures: [
-        "Configure security and user permissions",
-        "Learn basic scripting for automation",
-        "Implement enterprise-level requirements",
-        "Optimize content workflows"
       ]
     },
-    // ... (other courses as in your original file)
+    // ... (add other courses as needed)
   };
 
   const defaultCourse = {
@@ -276,18 +273,6 @@ const CourseDescription = () => {
       { icon: "resources", text: "100+ downloadable resources" },
       { icon: "access", text: "Lifetime access" },
       { icon: "certificate", text: "Certificate of completion" }
-    ],
-    leftFeatures: [
-      "Gain firm understanding of CMS",
-      "Learn to install and configure Sitecore",
-      "Work with Sitecore Helix",
-      "Understand MVC Visual Studio project"
-    ],
-    rightFeatures: [
-      "Work with marketing functionality",
-      "Master data templates and renderings",
-      "Understand security components",
-      "Learn database management in Sitecore"
     ]
   };
 
@@ -295,6 +280,7 @@ const CourseDescription = () => {
 
   useEffect(() => {
     setCourseInquiry(courseData.title);
+    setEnrollInquiry(courseData.title);
   }, [courseData.title]);
 
   const getIcon = (iconType) => {
@@ -307,6 +293,18 @@ const CourseDescription = () => {
       case 'certificate': return <FiAward />;
       default: return <FiClock />;
     }
+  };
+
+  // Pricing section Enroll Now form submit
+  const handlePricingEnrollSubmit = (e) => {
+    e.preventDefault();
+    alert(
+      `Inquiry received!\nName: ${enrollName}\nMobile: ${enrollMobile}\nEmail: ${enrollEmail}\nInquiry About: ${enrollInquiry}`
+    );
+    setEnrollName('');
+    setEnrollMobile('');
+    setEnrollEmail('');
+    setIsEnrollDropdownOpen(false);
   };
 
   return (
@@ -369,7 +367,206 @@ const CourseDescription = () => {
               </CourseDropdown>
             ))}
           </div>
+
+
+          {/* Pricing & Training Options Section - Under Modules */}
+          <div style={{
+            display: 'flex',
+            gap: '24px',
+            margin: '40px 0',
+            flexWrap: 'wrap',
+            justifyContent: 'flex-start',
+            alignItems: 'stretch'
+          }}>
+            {/* Online Classroom Program */}
+            <div style={{
+              flex: '1 1 320px',
+              minWidth: '320px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '10px',
+              background: '#fff',
+              padding: '28px 26px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start'
+            }}>
+              <div style={{ fontWeight: 700, fontSize: '20px', marginBottom: '14px', letterSpacing: '0.5px', color: '#222' }}>
+                ONLINE CLASS ROOM PROGRAM
+              </div>
+
+              <div style={{ marginBottom: '18px' }}>
+                {/* <span style={{
+                  background: '#23b26d',
+                  color: '#fff',
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  padding: '6px 14px',
+                  borderRadius: '18px',
+                  display: 'inline-block'
+                }}>
+                  100% Money Back Guarantee
+                </span> */}
+              </div>
+              <ul style={{ listStyle: 'none', paddingBottom:'10px' , margin: 0, fontSize: '15px', color: '#444', marginBottom: '12px' }}>
+                <li style={{ marginBottom: '8px' }}>✓ Duration : 40 Hrs</li> {/* APPLY THE API CALL FOR NOW ITS STATIC */}
+                <li style={{ marginBottom: '8px' }}>✓ Plus Self Paced</li>
+                <li></li>
+              </ul>
+              {/* Enroll Now Button with dropdown */}
+              <div style={{ width: '100%', paddingTop:'125px ' }}>
+                <button
+                  onClick={() => setIsEnrollDropdownOpen((open) => !open)}
+                  style={{
+                    width: '100%',
+                    padding: '14px ',
+                    backgroundColor: '#FF7A00',
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: '18px',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    marginTop: 'auto'
+                  }}
+                >
+                  Enroll Now
+                </button>
+                {isEnrollDropdownOpen && (
+                  <div style={{
+                    width: '100%',
+                    marginTop: '12px',
+                    background: '#fff',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                    padding: '18px'
+                  }}>
+                    <form
+                      onSubmit={handlePricingEnrollSubmit}
+                      style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
+                    >
+                      <div>
+                        <label style={{ fontSize: '14px', color: '#333', marginBottom: '3px', display: 'block' }}>Name</label>
+                        <input
+                          type="text"
+                          value={enrollName}
+                          onChange={e => setEnrollName(e.target.value)}
+                          required
+                          style={{ width: '100%', padding: '9px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '15px' }}
+                          placeholder="Your Name"
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '14px', color: '#333', marginBottom: '3px', display: 'block' }}>Mobile</label>
+                        <input
+                          type="tel"
+                          value={enrollMobile}
+                          onChange={e => setEnrollMobile(e.target.value)}
+                          required
+                          style={{ width: '100%', padding: '9px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '15px' }}
+                          placeholder="Your Mobile"
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '14px', color: '#333', marginBottom: '3px', display: 'block' }}>Email</label>
+                        <input
+                          type="email"
+                          value={enrollEmail}
+                          onChange={e => setEnrollEmail(e.target.value)}
+                          required
+                          style={{ width: '100%', padding: '9px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '15px' }}
+                          placeholder="Your Email"
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '14px', color: '#333', marginBottom: '3px', display: 'block' }}>Inquiring About</label>
+                        <input
+                          type="text"
+                          value={enrollInquiry}
+                          readOnly
+                          style={{ width: '100%', padding: '9px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '15px', background: '#f5f5f5' }}
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        style={{
+                          backgroundColor: '#FF7A00',
+                          color: '#fff',
+                          border: 'none',
+                          padding: '11px',
+                          borderRadius: '4px',
+                          cursor: 'pointer',
+                          fontWeight: 'bold',
+                          fontSize: '16px'
+                        }}
+                      >
+                        Submit Inquiry
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </div>
+            </div>
+            {/* Corporate Training */}
+            <div style={{
+              flex: '1 1 320px',
+              minWidth: '320px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '10px',
+              background: '#fff',
+              padding: '28px 26px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start'
+            }}>
+              <div style={{ fontWeight: 700, fontSize: '20px', marginBottom: '18px', letterSpacing: '0.5px', color: '#222' }}>
+                CORPORATE TRAINING
+              </div>
+              <div style={{ textAlign: 'center', marginBottom: '18px', width: '100%' }}>
+                <span style={{ fontSize: '38px', color: '#2563eb' }}>👥</span>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '16px', color: '#222', marginBottom: '22px' }}>
+                <li style={{ marginBottom: '12px' }}>
+                  <span style={{ color: '#23b26d', marginRight: '7px', fontSize: '18px', verticalAlign: 'middle' }}>✔️</span>
+                  Customized Training Delivery Model
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                  <span style={{ color: '#23b26d', marginRight: '7px', fontSize: '18px', verticalAlign: 'middle' }}>✔️</span>
+                  Flexible Training Schedule Options
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                  <span style={{ color: '#23b26d', marginRight: '7px', fontSize: '18px', verticalAlign: 'middle' }}>✔️</span>
+                  Industry Experienced Trainers
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                  <span style={{ color: '#23b26d', marginRight: '7px', fontSize: '18px', verticalAlign: 'middle' }}>✔️</span>
+                  24x7 Support
+                </li>
+              </ul>
+              <button
+                style={{
+                  width: '100%',
+                  padding: '14px 0',
+                  backgroundColor: '#2563eb',
+                  color: '#fff',
+                  fontWeight: 700,
+                  fontSize: '18px',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  marginTop: 'auto'
+                }}
+              >
+                Contact Us
+              </button>
+            </div>
+          </div>
         </div>
+
+
+
 
         {/* Right Column - Course Details */}
         <div style={{ flex: '1 1 300px' }}>
@@ -451,109 +648,11 @@ const CourseDescription = () => {
                 </div>
               )}
             </div>
-            {/* Enroll Now Button */}
-            <div ref={formRef}>
-              <button
-                onClick={() => setIsFormOpen(!isFormOpen)}
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  backgroundColor: '#26A9E0',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  fontSize: '16px',
-                  fontWeight: '500',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}
-              >
-                <span>Enroll Now</span>
-                {isFormOpen ? <FiChevronUp /> : <FiChevronDown />}
-              </button>
-              {isFormOpen && (
-                <div style={{ marginTop: '10px', padding: '15px', backgroundColor: 'white', border: '1px solid #e0e0e0', borderRadius: '4px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-                  <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ marginBottom: '15px' }}>
-                      <label htmlFor="fullName" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                        Full Name:
-                      </label>
-                      <input
-                        type="text"
-                        id="fullName"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        placeholder="John Doe"
-                        required
-                        style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
-                      />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                      <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                        Email Address:
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="your-email@example.com"
-                        required
-                        style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
-                      />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                      <label htmlFor="mobile" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                        Mobile Number:
-                      </label>
-                      <input
-                        type="tel"
-                        id="mobile"
-                        value={mobile}
-                        onChange={(e) => setMobile(e.target.value)}
-                        placeholder="+91 9876543210"
-                        required
-                        style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
-                      />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                      <label htmlFor="courseInquiry" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                        Inquiry About:
-                      </label>
-                      <input
-                        type="text"
-                        id="courseInquiry"
-                        value={courseInquiry}
-                        onChange={(e) => setCourseInquiry(e.target.value)}
-                        placeholder={courseData.title}
-                        required
-                        style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      style={{
-                        backgroundColor: 'orange',
-                        color: 'white',
-                        border: 'none',
-                        padding: '10px 15px',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                        alignSelf: 'flex-start'
-                      }}
-                    >
-                      Submit Inquiry
-                    </button>
-                  </form>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </div>
+      
+      <CertificateSection />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-function generateSlug(title) {
+export function generateSlug(title) {
   return title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
 }
 
@@ -48,27 +48,34 @@ const staticInfrastructure = [
   slug: generateSlug(item.title),
 }));
 
-export default function InfrastructureGrid() {
+export default function CategoryCards() {
   const [infra, setInfra] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://15.206.189.17:4000/api/get/category'); // Update with your actual API endpoint
+        const response = await axios.get('http://15.206.189.17:4000/api/admin/get/category'); // Update with your actual API endpoint
         console.log('API Response:', response.data); // Log the response data
-        const data = response.data;
-        // Ensure each item has a slug, generating if not present
-        const processedData = Array.isArray(data)
-          ? data.map(item => ({
-            ...item,
-            slug: item.slug || generateSlug(item.title),
-          }))
-          : staticInfrastructure;
-        setInfra(processedData);
+        const data = response.data.data; // Access the data property
+
+        // Check if data is an array and log its length
+        if (Array.isArray(data)) {
+          console.log('Number of courses:', data.length); // Log the number of courses
+          const processedData = data.map(item => ({
+            title: item.categoryName, // Use categoryName from the API response
+            icon: item.logo && item.logo.length > 0 ? item.logo[0] : null, // Check if logo array has a valid URL
+            slug: item.slug || generateSlug(item.categoryName), // Generate slug based on categoryName
+            badge: item.badge || null, // If there's a badge property, use it
+          }));
+          setInfra(processedData);
+        } else {
+          console.warn('API response data is not an array:', data); // Log a warning if not an array
+          setInfra([]); // Set to an empty array if data is not an array
+        }
       } catch (error) {
         console.error('Error fetching data:', error); // Log the error
-        setInfra(staticInfrastructure);
+        setInfra([]); // Set to an empty array on error
       } finally {
         setLoading(false);
       }
@@ -104,28 +111,36 @@ export default function InfrastructureGrid() {
             <div className="infra-card skeleton" key={i} />
           ))
         ) : (
-          infra.map((item, index) => (
-            <Link
-              key={index}
-              to={`/courses/${item.slug}`} // Leave space for the link
-              className="infra-link"
-            >
-              <div
-                className={`infra-card${item.highlight ? ' highlight' : ''}`}
-                tabIndex={0}
-                role="button"
-                aria-label={item.title}
+          infra.length > 0 ? (
+            infra.map((item, index) => (
+              <Link
+                key={index}
+                to={`/courses/${item.slug}`} // Leave space for the link
+                className="infra-link"
               >
-                <div className="infra-icon">
-                  <img src={item.icon} alt={item.title} />
-                  {item.badge && (
-                    <span className="infra-badge">{item.badge}</span>
-                  )}
+                <div
+                  className={`infra-card${item.highlight ? ' highlight' : ''}`}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={item.title}
+                >
+                  <div className="infra-icon">
+                    {item.icon ? (
+                      <img src={item.icon} alt={item.title} />
+                    ) : (
+                      <div style={{ width: '40px', height: '40px', background: '#f6f8fa', borderRadius: '50%' }} />
+                    )}
+                    {item.badge && (
+                      <span className="infra-badge">{item.badge}</span>
+                    )}
+                  </div>
+                  <div className="infra-title">{item.title}</div>
                 </div>
-                <div className="infra-title">{item.title}</div>
-              </div>
-            </Link>
-          ))
+              </Link>
+            ))
+          ) : (
+            <p style={{ textAlign: 'center', color: '#444' }}>No courses available at the moment.</p>
+          )
         )}
       </motion.div>
       <style jsx>{`
