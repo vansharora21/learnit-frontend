@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { reverseGenerateSlug } from './CourseCards';
+const CourseCard = ({ title, description, CourseName }) => {
 
-const CourseCard = ({ title, headerText }) => {
   return (
     <div className="card h-100 border shadow-sm transition-hover">
       <Link 
@@ -11,13 +12,18 @@ const CourseCard = ({ title, headerText }) => {
       >
         <div className="bg-primary p-4 text-center d-flex justify-content-center align-items-center" style={{ height: '140px' }}>
           <h3 className="fs-6 text-white fw-bold text-uppercase text-center lh-base">
-            {headerText}
+            {title}
           </h3>
         </div>
         
         <div className="p-3 d-flex flex-column flex-grow-1">
           <h3 className="fs-6 mb-3 text-dark fw-normal text-center">
-            {title}
+            {description}
+          </h3>
+        </div>
+        <div className="p-3 d-flex flex-column flex-grow-1">
+          <h3 className="fs-6 mb-3 text-dark fw-normal text-center">
+            {CourseName}
           </h3>
         </div>
       </Link>
@@ -28,33 +34,28 @@ const CourseCard = ({ title, headerText }) => {
 const CourseCategories = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+const params = useParams();
+  console.log("params=-=-=-=--==-=-", params.courseSlug
+);
 
-  useEffect(() => {
-    const fetchCourses = async () => {
+  const fetchCourses = async () => {
       try {
-        const response = await axios.get('http://15.206.189.17:4000/api/get/courses'); // Update with your actual API endpoint
-        setCourses(response.data);
+        const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${reverseGenerateSlug(params.courseSlug)}`);
+        setCourses(response.data.data.coursesList);
+        console.log(courses);
       } catch (error) {
         console.error('Error fetching courses:', error);
-        // Fallback static data
-        setCourses([
-          { title: "Cloud Computing", headerText: "CLOUD COMPUTING" },
-          { title: "Data Science & Analytics", headerText: "DATA SCIENCE & ANALYTICS" },
-          { title: "Machine Learning & Gen AI", headerText: "MACHINE LEARNING & GEN AI" },
-          { title: "ERP (Salesforce, SAP, Oracle)", headerText: "ERP (SALESFORCE, SAP, ORACLE)" },
-          { title: "Networking (Cisco, Juniper, Nokia)", headerText: "NETWORKING (CISCO, JUNIPER, NOKIA)" },
-          { title: "Content Management System", headerText: "CONTENT MANAGEMENT SYSTEM" },
-          { title: "Software Development", headerText: "SOFTWARE DEVELOPMENT" },
-          { title: "Web Technologies (React, Node, Angular)", headerText: "WEB TECHNOLOGIES (REACT, NODE, ANGULAR)" }
-        ]);
       } finally {
         setLoading(false);
       }
     };
 
+  useEffect(() => {
     fetchCourses();    
   }, []);
 
+
+console.log(params)
   return (
     <div className="py-5 bg-light">
       <div className="container">
@@ -67,13 +68,15 @@ const CourseCategories = () => {
         ) : (
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             {courses.map((course, index) => (
-              <div className="col" key={index}>
+              <div className="col" key={course.courseId}>
                 <CourseCard
-                  title={course.title}
-                  headerText={course.headerText}
+                  title={course.courseName}
+                  description={course.description}
+                  CourseName ={course.categoryName}
                 />
               </div>
             ))}
+          <h1>{params.title}</h1>
           </div>
         )}
       </div>

@@ -7,6 +7,14 @@ export function generateSlug(title) {
   return title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
 }
 
+export function reverseGenerateSlug(slug) {
+  return slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+
 // Static fallback data (optional – can be empty or include defaults)
 const staticInfrastructure = [];
 
@@ -17,23 +25,23 @@ export default function CategoryCards() {
   useEffect(() => {
     const getCategoryData = async () => {
       try {
-        const response = await axios.get('http://15.206.189.17:4000/api/admin/get/category'); // Update with your actual API endpoint
-        console.log('API Response:', response.data); // Log the response data
-        const data = response.data.data; // Access the data property
+        const response = await axios.get('http://15.206.189.17:4000/api/admin/get/category');
+        console.log('API Response:', response.data); 
+        const data = response.data.data;
 
-        // Check if data is an array and log its length
         if (Array.isArray(data)) {
-          console.log('Number of courses:', data.length); // Log the number of courses
+          console.log('Number of courses:', data.length); 
           const processedData = data.map(item => ({
-            title: item.categoryName, // Use categoryName from the API response
-            icon: item.logo && item.logo.length > 0 ? item.logo[0] : null, // Check if logo array has a valid URL
-            slug: item.slug || generateSlug(item.categoryName), // Generate slug based on categoryName
-            badge: item.badge || null, // If there's a badge property, use it
+            title: item.categoryName,
+            icon: item.logo && item.logo.length > 0 ? item.logo[0] : null,
+            slug: item.slug || generateSlug(item.categoryName),
+            slug: item.slug || reverseGenerateSlug(item.categoryName),
+            badge: item.badge || null,
           }));
           setInfra(processedData);
         } else {
-          console.warn('API response data is not an array:', data); // Log a warning if not an array
-          setInfra([]); // Set to an empty array if data is not an array
+          console.warn('API response data is not an array:', data); 
+          setInfra([]); 
         }
       } catch (error) {
         console.error('Error fetching data:', error); // Log the error
@@ -46,7 +54,9 @@ export default function CategoryCards() {
     getCategoryData();
   }, []);
 
+
   return (
+
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', background: "#f5f5f5" }}>
       <p style={{
         fontWeight: 400,
@@ -79,7 +89,7 @@ export default function CategoryCards() {
         ) : (
           infra.map((item, index) => (
             <Link
-              key={index}
+              key={item.categoryId}
               to={`/courses/${item.slug}`}
               className="infra-link"
             >
@@ -95,7 +105,9 @@ export default function CategoryCards() {
                     <span className="infra-badge">{item.categoryName}</span>
                   )}
                 </div>
-                <div className="infra-title">{item.categoryName}</div>
+                <div className="infra-title">{item.categoryId}</div>
+                <div>{item.description}</div>
+                
               </div>
             </Link>
           ))
@@ -225,3 +237,4 @@ export default function CategoryCards() {
     </div>
   );
 }
+
