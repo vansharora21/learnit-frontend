@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FiClock, FiDownload, FiMonitor, FiFileText, FiAward, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import CertificateSection from './Certificate';
+import axios from 'axios';
 
 // CourseDropdown (unchanged)
 const CourseDropdown = ({ title, children }) => {
@@ -185,21 +186,40 @@ const CourseDescription = () => {
     courseContentRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    alert(`Inquiry received!\nName: ${fullName}\nEmail: ${email}\nMobile: ${mobile}\nInquiry About: ${courseInquiry}`);
-    setEmail('');
-    setFullName('');
-    setMobile('');
-    setCourseInquiry('');
-    setIsFormOpen(false);
+    try {
+      const response = await axios.post('http://15.206.189.17:4000/api/user/enroll', {
+        name: fullName,
+        mobile: mobile,
+        email: email,
+        inquiry: courseInquiry,
+      });
+      alert(`Enrollment successful! Response: ${response.data.message}`);
+      setEmail('');
+      setFullName('');
+      setMobile('');
+      setCourseInquiry('');
+      setIsFormOpen(false);
+    } catch (error) {
+      console.error('Error enrolling:', error.response ? error.response.data : error.message);
+      alert('There was an error enrolling. Please try again later.');
+    }
   };
 
-  const handleBrochureRequest = (event) => {
+  const handleBrochureRequest = async (event) => {
     event.preventDefault();
-    alert(`Brochure will be sent to: ${brochureEmail}`);
-    setBrochureEmail('');
-    setIsBrochureFormOpen(false);
+    try {
+      const response = await axios.post("http://15.206.189.17:4000/api/user/send/brochure", {
+        email: brochureEmail,
+      });
+      alert(`Brochure will be sent to: ${brochureEmail}`);
+      setBrochureEmail('');
+      setIsBrochureFormOpen(false);
+    } catch (error) {
+      console.error('Error sending brochure:', error.response ? error.response.data : error.message);
+      alert('There was an error sending the brochure. Please try again later.');
+    }
   };
 
   // Example courses data (use your real data here)
@@ -296,15 +316,29 @@ const CourseDescription = () => {
   };
 
   // Pricing section Enroll Now form submit
-  const handlePricingEnrollSubmit = (e) => {
+  const handlePricingEnrollSubmit = async (e) => {
     e.preventDefault();
-    alert(
-      `Inquiry received!\nName: ${enrollName}\nMobile: ${enrollMobile}\nEmail: ${enrollEmail}\nInquiry About: ${enrollInquiry}`
-    );
-    setEnrollName('');
-    setEnrollMobile('');
-    setEnrollEmail('');
-    setIsEnrollDropdownOpen(false);
+    
+    try {
+      const response = await axios.post('http://15.206.189.17:4000/api/user/enroll', {
+        name: enrollName,
+        mobile: enrollMobile,
+        email: enrollEmail,
+        inquiry: enrollInquiry,
+      });
+
+      // Handle the response as needed
+      alert(`Enrollment successful! Response: ${response.data.message}`);
+      
+      // Reset form fields
+      setEnrollName('');
+      setEnrollMobile('');
+      setEnrollEmail('');
+      setIsEnrollDropdownOpen(false);
+    } catch (error) {
+      console.error('Error enrolling:', error);
+      alert('There was an error enrolling. Please try again later.');
+    }
   };
 
   return (
@@ -368,7 +402,6 @@ const CourseDescription = () => {
             ))}
           </div>
 
-
           {/* Pricing & Training Options Section - Under Modules */}
           <div style={{
             display: 'flex',
@@ -414,99 +447,141 @@ const CourseDescription = () => {
                 <li></li>
               </ul>
               {/* Enroll Now Button with dropdown */}
-              <div style={{ width: '100%', paddingTop:'125px ' }}>
-                <button
-                  onClick={() => setIsEnrollDropdownOpen((open) => !open)}
-                  style={{
-                    width: '100%',
-                    padding: '14px ',
-                    backgroundColor: '#FF7A00',
-                    color: '#fff',
-                    fontWeight: 700,
-                    fontSize: '18px',
-                    border: 'none',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    marginTop: 'auto'
-                  }}
-                >
-                  Enroll Now
-                </button>
-                {isEnrollDropdownOpen && (
-                  <div style={{
-                    width: '100%',
-                    marginTop: '12px',
-                    background: '#fff',
-                    border: '1px solid #e0e0e0',
-                    borderRadius: '6px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                    padding: '18px'
-                  }}>
-                    <form
-                      onSubmit={handlePricingEnrollSubmit}
-                      style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
-                    >
-                      <div>
-                        <label style={{ fontSize: '14px', color: '#333', marginBottom: '3px', display: 'block' }}>Name</label>
-                        <input
-                          type="text"
-                          value={enrollName}
-                          onChange={e => setEnrollName(e.target.value)}
-                          required
-                          style={{ width: '100%', padding: '9px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '15px' }}
-                          placeholder="Your Name"
-                        />
-                      </div>
-                      <div>
-                        <label style={{ fontSize: '14px', color: '#333', marginBottom: '3px', display: 'block' }}>Mobile</label>
-                        <input
-                          type="tel"
-                          value={enrollMobile}
-                          onChange={e => setEnrollMobile(e.target.value)}
-                          required
-                          style={{ width: '100%', padding: '9px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '15px' }}
-                          placeholder="Your Mobile"
-                        />
-                      </div>
-                      <div>
-                        <label style={{ fontSize: '14px', color: '#333', marginBottom: '3px', display: 'block' }}>Email</label>
-                        <input
-                          type="email"
-                          value={enrollEmail}
-                          onChange={e => setEnrollEmail(e.target.value)}
-                          required
-                          style={{ width: '100%', padding: '9px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '15px' }}
-                          placeholder="Your Email"
-                        />
-                      </div>
-                      <div>
-                        <label style={{ fontSize: '14px', color: '#333', marginBottom: '3px', display: 'block' }}>Inquiring About</label>
-                        <input
-                          type="text"
-                          value={enrollInquiry}
-                          readOnly
-                          style={{ width: '100%', padding: '9px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '15px', background: '#f5f5f5' }}
-                        />
-                      </div>
-                      <button
-                        type="submit"
-                        style={{
-                          backgroundColor: '#FF7A00',
-                          color: '#fff',
-                          border: 'none',
-                          padding: '11px',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                          fontWeight: 'bold',
-                          fontSize: '16px'
-                        }}
-                      >
-                        Submit Inquiry
-                      </button>
-                    </form>
+          <div ref={formRef}>
+            <button
+              onClick={() => setIsFormOpen(!isFormOpen)}
+              style={{
+                width: '100%',
+                padding: '10px',
+                backgroundColor: '#26A9E0',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                fontSize: '16px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
+              <span>Enroll Now</span>
+              {isFormOpen ? <FiChevronUp /> : <FiChevronDown />}
+            </button>
+
+            {isFormOpen && (
+              <div style={{
+                marginTop: '10px',
+                padding: '15px',
+                backgroundColor: 'white',
+                border: '1px solid #e0e0e0',
+                borderRadius: '4px',
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+              }}>
+                <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ marginBottom: '15px' }}>
+                    <label htmlFor="fullName" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                      Full Name:
+                    </label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="John Doe"
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '1px solid #ddd',
+                        borderRadius: '4px',
+                        fontSize: '14px'
+                      }}
+                    />
                   </div>
-                )}
+
+                  <div style={{ marginBottom: '15px' }}>
+                    <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                      Email Address:
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="your-email@example.com"
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '1px solid #ddd',
+                        borderRadius: '4px',
+                        fontSize: '14px'
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: '15px' }}>
+                    <label htmlFor="mobile" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                      Mobile Number:
+                    </label>
+                    <input
+                      type="tel"
+                      id="mobile"
+                      value={mobile}
+                      onChange={(e) => setMobile(e.target.value)}
+                      placeholder="+91 9876543210"
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '1px solid #ddd',
+                        borderRadius: '4px',
+                        fontSize: '14px'
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: '15px' }}>
+                    <label htmlFor="courseInquiry" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                      Inquiry About:
+                    </label>
+                    <input
+                      type="text"
+                      id="courseInquiry"
+                      value={courseInquiry}
+                      onChange={(e) => setCourseInquiry(e.target.value)}
+                      placeholder={courseData.title}
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '1px solid #ddd',
+                        borderRadius: '4px',
+                        fontSize: '14px'
+                      }}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    style={{
+                      backgroundColor: 'orange',
+                      color: 'white',
+                      border: 'none',
+                      padding: '15px',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontWeight: 'bold',
+                      alignSelf: 'flex-start'
+                    }}
+                  >
+                    Submit Inquiry
+                  </button>
+                </form>
               </div>
+            )}
+          </div>    
             </div>
             {/* Corporate Training */}
             <div style={{
@@ -564,9 +639,6 @@ const CourseDescription = () => {
             </div>
           </div>
         </div>
-
-
-
 
         {/* Right Column - Course Details */}
         <div style={{ flex: '1 1 300px' }}>

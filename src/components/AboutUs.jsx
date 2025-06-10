@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from './Assets/3D.png';
+import logo from './Assets/Learnitfy_Logo.jpg';
 // Sample images for team members
 // const teamImages = {
 //   'Alex Chen': 'https://via.placeholde r.com/150', // Replace with actual image URLs
@@ -64,8 +64,9 @@ function AboutUsPage() {
             Discover Our Programs
           </Link>
         </div>
-        <div className="hero-animation" style={{ flex: 1, minWidth: '300px', height: '300px', background: '#F4F4F4', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <img src={logo} alt="EdTech Illustration" style={{ maxWidth: '100%', maxHeight: '100%', borderRadius: '16px' }} />
+        <div className="hero-animation" style={{ flex: 1, minWidth: '300px', height: '300px', background: 'rgba(255, 255, 255, 0)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img src={logo} alt="EdTech Illustration" style={{     height: '278px',
+    width: '515px', borderRadius: '16px' }} />
         </div>
       </section>
 
