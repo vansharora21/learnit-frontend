@@ -12,7 +12,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import HomePage from './components/HomePage..jsx';
 import CourseCategories from './components/CourseCategories.jsx';
-import { useParams } from 'react-router-dom';
 
 function App() {
 

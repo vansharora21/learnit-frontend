@@ -14,8 +14,6 @@ export function reverseGenerateSlug(slug) {
     .join(' ');
 }
 
-
-// Static fallback data (optional – can be empty or include defaults)
 const staticInfrastructure = [];
 
 export default function CategoryCards() {
