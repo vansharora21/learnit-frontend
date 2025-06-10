@@ -7,7 +7,7 @@ const tabContent = [
     content: (
       <ul>
         <li>Enroll in a professional training course to gain required skills.</li>
-        <li>Format and requirements vary by course and issuing organization.</li>
+        <li>Format and requirements vary by course. </li>
       </ul>
     ),
   },

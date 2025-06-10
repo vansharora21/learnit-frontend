@@ -28,11 +28,6 @@ export default function Footer() {
               <br />
               +1 1133223332332
             </p>
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '0.5rem' }}>
-              <SocialMediaIcon platform="instagram" />
-              <SocialMediaIcon platform="twitter" />
-              <SocialMediaIcon platform="linkedin" />
-            </div>
           </div>
           
           {/* About Us */}
@@ -82,12 +77,12 @@ export default function Footer() {
             </ul>
           </div>
           
-          {/* Map on the right */}
-          {/* <div className="col-12 col-md-4 d-flex align-items-stretch justify-content-center justify-content-md-end">
+          {/* Map and Social Media Icons on the right */}
+          <div className="col-12 col-md-4 d-flex align-items-stretch justify-content-center justify-content-md-end">
             <div style={{ width: '100%', height: '100%', borderRadius: '12px', overflow: 'hidden', minHeight: '180px' }}>
               <iframe
                 title="Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0196925876904!2d-122.4194154846817!3d37.77492977975995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808c7e5b0b1d%3A0x4a0b8b8b8b8b8b8b!2s123%20Learning%20Plaza!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1668.7096558668325!2d75.74276264959961!3d26.90530964898532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db49bb5a72b39%3A0x4b2a16b4ad946ddf!2sGandhi%20Path%20W%2C%20Girnar%20Colony%2C%20Scheme%20Number%208%2C%20Girnar%20Colony%20South%2C%20Sanjay%20Nagar%2C%20Jaipur%2C%20Rajasthan%20302021!5e0!3m2!1sen!2sin!4v1749541441041!5m2!1sen!2sin"
                 width="100%"
                 height="180"
                 style={{ border: 0, minHeight: '180px', display: 'block' }}
@@ -96,7 +91,12 @@ export default function Footer() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-          </div> */}
+            <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column', marginLeft: '1rem' }}>
+              <SocialMediaIcon platform="instagram" />
+              <SocialMediaIcon platform="twitter" />
+              <SocialMediaIcon platform="linkedin" />
+            </div>
+          </div>
         </div>
       </div>
     </footer>
