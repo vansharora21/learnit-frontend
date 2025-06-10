@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { reverseGenerateSlug } from './CourseCards';
 
 const CourseCard = ({ title, description }) => {
   return (
@@ -29,30 +28,27 @@ const CourseCard = ({ title, description }) => {
 const CourseCategories = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log("coursescoursescoursescoursescourses", courses);
 
   const params = useParams();
-  console.log("params=-=-=-=--==-=-", params.courseSlug
-);
+  console.log("params.courseSlug:", params.courseSlug);
 
   const fetchCourses = async () => {
-      try {
-        const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${reverseGenerateSlug(params.courseSlug)}`);
-        // const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${reverseGenerateSlug(params.courseSlug)}`);
-        setCourses(response.data.data.coursesList);
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!params.courseSlug) return;
+
+    try {
+      const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${params.courseSlug}`);
+      setCourses(response.data.data.coursesList);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetchCourses();    
-  }, []);
+    fetchCourses();
+  }, [params.courseSlug]);
 
-
-console.log(params)
   return (
     <div className="py-5 bg-light">
       <div className="container">
@@ -69,16 +65,14 @@ console.log(params)
                 <CourseCard
                   title={course.courseName}
                   description={course.description}
-                  // CourseName ={course.categoryName}
                 />
               </div>
             ))}
-          <h1>{params.title}</h1>
           </div>
         )}
       </div>
     </div>
   );
 };
-
+ 
 export default CourseCategories;
