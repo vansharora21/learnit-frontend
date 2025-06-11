@@ -7,7 +7,7 @@ const tabContent = [
     content: (
       <ul>
         <li>Enroll in a professional training course to gain required skills.</li>
-        <li>Format and requirements vary by course. </li>
+        <li>Format and requirements vary by course.</li>
       </ul>
     ),
   },
@@ -154,8 +154,7 @@ const CertificateSection = () => {
         }
         .cert-tabs-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-template-rows: 1fr 1fr;
+          grid-template-columns: repeat(2, 1fr);
           gap: 14px;
           margin-bottom: 18px;
         }
@@ -217,7 +216,7 @@ const CertificateSection = () => {
           border: 6px solid #2d3242;
           height:350px;
           border-radius: 6px;
-          width: 450px;
+          width: 400px;
           padding: 10px;
           background: #fff;
           box-shadow: 0 2px 16px rgba(44,50,66,0.09);
@@ -226,9 +225,10 @@ const CertificateSection = () => {
           justify-content: center;
         }
         .cert-demo-img {
-          height:300px;
+          height: 300px;
           border-radius: 6px;
-          width: 400px;
+          width: 100%;
+          max-width: 400px;
           border-radius: 2px;
           display: block;
         }
@@ -253,7 +253,7 @@ const CertificateSection = () => {
             margin: 0 auto;
           }
         }
-        @media (max-width: 600px) {
+       @media (max-width: 600px) {
           .cert-card-with-tabs {
             padding: 18px 6px 14px 6px;
           }

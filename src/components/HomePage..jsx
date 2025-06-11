@@ -209,12 +209,12 @@ export default function HomePage() {
 
               {/* Live Classroom Training */}
               <div className="fw-medium fs-5 mb-2">
-                <strong>Live Classroom Training</strong>
+                <strong>Live 1 on 1 Training</strong>
               </div>
               <ul className="ps-4 mb-4 text-secondary fs-6">
                 <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
                   <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
-                  Schedule your sessions at your comfortable timings.
+                  Attend Live sessions with our expert trainers.
                 </li>
                 <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
                   <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
@@ -222,7 +222,7 @@ export default function HomePage() {
                 </li>
                 <li className="mb-2" style={{ listStyle: 'none', position: 'relative' }}>
                   <span style={{ position: 'absolute', left: '-1.5em', color: '#888' }}>&#8250;</span>
-                  Real time projects and certification guidance.
+                  Live Project with advance concept training
                 </li>
               </ul>
             </div>

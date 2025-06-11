@@ -1,171 +1,195 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import logo from './Assets/PNG-01.png'; // Update with your actual file name
+import logo from './Assets/PNG-01.png';
 
 const Navbar = () => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 992);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 992);
+            if (window.innerWidth > 992) {
+                setIsMobileMenuOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style={{ padding: '0.25rem 0rem' }}>
-            <div className="container" style={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-                <Link className="navbar-brand" to="/" style={{ display: 'flex', alignItems: 'center' }}>
+        <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm" 
+             style={{ padding: '0.5rem 0', position: 'sticky', top: 0, zIndex: 1000 }}>
+            <div className="container" style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'space-between',
+                width: '100%', 
+                maxWidth: '1200px', 
+                margin: '0 auto', 
+                padding: '0 clamp(0.5rem, 2vw, 1rem)' 
+            }}>
+                {/* Logo */}
+                <Link className="navbar-brand" to="/" style={{ 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    flex: '0 0 auto'
+                }}>
                     <img 
                         src={logo}
                         alt="Logo"
-                        style={{ width: '85px', height: 'auto', marginRight: '5px' }}
+                        style={{ 
+                            width: 'clamp(50px, 12vw, 80px)', 
+                            height: 'auto', 
+                            marginRight: '5px' 
+                        }}
                     />
                 </Link>
                 
-                <div className="nav-links" style={{ position: 'relative', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <Link to="/" className="nav-item" style={{ position: 'relative', color: '#6a778e', textDecoration: 'none', padding: '0.75rem 1rem', transition: 'color 250ms ease', fontWeight: '600' }}>
-                        <span className="nav-text" style={{ position: 'relative', display: 'inline-block', transition: 'transform 250ms ease' }}>Home</span>
-                    </Link>
-                    <Link to="/about" className="nav-item" style={{ position: 'relative', color: '#6a778e', textDecoration: 'none', padding: '0.75rem 1rem', transition: 'color 250ms ease', fontWeight: '600' }}>
-                        <span className="nav-text" style={{ position: 'relative', display: 'inline-block', transition: 'transform 250ms ease' }}>About Us</span>
-                    </Link>
-                    <Link to="/contact" className="nav-item" style={{ position: 'relative', color: '#6a778e', textDecoration: 'none', padding: '0.75rem 1rem', transition: 'color 250ms ease', fontWeight: '600' }}>
-                        <span className="nav-text" style={{ position: 'relative', display: 'inline-block', transition: 'transform 250ms ease' }}>Contact Us</span>
-                    </Link>
-                </div>
+                {/* Desktop Navigation */}
+                {!isMobile && (
+                    <div className="nav-links" style={{ 
+                        display: 'flex', 
+                        gap: 'clamp(0.5rem, 2vw, 1.5rem)', 
+                        alignItems: 'center',
+                        flex: '1',
+                        justifyContent: 'center'
+                    }}>
+                        <Link to="/" className="nav-item" style={navItemStyle}>
+                            <span className="nav-text">Home</span>
+                        </Link>
+                        <Link to="/about" className="nav-item" style={navItemStyle}>
+                            <span className="nav-text">About Us</span>
+                        </Link>
+                        <Link to="/contact" className="nav-item" style={navItemStyle}>
+                            <span className="nav-text">Contact Us</span>
+                        </Link>
+                    </div>
+                )}
                 
-                <div className="d-flex align-items-center justify-content-end flex-grow-1" style={{ flex: '1', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                    {/* Search Bar */}
-                    <div style={{ flex: 'none', minWidth: '250px', maxWidth: '400px', margin: '0 1.5rem' }}>
-                        <form
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                background: '#fff',
-                                borderRadius: '22px',
-                                boxShadow: '0 2px 8px rgba(44,46,52,0.09)',
-                                width: '100%',
-                                padding: '0.1rem 0.1rem 0.1rem 0.5rem',
-                            }}
-                            onSubmit={e => e.preventDefault()}
-                        >
-                            <input
-                                type="search"
-                                placeholder="e.g. Web Development"
-                                style={{
-                                    flex: 1,
-                                    border: 'none',
-                                    outline: 'none',
-                                    fontSize: '1rem',
-                                    padding: '0.5rem',
-                                    background: 'transparent',
-                                    color: '#444',
-                                    fontStyle: 'italic',
-                                    fontWeight: '400',
-                                    minWidth: 0,
-                                }}
-                                className="custom-search-input"
-                            />
-                            <button
-                                type="submit"
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '0.5rem',
-                                    background: '#ffb32d',
-                                    color: '#fff',
-                                    border: 'none',
-                                    borderRadius: '12px',
-                                    fontSize: '0.9rem',
-                                    fontWeight: '600',
-                                    padding: '0.4rem 1rem',
-                                    cursor: 'pointer',
-                                    marginLeft: '0',
-                                    boxShadow: '0 2px 8px rgba(44,46,52,0.07)',
-                                    transition: 'background 0.2s',
-                                    height: '32px',
-                                }}
-                            >
-                                <svg
-                                    width="18"
-                                    height="18"
-                                    fill="none"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    viewBox="0 0 24 24"
-                                    style={{ display: 'block' }}
-                                >
-                                    <circle cx="11" cy="11" r="8" />
-                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                                </svg>
-                                Search
-                            </button>
-                            {/* Placeholder styling for italic and gray */}
-                            <style>
-                                {`
-                                    .custom-search-input::placeholder {
-                                        color: #b4b4b4;
-                                        font-style: italic;
-                                        opacity: 1;
-                                    }
-                                `}
-                            </style>
-                        </form>
-                    </div>
-
+                {/* Right Side Content */}
+                <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: 'clamp(0.5rem, 2vw, 1rem)',
+                    flex: '0 0 auto'
+                }}>
+                    {/* Search Bar - Hidden on mobile */}
+                    {!isMobile && (
+                        <div className="search-container" style={{ 
+                            minWidth: 'clamp(180px, 25vw, 280px)',
+                            maxWidth: '350px'
+                        }}>
+                            <SearchForm />
+                        </div>
+                    )}
+                    
                     {/* Social Media Icons */}
-                    <div style={{ display: 'flex', gap: '1rem', marginLeft: '1rem' }}>
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={{
-                            width: '40px',
-                            height: '40px',
-                            borderRadius: '50%',
-                            backgroundColor: '#ff6b00',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'white',
-                            transition: 'transform 0.3s ease',
-                            cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                        >
-                            <i className="bi bi-facebook"></i>
-                        </a>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{
-                            width: '40px',
-                            height: '40px',
-                            borderRadius: '50%',
-                            backgroundColor: '#ff6b00',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'white',
-                            transition: 'transform 0.3s ease',
-                            cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                        >
-                            <i className="bi bi-linkedin"></i>
-                        </a>
-                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{
-                            width: '40px',
-                            height: '40px',
-                            borderRadius: '50%',
-                            backgroundColor: '#ff6b00',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'white',
-                            transition: 'transform 0.3s ease',
-                            cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                        >
-                            <i className="bi bi-instagram"></i>
-                        </a>
+                    <div className="social-icons" style={{ 
+                        display: 'flex', 
+                        gap: 'clamp(0.3rem, 1.5vw, 0.8rem)',
+                        flexDirection: isMobile ? 'row' : 'row'
+                    }}>
+                        <SocialIcon href="https://facebook.com" icon="bi-facebook" />
+                        <SocialIcon href="https://linkedin.com" icon="bi-linkedin" />
+                        <SocialIcon href="https://instagram.com" icon="bi-instagram" />
                     </div>
+                    
+                    {/* Mobile Menu Toggle */}
+                    {isMobile && (
+                        <button 
+                            className="mobile-menu-toggle"
+                            onClick={toggleMobileMenu}
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                fontSize: '1.5rem',
+                                cursor: 'pointer',
+                                outline: 'none',
+                                color: '#6a778e',
+                                padding: '0.5rem',
+                                borderRadius: '4px',
+                                transition: 'background-color 0.2s'
+                            }}
+                            onMouseEnter={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+                            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                        >
+                            {isMobileMenuOpen ? '✕' : '☰'}
+                        </button>
+                    )}
                 </div>
             </div>
+            
+            {/* Mobile Menu */}
+            {isMobile && (
+                <div 
+                    className={`mobile-nav-menu ${isMobileMenuOpen ? 'open' : ''}`}
+                    style={{
+                        position: 'absolute',
+                        top: '100%',
+                        left: 0,
+                        right: 0,
+                        background: 'white',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                        transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
+                        opacity: isMobileMenuOpen ? 1 : 0,
+                        visibility: isMobileMenuOpen ? 'visible' : 'hidden',
+                        transition: 'all 0.3s ease',
+                        zIndex: 999
+                    }}
+                >
+                    <div style={{ padding: '1rem' }}>
+                        {/* Mobile Search */}
+                        <div style={{ marginBottom: '1rem' }}>
+                            <SearchForm />
+                        </div>
+                        
+                        {/* Mobile Navigation Links */}
+                        <div style={{ 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            gap: '0.5rem' 
+                        }}>
+                            <Link 
+                                to="/" 
+                                className="mobile-nav-item"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                style={mobileNavItemStyle}
+                            >
+                                Home
+                            </Link>
+                            <Link 
+                                to="/about" 
+                                className="mobile-nav-item"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                style={mobileNavItemStyle}
+                            >
+                                About Us
+                            </Link>
+                            <Link 
+                                to="/contact" 
+                                className="mobile-nav-item"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                style={mobileNavItemStyle}
+                            >
+                                Contact Us
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            )}
 
-            {/* Embedded CSS for hover effects */}
             <style jsx>{`
+                .mobile-nav-item:hover {
+                    background-color: #f8f9fa;
+                    color: #ff6b00;
+                }
+                
                 .nav-item {
                     position: relative;
                 }
@@ -176,13 +200,13 @@ const Navbar = () => {
                     left: 0;
                     width: 100%;
                     height: 2px;
-                    background: rgb(227, 148, 28);
+                    background: #ff6b00;
                     transform: scaleX(0);
                     transform-origin: left;
                     transition: transform 250ms ease;
                 }
                 .nav-item:hover {
-                    color: rgb(237, 123, 53);
+                    color: #ff6b00;
                 }
                 .nav-item:hover:before {
                     transform: scaleX(1);
@@ -190,9 +214,118 @@ const Navbar = () => {
                 .nav-item:hover .nav-text {
                     transform: translateY(-2px);
                 }
+
+                @media screen and (max-width: 576px) {
+                    .social-icons {
+                        gap: 0.3rem !important;
+                    }
+                }
             `}</style>
         </nav>
     );
+};
+
+// Helper Components
+const SearchForm = () => (
+    <form
+        style={{
+            display: 'flex',
+            alignItems: 'center',
+            background: '#fff',
+            borderRadius: '22px',
+            boxShadow: '0 2px 8px rgba(44,46,52,0.09)',
+            width: '100%',
+            padding: '0.1rem 0.1rem 0.1rem 0.5rem',
+        }}
+        onSubmit={e => e.preventDefault()}
+    >
+        <input
+            type="search"
+            placeholder="e.g. Web Development"
+            style={{
+                flex: 1,
+                border: 'none',
+                outline: 'none',
+                fontSize: 'clamp(0.8rem, 2vw, 1rem)',
+                padding: 'clamp(0.3rem, 1vw, 0.5rem)',
+                background: 'transparent',
+                color: '#444',
+                fontStyle: 'italic',
+                fontWeight: '400',
+                minWidth: 0,
+            }}
+        />
+        <button
+            type="submit"
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                background: '#ffb32d',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '12px',
+                fontSize: 'clamp(0.7rem, 1.5vw, 0.9rem)',
+                fontWeight: '600',
+                padding: 'clamp(0.3rem, 1vw, 0.4rem) clamp(0.5rem, 2vw, 1rem)',
+                cursor: 'pointer',
+                transition: 'background 0.2s',
+                height: 'clamp(28px, 6vw, 32px)',
+            }}
+        >
+            <svg width="16" height="16" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <span>Search</span>
+        </button>
+    </form>
+);
+
+const SocialIcon = ({ href, icon }) => (
+    <a 
+        href={href} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        style={{
+            width: 'clamp(28px, 7vw, 36px)',
+            height: 'clamp(28px, 7vw, 36px)',
+            borderRadius: '50%',
+            backgroundColor: '#ff6b00',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            transition: 'transform 0.3s ease',
+            cursor: 'pointer',
+            textDecoration: 'none'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+    >
+        <i className={`bi ${icon}`} style={{ fontSize: 'clamp(12px, 3vw, 16px)' }}></i>
+    </a>
+);
+
+// Styles
+const navItemStyle = {
+    position: 'relative',
+    color: '#6a778e',
+    textDecoration: 'none',
+    padding: 'clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.5rem, 2vw, 1rem)',
+    transition: 'color 250ms ease',
+    fontWeight: '600',
+    fontSize: 'clamp(0.9rem, 2vw, 1rem)'
+};
+
+const mobileNavItemStyle = {
+    display: 'block',
+    padding: '0.75rem 1rem',
+    color: '#6a778e',
+    textDecoration: 'none',
+    borderRadius: '8px',
+    transition: 'all 0.2s ease',
+    fontWeight: '500'
 };
 
 export default Navbar;
