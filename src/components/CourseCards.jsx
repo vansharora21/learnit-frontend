@@ -20,6 +20,8 @@ export default function CategoryCards() {
   const [infra, setInfra] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  console.log("innfraa infra", infra);
+
   useEffect(() => {
     const getCategoryData = async () => {
       try {
@@ -103,8 +105,7 @@ export default function CategoryCards() {
                     <span className="infra-badge">{item.categoryName}</span>
                   )}
                 </div>
-                <div className="infra-title">{item.categoryId}</div>
-                <div>{item.description}</div>
+                <div>{item.title}</div>
                 
               </div>
             </Link>

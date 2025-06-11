@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { FiClock, FiDownload, FiMonitor, FiFileText, FiAward, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import CertificateSection from './Certificate';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 // CourseDropdown (unchanged)
 const CourseDropdown = ({ title, children }) => {
@@ -145,7 +146,8 @@ const TabbedSection = () => {
 };
 
 const CourseDescription = () => {
-  const { title } = useParams();
+  
+
 
   // For sidebar forms
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -165,6 +167,15 @@ const CourseDescription = () => {
   const [enrollMobile, setEnrollMobile] = useState('');
   const [enrollEmail, setEnrollEmail] = useState('');
   const [enrollInquiry, setEnrollInquiry] = useState('');
+  const [courseDataList, setCourseDataList] = useState([])
+
+  const { title } = useParams();
+  const location= useLocation();
+  console.log(location,"locationn is hereee")
+  console.log("titletitletitletitlev", title)
+  // setCourseDataList(location);
+  console.log("-=-=-=-==--==--=courseDataList-=-=-=-=-=-=", location.state.courseContent)
+
 
   useEffect(() => {
     function handleClickOutside(event) {
