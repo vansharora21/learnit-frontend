@@ -33,7 +33,8 @@ export default function CategoryCards() {
           console.log('Number of courses:', data.length); 
           const processedData = data.map(item => ({
             title: item.categoryName,
-            icon: item.logo && item.logo.length > 0 ? item.logo[0] : null,
+            // icon: item.logo && item.logo.length > 0 ? item.logo[0] : null,
+            icon: item.logo || null,
             slug: item.slug || generateSlug(item.categoryName),
             slug: item.slug || reverseGenerateSlug(item.categoryName),
             badge: item.badge || null,
