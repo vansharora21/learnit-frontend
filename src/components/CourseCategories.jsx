@@ -4,12 +4,13 @@ import axios from 'axios';
 import { reverseGenerateSlug } from './CourseCards';
 import { param } from 'framer-motion/client';
 
-const CourseCard = ({ title, description }) => {
+const CourseCard = ({ title, description ,data}) => {
   return (
     <div className="card h-100 border shadow-sm transition-hover">
       <Link 
         to={`/CourseDesc/${title.replace(/\s+/g, '-').toLowerCase()}`} 
         className="text-decoration-none d-flex flex-column h-100"
+        state={data}
       >
         <div className="bg-primary p-4 text-center d-flex justify-content-center align-items-center" style={{ height: '140px' }}>
           <h3 className="fs-6 text-white fw-bold text-uppercase text-center lh-base">
@@ -39,7 +40,6 @@ const CourseCategories = () => {
     let name = params.courseSlug;
 
   const fetchCourses = async () => {
-    // if (!params.courseSlug) return;
     console.log("here is the anme of slug:", name)
 
     try {
@@ -47,12 +47,8 @@ const CourseCategories = () => {
       const test=`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${name}`;
       console.log(test,"test is here-----------s")
 
-      // let tt='yash'
 
       let res= name.toLowerCase()
-
-
-      // http://15.206.189.17:4000/api/admin/get/courses?categoryName=Pakaj
       const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${res}`);
       // const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=front end`);
       console.log("-----------response", response)
@@ -85,6 +81,7 @@ const CourseCategories = () => {
                 <CourseCard
                   title={course.courseName}
                   description={course.description}
+                  data={course}
                 />
               </div>
             ))}
