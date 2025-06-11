@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { reverseGenerateSlug } from './CourseCards';
+import { param } from 'framer-motion/client';
 
 const CourseCard = ({ title, description }) => {
   return (
@@ -28,16 +30,34 @@ const CourseCard = ({ title, description }) => {
 const CourseCategories = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sulgData, setSlugData]= useState([])
+  console.log("here is the slug data")
 
   const params = useParams();
-  console.log("params.courseSlug:", params.courseSlug);
+  console.log("params.courseSlug0-=-=-==-=-=-=:", params.courseSlug);
+
+    let name = params.courseSlug;
 
   const fetchCourses = async () => {
-    if (!params.courseSlug) return;
+    // if (!params.courseSlug) return;
+    console.log("here is the anme of slug:", name)
 
     try {
-      const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${params.courseSlug}`);
-      setCourses(response.data.data.coursesList);
+
+      const test=`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${name}`;
+      console.log(test,"test is here-----------s")
+
+      // let tt='yash'
+
+      let res= name.toLowerCase()
+
+
+      // http://15.206.189.17:4000/api/admin/get/courses?categoryName=Pakaj
+      const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${res}`);
+      // const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=front end`);
+      console.log("-----------response", response)
+      setSlugData(response.data.data.coursesList);
+
     } catch (error) {
       console.error('Error fetching courses:', error);
     } finally {
@@ -60,7 +80,7 @@ const CourseCategories = () => {
           <p>Loading courses...</p>
         ) : (
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            {courses.map((course, index) => (
+            {sulgData.map((course, index) => (
               <div className="col" key={index}>
                 <CourseCard
                   title={course.courseName}
