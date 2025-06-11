@@ -167,15 +167,29 @@ const CourseDescription = () => {
   const [enrollMobile, setEnrollMobile] = useState('');
   const [enrollEmail, setEnrollEmail] = useState('');
   const [enrollInquiry, setEnrollInquiry] = useState('');
-  const [courseDataList, setCourseDataList] = useState([])
+  const [courseDataList, setCourseDataList] = useState([]);
 
+
+  console.log("kjdbsbdljsbfjjdssdbnsbnsnbs", courseDataList)
   const { title } = useParams();
   const location= useLocation();
   console.log(location,"locationn is hereee")
   console.log("titletitletitletitlev", title)
-  // setCourseDataList(location);
-  console.log("-=-=-=-==--==--=courseDataList-=-=-=-=-=-=", location.state.courseContent)
+  console.log("-=-=-=-==--==--=courseDataList-=-=-=-=-=-=", location.state);
 
+  useEffect(() => {
+  if (location.state) {
+    setCourseDataList(location.state.courseContent);
+  }
+}, [location.state]);
+
+  const courseName = location.state.courseName;
+  const CourseDescription = location.state.description;
+  const courseContent = location.state.courseContent;
+  const SelecyedCourseId = location.state.courseId;
+
+
+  // const 
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -204,6 +218,7 @@ const CourseDescription = () => {
         name: fullName,
         mobile: mobile,
         email: email,
+        courseId: SelecyedCourseId,
         inquiry: courseInquiry,
       });
       alert(`Enrollment successful! Response: ${response.data.message}`);
@@ -218,15 +233,25 @@ const CourseDescription = () => {
     }
   };
 
+
+  //have to uploade PDF
+  //have to uploade PDF
+  //have to uploade PDF
+  //have to uploade PDF
+  //have to uploade PDF
+  //have to uploade PDF
+  //have to uploade PDF
   const handleBrochureRequest = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("http://15.206.189.17:4000/api/user/send/brochure", {
+        courseId: SelecyedCourseId,
         email: brochureEmail,
       });
       alert(`Brochure will be sent to: ${brochureEmail}`);
       setBrochureEmail('');
       setIsBrochureFormOpen(false);
+      console.log("here is the send data broture:", response)
     } catch (error) {
       console.error('Error sending brochure:', error.response ? error.response.data : error.message);
       alert('There was an error sending the brochure. Please try again later.');
@@ -365,8 +390,8 @@ const CourseDescription = () => {
         gap: '20px'
       }}>
         <div style={{ flex: '1 1 500px', paddingRight: '20px' }}>
-          <h1 style={{ fontSize: '28px', marginBottom: '15px', fontWeight: 'normal' }}>{courseData.title}</h1>
-          <p style={{ fontSize: '16px', lineHeight: '1.5', marginBottom: '20px', opacity: '0.9' }}>{courseData.description}</p>
+          <h1 style={{ fontSize: '28px', marginBottom: '15px', fontWeight: 'normal' }}>{courseName}</h1>
+          <p style={{ fontSize: '16px', lineHeight: '1.5', marginBottom: '20px', opacity: '0.9' }}>{CourseDescription}</p>
           <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'center' }}>
             <button
               onClick={scrollToCourseContent}
@@ -383,6 +408,12 @@ const CourseDescription = () => {
             >
               View Syllabus
             </button>
+            {courseDataList.map((modulee, index)=>{
+              // {console.log(modulee.moduleTitle)}
+              <div key={index}>
+              <h1>hi {modulee.moduleTitle}</h1>
+              </div>
+            })}
           </div>
         </div>
         <div style={{ flex: '0 1 350px' }}>
@@ -412,7 +443,6 @@ const CourseDescription = () => {
               </CourseDropdown>
             ))}
           </div>
-
           {/* Pricing & Training Options Section - Under Modules */}
           <div style={{
             display: 'flex',
@@ -734,7 +764,11 @@ const CourseDescription = () => {
           </div>
         </div>
       </div>
-      
+      {courseContent.map((courseMod, index)=>{
+              <div key={courseMod.moduleTitle}>
+                <h1>{courseMod.moduleTitle}</h1>
+              </div>
+            })}
       <CertificateSection />
     </div>
   );
