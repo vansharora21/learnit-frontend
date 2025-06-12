@@ -214,7 +214,7 @@ const CourseDescription = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('https://api.learnitfy.com/user/enroll', {
+      const response = await axios.post('https://api.learnitfy.com/api/user/enroll', {
         name: fullName,
         mobile: mobile,
         email: email,
@@ -244,7 +244,7 @@ const CourseDescription = () => {
   const handleBrochureRequest = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("https://api.learnitfy.com/user/send/brochure", {
+      const response = await axios.post("https://api.learnitfy.com/api/user/send/brochure", {
         courseId: SelecyedCourseId,
         email: brochureEmail,
       });
@@ -356,7 +356,7 @@ const CourseDescription = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('https://api.learnitfy.com/user/enroll', {
+      const response = await axios.post('https://api.learnitfy.com/api/user/enroll', {
         name: enrollName,
         mobile: enrollMobile,
         email: enrollEmail,

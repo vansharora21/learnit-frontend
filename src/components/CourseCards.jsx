@@ -25,7 +25,7 @@ export default function CategoryCards() {
   useEffect(() => {
     const getCategoryData = async () => {
       try {
-        const response = await axios.get('https://api.learnitfy.com/admin/get/category');
+        const response = await axios.get('https://api.learnitfy.com/api/admin/get/category');
         console.log('API Response:', response.data); 
         const data = response.data.data;
 
