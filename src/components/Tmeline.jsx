@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 // Timeline data for advantages of corporate training
 const timelineData = [
@@ -32,45 +33,181 @@ const timelineData = [
   }
 ];
 
+// Animation variants for different elements
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const leftSlideVariants = {
+  hidden: { opacity: 0, x: -100, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut"
+    }
+  }
+};
+
+const rightSlideVariants = {
+  hidden: { opacity: 0, x: 100, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut"
+    }
+  }
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.5, rotate: -10 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+      delay: 0.2
+    }
+  }
+};
+
+const welcomeVariants = {
+  hidden: { opacity: 0, scale: 0.3, rotate: -180 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      duration: 1,
+      ease: "easeOut",
+      type: "spring",
+      stiffness: 100
+    }
+  }
+};
+
 export default function CorporateTrainingTimeline() {
   return (
     <div style={{ background: "#f5f5f5", padding: '2rem 0' }}>
       <div className="container" style={{ maxWidth: '1200px', padding: '0 1rem' }}>
-        {/* Header */}
-        <div className="text-center mb-5">
-          <h2 className="fw-bold mb-3" style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)' }}>
+        {/* Animated Header */}
+        <motion.div 
+          className="text-center mb-5"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={containerVariants}
+        >
+          <motion.h2 
+            className="fw-bold mb-3" 
+            style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)' }}
+            variants={itemVariants}
+          >
             Advantages of Corporate Training
-          </h2>
-          <h5 className="text-secondary fw-normal fst-italic" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)' }}>
+          </motion.h2>
+          <motion.h5 
+            className="text-secondary fw-normal fst-italic" 
+            style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)' }}
+            variants={itemVariants}
+          >
             Discover how training transforms your organization
-          </h5>
-        </div>
+          </motion.h5>
+        </motion.div>
 
         {/* Timeline Container */}
         <div className="timeline-wrapper position-relative">
           {/* Desktop Timeline */}
           <div className="d-none d-lg-block">
-            {/* Vertical Line for Desktop */}
-            <div
+            {/* Animated Vertical Line for Desktop */}
+            <motion.div
               className="position-absolute top-0 start-50 translate-middle-x bg-secondary"
               style={{
                 width: '3px',
                 height: '100%',
                 zIndex: 1
               }}
-            ></div>
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              style={{ transformOrigin: "top" }}
+            ></motion.div>
 
             {timelineData.map((item, idx) => (
-              <div key={idx} className="row mb-5 position-relative align-items-center">
+              <motion.div 
+                key={idx} 
+                className="row mb-5 position-relative align-items-center"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: idx * 0.2 }}
+              >
                 {item.side === "left" ? (
                   <>
-                    <div className="col-5 text-end pe-4">
-                      <h5 className="fw-bold text-primary mb-2">{item.period}</h5>
-                      <h5 className="fw-semibold mb-3">{item.title}</h5>
-                      <p className="text-muted mb-0">{item.desc}</p>
-                    </div>
-                    <div className="col-2 text-center">
-                      <img
+                    <motion.div 
+                      className="col-5 text-end pe-4"
+                      variants={leftSlideVariants}
+                    >
+                      <motion.h5 
+                        className="fw-bold text-primary mb-2"
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: idx * 0.1 }}
+                      >
+                        {item.period}
+                      </motion.h5>
+                      <motion.h5 
+                        className="fw-semibold mb-3"
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: idx * 0.1 + 0.2 }}
+                      >
+                        {item.title}
+                      </motion.h5>
+                      <motion.p 
+                        className="text-muted mb-0"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: idx * 0.1 + 0.4 }}
+                      >
+                        {item.desc}
+                      </motion.p>
+                    </motion.div>
+                    <motion.div 
+                      className="col-2 text-center"
+                      variants={imageVariants}
+                    >
+                      <motion.img
                         src={item.img}
                         alt={item.title}
                         className="rounded-circle border border-4 border-white shadow"
@@ -81,15 +218,23 @@ export default function CorporateTrainingTimeline() {
                           position: 'relative',
                           zIndex: 2
                         }}
+                        whileHover={{ 
+                          scale: 1.1, 
+                          rotate: 5,
+                          transition: { duration: 0.3 }
+                        }}
                       />
-                    </div>
+                    </motion.div>
                     <div className="col-5"></div>
                   </>
                 ) : (
                   <>
                     <div className="col-5"></div>
-                    <div className="col-2 text-center">
-                      <img
+                    <motion.div 
+                      className="col-2 text-center"
+                      variants={imageVariants}
+                    >
+                      <motion.img
                         src={item.img}
                         alt={item.title}
                         className="rounded-circle border border-4 border-white shadow"
@@ -100,21 +245,59 @@ export default function CorporateTrainingTimeline() {
                           position: 'relative',
                           zIndex: 2
                         }}
+                        whileHover={{ 
+                          scale: 1.1, 
+                          rotate: -5,
+                          transition: { duration: 0.3 }
+                        }}
                       />
-                    </div>
-                    <div className="col-5 ps-4">
-                      <h5 className="fw-bold text-primary mb-2">{item.period}</h5>
-                      <h5 className="fw-semibold mb-3">{item.title}</h5>
-                      <p className="text-muted mb-0">{item.desc}</p>
-                    </div>
+                    </motion.div>
+                    <motion.div 
+                      className="col-5 ps-4"
+                      variants={rightSlideVariants}
+                    >
+                      <motion.h5 
+                        className="fw-bold text-primary mb-2"
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: idx * 0.1 }}
+                      >
+                        {item.period}
+                      </motion.h5>
+                      <motion.h5 
+                        className="fw-semibold mb-3"
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: idx * 0.1 + 0.2 }}
+                      >
+                        {item.title}
+                      </motion.h5>
+                      <motion.p 
+                        className="text-muted mb-0"
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: idx * 0.1 + 0.4 }}
+                      >
+                        {item.desc}
+                      </motion.p>
+                    </motion.div>
                   </>
                 )}
-              </div>
+              </motion.div>
             ))}
 
-            {/* Desktop Welcome Aboard - Centered */}
-            <div className="text-center mt-4">
-              <div
+            {/* Desktop Welcome Aboard - Centered with Animation */}
+            <motion.div 
+              className="text-center mt-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={welcomeVariants}
+            >
+              <motion.div
                 className="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle border border-4 border-white shadow fw-bold"
                 style={{
                   width: '120px',
@@ -124,30 +307,48 @@ export default function CorporateTrainingTimeline() {
                   position: 'relative',
                   zIndex: 2
                 }}
+                whileHover={{ 
+                  scale: 1.1,
+                  rotate: 360,
+                  transition: { duration: 0.8, ease: "easeInOut" }
+                }}
               >
                 Lets<br />Learn
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
 
           {/* Mobile Timeline - Simplified Single Column */}
           <div className="d-lg-none">
-            {/* Mobile Timeline Line */}
-            <div
+            {/* Mobile Timeline Line with Animation */}
+            <motion.div
               className="mobile-timeline-line position-absolute bg-secondary"
               style={{
                 width: '2px',
-                height: 'calc(100% - 80px)', // Adjust height to account for welcome button
+                height: 'calc(100% - 80px)',
                 left: '30px',
                 top: '0',
-                zIndex: 1
+                zIndex: 1,
+                transformOrigin: "top"
               }}
-            ></div>
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+            ></motion.div>
 
             {timelineData.map((item, idx) => (
-              <div key={idx} className="d-flex mb-4 position-relative" style={{ paddingLeft: '0' }}>
-                {/* Timeline Dot */}
-                <div
+              <motion.div 
+                key={idx} 
+                className="d-flex mb-4 position-relative" 
+                style={{ paddingLeft: '0' }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: idx * 0.15 }}
+              >
+                {/* Animated Timeline Dot */}
+                <motion.div
                   className="position-absolute bg-primary rounded-circle"
                   style={{
                     width: '12px',
@@ -156,11 +357,24 @@ export default function CorporateTrainingTimeline() {
                     top: '20px',
                     zIndex: 2
                   }}
-                ></div>
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: idx * 0.1,
+                    type: "spring",
+                    stiffness: 200
+                  }}
+                ></motion.div>
 
-                {/* Image */}
-                <div className="flex-shrink-0 me-3 mobile-image-container" style={{ marginLeft: '60px' }}>
-                  <img
+                {/* Animated Image */}
+                <motion.div 
+                  className="flex-shrink-0 me-3 mobile-image-container" 
+                  style={{ marginLeft: '60px' }}
+                  variants={imageVariants}
+                >
+                  <motion.img
                     src={item.img}
                     alt={item.title}
                     className="rounded-circle border border-3 border-white shadow"
@@ -169,28 +383,63 @@ export default function CorporateTrainingTimeline() {
                       height: '60px',
                       objectFit: 'cover'
                     }}
+                    whileHover={{ 
+                      scale: 1.1,
+                      transition: { duration: 0.3 }
+                    }}
                   />
-                </div>
+                </motion.div>
 
-                {/* Content */}
-                <div className="flex-grow-1" style={{ minWidth: 0 }}>
-                  <h6 className="fw-bold text-primary mb-1" style={{ fontSize: '0.95rem' }}>
+                {/* Animated Content */}
+                <motion.div 
+                  className="flex-grow-1" 
+                  style={{ minWidth: 0 }}
+                  variants={rightSlideVariants}
+                >
+                  <motion.h6 
+                    className="fw-bold text-primary mb-1" 
+                    style={{ fontSize: '0.95rem' }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  >
                     {item.period}
-                  </h6>
-                  <h6 className="fw-semibold mb-2" style={{ fontSize: '1.1rem' }}>
+                  </motion.h6>
+                  <motion.h6 
+                    className="fw-semibold mb-2" 
+                    style={{ fontSize: '1.1rem' }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 + 0.1 }}
+                  >
                     {item.title}
-                  </h6>
-                  <p className="text-muted mb-0" style={{ fontSize: '0.9rem', lineHeight: '1.5' }}>
+                  </motion.h6>
+                  <motion.p 
+                    className="text-muted mb-0" 
+                    style={{ fontSize: '0.9rem', lineHeight: '1.5' }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 + 0.2 }}
+                  >
                     {item.desc}
-                  </p>
-                </div>
-              </div>
+                  </motion.p>
+                </motion.div>
+              </motion.div>
             ))}
 
-            {/* Mobile Welcome Aboard - Aligned with timeline */}
-            <div className="d-flex align-items-center mt-4 mobile-welcome-container">
+            {/* Mobile Welcome Aboard with Animation */}
+            <motion.div 
+              className="d-flex align-items-center mt-4 mobile-welcome-container"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={welcomeVariants}
+            >
               {/* Final Timeline Dot */}
-              <div
+              <motion.div
                 className="position-absolute bg-primary rounded-circle"
                 style={{
                   width: '12px',
@@ -198,11 +447,19 @@ export default function CorporateTrainingTimeline() {
                   left: '24px',
                   zIndex: 2
                 }}
-              ></div>
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.4,
+                  type: "spring",
+                  stiffness: 200
+                }}
+              ></motion.div>
 
               {/* Welcome Button aligned with content */}
               <div style={{ marginLeft: '60px' }}>
-                <div
+                <motion.div
                   className="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle border border-4 border-white shadow fw-bold"
                   style={{
                     width: 'clamp(80px, 20vw, 100px)',
@@ -212,16 +469,21 @@ export default function CorporateTrainingTimeline() {
                     position: 'relative',
                     zIndex: 2
                   }}
+                  whileHover={{ 
+                    scale: 1.1,
+                    rotate: 360,
+                    transition: { duration: 0.8, ease: "easeInOut" }
+                  }}
                 >
                   Lets<br />Learn
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Enhanced Mobile-First CSS */}
+      {/* Enhanced Mobile-First CSS with Animation Support */}
       <style>{`
         /* Base Mobile Styles */
         .timeline-wrapper {
@@ -305,23 +567,22 @@ export default function CorporateTrainingTimeline() {
           }
         }
 
-        /* Hover Effects for Interactive Elements */
+        /* Enhanced Hover Effects for Interactive Elements */
         .rounded-circle {
-          transition: transform 0.3s ease;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .rounded-circle:hover {
-          transform: scale(1.05);
+          box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        /* Welcome button hover effect */
+        /* Welcome button enhanced hover effect */
         .bg-primary.rounded-circle {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .bg-primary.rounded-circle:hover {
-          transform: scale(1.05);
-          box-shadow: 0 6px 20px rgba(13, 110, 253, 0.3);
+          box-shadow: 0 10px 30px rgba(13, 110, 253, 0.4);
         }
 
         /* Ensure proper spacing and alignment */
@@ -344,6 +605,20 @@ export default function CorporateTrainingTimeline() {
         @media (max-width: 991.98px) {
           .mobile-timeline-line {
             height: calc(100% - 60px) !important;
+          }
+        }
+
+        /* Smooth scrolling for better animation experience */
+        html {
+          scroll-behavior: smooth;
+        }
+
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
           }
         }
       `}</style>

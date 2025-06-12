@@ -1,6 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from './Assets/PNG-01.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram, faLinkedin, faXTwitter } from '@fortawesome/free-brands-svg-icons';
+
+const SocialMediaIcon = ({ platform }) => {
+    const icons = {
+        instagram: faInstagram,
+        x: faXTwitter,
+        linkedin: faLinkedin,
+    };
+    const links = {
+        instagram: 'https://instagram.com',
+        x: 'https://x.com',
+        linkedin: 'https://linkedin.com',
+    };
+    
+    return (
+        <a
+            href={links[platform]}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+                background: '#ff6b00',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                color: 'white',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textDecoration: 'none',
+                margin: '0 8px',
+                transition: 'all 0.2s ease',
+            }}
+            aria-label={platform}
+        >
+            <FontAwesomeIcon icon={icons[platform]} size="lg" />
+        </a>
+    );
+};
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -95,9 +134,9 @@ const Navbar = () => {
                         gap: 'clamp(0.3rem, 1.5vw, 0.8rem)',
                         flexDirection: isMobile ? 'row' : 'row'
                     }}>
-                        <SocialIcon href="https://facebook.com" icon="bi-facebook" />
-                        <SocialIcon href="https://linkedin.com" icon="bi-linkedin" />
-                        <SocialIcon href="https://instagram.com" icon="bi-instagram" />
+                        <SocialMediaIcon platform="instagram" />
+                        <SocialMediaIcon platform="x" />
+                        <SocialMediaIcon platform="linkedin" />
                     </div>
                     
                     {/* Mobile Menu Toggle */}
@@ -280,31 +319,6 @@ const SearchForm = () => (
             <span>Search</span>
         </button>
     </form>
-);
-
-const SocialIcon = ({ href, icon }) => (
-    <a 
-        href={href} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        style={{
-            width: 'clamp(28px, 7vw, 36px)',
-            height: 'clamp(28px, 7vw, 36px)',
-            borderRadius: '50%',
-            backgroundColor: '#ff6b00',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            transition: 'transform 0.3s ease',
-            cursor: 'pointer',
-            textDecoration: 'none'
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
-        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-    >
-        <i className={`bi ${icon}`} style={{ fontSize: 'clamp(12px, 3vw, 16px)' }}></i>
-    </a>
 );
 
 // Styles
