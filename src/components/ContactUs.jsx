@@ -18,7 +18,7 @@ const ContactUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://15.206.189.17:4000/api/user/contact', {
+      const response = await fetch('https://api.learnitfy.com/user/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

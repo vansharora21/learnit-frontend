@@ -25,7 +25,7 @@ export default function CategoryCards() {
   useEffect(() => {
     const getCategoryData = async () => {
       try {
-        const response = await axios.get('http://15.206.189.17:4000/api/admin/get/category');
+        const response = await axios.get('https://api.learnitfy.com/admin/get/category');
         console.log('API Response:', response.data); 
         const data = response.data.data;
 
@@ -33,7 +33,7 @@ export default function CategoryCards() {
           console.log('Number of courses:', data.length); 
           const processedData = data.map(item => ({
             title: item.categoryName,
-            icon: item.logo && item.logo.length > 0 ? item.logo[0] : null,
+            icon: item.logo || null,
             slug: item.slug || generateSlug(item.categoryName),
             slug: item.slug || reverseGenerateSlug(item.categoryName),
             badge: item.badge || null,

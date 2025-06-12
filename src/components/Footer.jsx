@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram, faLinkedin, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import logo from './Assets/PNG-01.png';
 
 const SocialMediaIcon = ({ platform }) => {
   const icons = {
-    instagram: 'bi-instagram',
-    twitter: 'bi-twitter',
-    linkedin: 'bi-linkedin',
+    instagram: faInstagram,
+    x: faXTwitter,
+    linkedin: faLinkedin,
   };
   const links = {
     instagram: 'https://instagram.com',
-    twitter: 'https://twitter.com',
+    x: 'https://x.com',
     linkedin: 'https://linkedin.com',
   };
   
@@ -25,7 +27,6 @@ const SocialMediaIcon = ({ platform }) => {
         height: '44px',
         borderRadius: '50%',
         color: 'white',
-        fontSize: '18px',
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -35,7 +36,7 @@ const SocialMediaIcon = ({ platform }) => {
       }}
       aria-label={platform}
     >
-      <i className={`bi ${icons[platform]}`}></i>
+      <FontAwesomeIcon icon={icons[platform]} size="lg" />
     </a>
   );
 };
@@ -154,7 +155,7 @@ export default function Footer() {
                 {/* Social Icons */}
                 <div style={{ marginTop: '10px' }}>
                   <SocialMediaIcon platform="instagram" />
-                  <SocialMediaIcon platform="twitter" />
+                  <SocialMediaIcon platform="x" />
                   <SocialMediaIcon platform="linkedin" />
                 </div>
               </div>

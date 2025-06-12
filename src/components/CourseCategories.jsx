@@ -44,13 +44,13 @@ const CourseCategories = () => {
 
     try {
 
-      const test=`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${name}`;
+      const test=`https://api.learnitfy.com/admin/get/courses?categoryName=${name}`;
       console.log(test,"test is here-----------s")
 
 
       let res= name.toLowerCase()
-      const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=${res}`);
-      // const response = await axios.get(`http://15.206.189.17:4000/api/admin/get/courses?categoryName=front end`);
+      const response = await axios.get(`https://api.learnitfy.com/admin/get/courses?categoryName=${res}`);
+      // const response = await axios.get(`https://api.learnitfy.com/admin/get/courses?categoryName=front end`);
       console.log("-----------response", response)
       setSlugData(response.data.data.coursesList);
 
