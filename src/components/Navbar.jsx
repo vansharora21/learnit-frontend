@@ -333,7 +333,7 @@ const SearchForm = () => (
 // Styles
 const navItemStyle = {
     position: 'relative',
-    color: 'black',
+    color: 'white',
     textDecoration: 'none',
     padding: 'clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.5rem, 2vw, 1rem)',
     transition: 'color 250ms ease',
@@ -344,7 +344,7 @@ const navItemStyle = {
 const mobileNavItemStyle = {
     display: 'block',
     padding: '0.75rem 1rem',
-    color: 'black',
+    color: 'white',
     textDecoration: 'none',
     borderRadius: '8px',
     transition: 'all 0.2s ease',
