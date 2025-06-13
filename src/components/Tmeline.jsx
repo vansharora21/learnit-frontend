@@ -145,8 +145,8 @@ export default function CorporateTrainingTimeline() {
         <div className="timeline-wrapper position-relative">
           {/* Desktop Timeline */}
           <div className="d-none d-lg-block">
-            {/* Animated Vertical Line for Desktop */}
-            <motion.div
+            {/* Remove this div */}
+            {/* <motion.div
               className="position-absolute top-0 start-50 translate-middle-x bg-secondary"
               style={{
                 width: '3px',
@@ -157,7 +157,7 @@ export default function CorporateTrainingTimeline() {
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 1.5, ease: "easeInOut" }}
-            ></motion.div>
+            ></motion.div> */}
 
             {timelineData.map((item, idx) => (
               <motion.div 
@@ -175,7 +175,7 @@ export default function CorporateTrainingTimeline() {
                       variants={leftSlideVariants}
                     >
                       <motion.h5 
-                        className="fw-bold text-primary mb-2"
+                        style={{ color: '#00c9ff' }}
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -256,7 +256,7 @@ export default function CorporateTrainingTimeline() {
                       variants={rightSlideVariants}
                     >
                       <motion.h5 
-                        className="fw-bold text-primary mb-2"
+                        style={{ color: '#00c9ff' }}
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -304,7 +304,9 @@ export default function CorporateTrainingTimeline() {
                   fontSize: '1.5rem',
                   lineHeight: '1.2',
                   position: 'relative',
-                  zIndex: 2
+                  zIndex: 2,
+                  backgroundColor: '#00c9ff',
+                  color: 'white'
                 }}
                 whileHover={{ 
                   scale: 1.1,
@@ -581,7 +583,7 @@ export default function CorporateTrainingTimeline() {
         }
 
         .bg-primary.rounded-circle:hover {
-          box-shadow: 0 10px 30px rgba(13, 110, 253, 0.4);
+          box-shadow: 0 10px 30px rgba(13, 109, 253, 0.96);
         }
 
         /* Ensure proper spacing and alignment */

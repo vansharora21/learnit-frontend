@@ -3,23 +3,22 @@ import CourseCards from './CourseCards';
 import Timeline from './Tmeline';
 import SearchBar from './SearchBar';
 
-const sliderImages = [
-  {
-    src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
-    headline: "Unlock Your Potential",
-    subtext: "Expert-led courses for every learner.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-    headline: "Learn In-Demand Skills",
-    subtext: "Stay ahead with industry-relevant programs.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+const sliderImages = [{
+      src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+      headline: "Unlock Your Potential", 
+      subtext: "Expert-led courses for every learner.",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      headline: "Learn In-Demand Skills", 
+      subtext: "Stay ahead with industry-relevant programs.",
+    },
+    { src: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
     headline: "Transform Your Career",
-    subtext: "Join thousands of successful graduates.",
-  },
-];
+    subtext: "Join thousands of successful graduates.", },];
+
+
+
 
 function ImageSlider() {
   const [current, setCurrent] = useState(0);
@@ -32,7 +31,7 @@ function ImageSlider() {
     return () => clearInterval(interval);
   }, [length]);
 
-  
+
 
   return (
     <div className="position-relative w-100 overflow-hidden" style={{ minHeight: '70vh', height: '90vh', maxHeight: '800px' }}>
@@ -177,85 +176,79 @@ export default function HomePage() {
 
       {/* Stats and Training Modes Section */}
       <section className="training-modes-section py-5" style={{ background: "#f5f5f5" }}>
-  <div className="container">
-    {/* Section Header */}
-    <div className="text-center mb-5">
-      <p className="text-dark fs-6 mb-1">
-        Choose your own comfortable learning experience.
-      </p>
-      <h2 className="fw-bold fs-3 mb-4" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
-        <span style={{ color: 'rgb(249, 169, 30)' }}>Training</span> Patterns
-      </h2>
-    </div>
-
-    {/* Training Cards Grid */}
-    <div className="row g-4">
-      {/* Live Virtual Training Card */}
-      <div className="col-12 col-md-6 col-lg-6">
-        <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100" 
-             style={{ 
-               minHeight: '400px',
-               background: 'linear-gradient(135deg, rgba(249, 169, 30, 0.9), rgba(255, 140, 0, 0.8)), url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")',
-               backgroundSize: 'cover',
-               backgroundPosition: 'center',
-               cursor: 'pointer',
-               transition: 'all 0.3s ease'
-             }}
-             onMouseEnter={(e) => {
-               e.currentTarget.style.transform = 'translateY(-8px)';
-               e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
-             }}
-             onMouseLeave={(e) => {
-               e.currentTarget.style.transform = 'translateY(0)';
-               e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.15)';
-             }}>
-          
-          {/* Card Content */}
-          <div className="position-absolute bottom-0 start-0 w-100 p-4 text-white">
-            <h3 className="fw-bold fs-2 mb-2 text-white" 
-                style={{ 
-                  fontFamily: 'Ubuntu, sans-serif',
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                  letterSpacing: '1px'
-                }}>
-              LIVE VIRTUAL TRAINING
-            </h3>
-            <p className="mb-3 text-white" style={{ 
-              fontSize: '1rem', 
-              opacity: '0.9',
-              fontWeight: '500',
-              textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
-            }}>
-              (Group-focused)
+        <div className="container">
+          {/* Section Header */}
+          <div className="text-center mb-5">
+            <p className="text-dark fs-6 mb-1">
+              Choose your own comfortable learning experience.
             </p>
-            
-            {/* Features List */}
-            <div className="training-features">
-              <div className="feature-item d-flex align-items-center mb-2" 
-                   style={{ fontSize: '0.95rem', opacity: '0.95' }}>
-                <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                Join collaborative group sessions from anywhere
-              </div>
-              <div className="feature-item d-flex align-items-center mb-2" 
-                   style={{ fontSize: '0.95rem', opacity: '0.95' }}>
-                <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                Fixed schedules with peer interaction
-              </div>
-              <div className="feature-item d-flex align-items-center mb-2" 
-                   style={{ fontSize: '0.95rem', opacity: '0.95' }}>
-                <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                Instructor-led with real-world lab simulations
-              </div>
-              <div className="feature-item d-flex align-items-center mb-3" 
-                   style={{ fontSize: '0.95rem', opacity: '0.95' }}>
-                <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                Certification support and team-based project work
-              </div>
-            </div>
+            <h2 className="fw-bold fs-3 mb-4" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
+              <span style={{ color: 'rgb(249, 169, 30)' }}>Training</span> Patterns
+            </h2>
+          </div>
 
-            {/* CTA Button */}
-            <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill" 
-                    style={{ 
+          {/* Training Cards Grid */}
+          <div className="row g-4">
+            {/* Live Virtual Training Card */}
+            <div className="col-12 col-md-6 col-lg-6">
+              <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100"
+                style={{
+                  minHeight: '400px',
+                  background: 'linear-gradient(135deg, rgba(249, 169, 30, 0.9), rgba(255, 140, 0, 0.8)), url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  marginTop: '0'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.15)';
+                }}>
+
+                {/* Card Content */}
+                <div className="position-absolute bottom-0 start-0 w-100 p-3 text-white">
+                  <h3 className="fw-bold fs-2 mb-2 text-white"
+                    style={{
+                      fontFamily: 'Ubuntu, sans-serif',
+                      textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                      letterSpacing: '1px'
+                    }}>
+                    LIVE VIRTUAL TRAINING
+                  </h3>
+
+
+                  {/* Features List */}
+                  <div className="training-features">
+                    <div className="feature-item d-flex align-items-center mb-2"
+                      style={{ fontSize: '0.95rem' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Join collaborative group sessions from anywhere
+                    </div>
+                    <div className="feature-item d-flex align-items-center mb-2"
+                      style={{ fontSize: '0.95rem' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Fixed schedules with peer interaction
+                    </div>
+                    <div className="feature-item d-flex align-items-center mb-2"
+                      style={{ fontSize: '0.95rem' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Instructor-led with real-world lab simulations
+                    </div>
+                    <div className="feature-item d-flex align-items-center mb-3"
+                      style={{ fontSize: '0.95rem' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Certification support and team-based project work
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill"
+                    style={{
                       border: 'none',
                       fontSize: '0.9rem',
                       transition: 'all 0.3s ease',
@@ -269,85 +262,77 @@ export default function HomePage() {
                       e.currentTarget.style.transform = 'scale(1)';
                       e.currentTarget.style.backgroundColor = '#fff';
                     }}>
-              Learn More →
-            </button>
-          </div>
+                    Learn More →
+                  </button>
+                </div>
 
-          {/* Overlay Gradient */}
-          <div className="position-absolute top-0 start-0 w-100 h-100" 
-               style={{ 
-                 background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)',
-                 pointerEvents: 'none'
-               }}></div>
-        </div>
-      </div>
-
-      {/* Live 1 on 1 Training Card */}
-      <div className="col-12 col-md-6 col-lg-6">
-        <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100" 
-             style={{ 
-               minHeight: '400px',
-               background: 'linear-gradient(135deg, rgba(30, 144, 255, 0.9), rgba(0, 123, 255, 0.8)), url("https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")',
-               backgroundSize: 'cover',
-               backgroundPosition: 'center',
-               cursor: 'pointer',
-               transition: 'all 0.3s ease'
-             }}
-             onMouseEnter={(e) => {
-               e.currentTarget.style.transform = 'translateY(-8px)';
-               e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
-             }}
-             onMouseLeave={(e) => {
-               e.currentTarget.style.transform = 'translateY(0)';
-               e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.15)';
-             }}>
-          
-          {/* Card Content */}
-          <div className="position-absolute bottom-0 start-0 w-100 p-4 text-white">
-            <h3 className="fw-bold fs-2 mb-2 text-white" 
-                style={{ 
-                  fontFamily: 'Ubuntu, sans-serif',
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                  letterSpacing: '1px'
-                }}>
-              LIVE 1 ON 1 <br />TRAINING
-            </h3>
-            <p className="mb-3 text-white" style={{ 
-              fontSize: '1rem', 
-              opacity: '0.9',
-              fontWeight: '500',
-              textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
-            }}>
-              (Personalized)
-            </p>
-            
-            {/* Features List */}
-            <div className="training-features">
-              <div className="feature-item d-flex align-items-center mb-2" 
-                   style={{ fontSize: '0.95rem', opacity: '0.95' }}>
-                <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                One-on-one sessions tailored to your goals
-              </div>
-              <div className="feature-item d-flex align-items-center mb-2" 
-                   style={{ fontSize: '0.95rem', opacity: '0.95' }}>
-                <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                Fully flexible timing and pacing
-              </div>
-              <div className="feature-item d-flex align-items-center mb-2" 
-                   style={{ fontSize: '0.95rem', opacity: '0.95' }}>
-                <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                Customized curriculum with hands-on mentoring
-              </div>
-              <div className="feature-item d-flex align-items-center mb-3" 
-                   style={{ fontSize: '0.95rem', opacity: '0.95' }}>
-                <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                Work on advanced, portfolio-ready projects
+                {/* Overlay Gradient */}
+                <div className="position-absolute top-0 start-0 w-100 h-100"
+                  style={{
+                    pointerEvents: 'none'
+                  }}></div>
               </div>
             </div>
 
-            {/* CTA Button */}
-            <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill" 
-                    style={{ 
+            {/* Live 1 on 1 Training Card */}
+            <div className="col-12 col-md-6 col-lg-6">
+              <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100"
+                style={{
+                  minHeight: '400px',
+                  background: 'linear-gradient(135deg, rgba(0, 201, 255, 0.7), rgba(0, 201, 255, 0.9)), url("https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.15)';
+                }}>
+
+                {/* Card Content */}
+                <div className="position-absolute bottom-0 start-0 w-100 p-4 text-white">
+                  <h3 className="fw-bold fs-2 mb-2 text-white"
+                    style={{
+                      fontFamily: 'Ubuntu, sans-serif',
+                      textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                      letterSpacing: '1px'
+                    }}>
+                    LIVE ONSITE CLASSROOM <br />TRAINING
+                  </h3>
+
+
+                  {/* Features List */}
+                  <div className="training-features">
+                    <div className="feature-item d-flex align-items-center mb-2"
+                      style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      One-on-one sessions tailored to your goals
+                    </div>
+                    <div className="feature-item d-flex align-items-center mb-2"
+                      style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Fully flexible timing and pacing
+                    </div>
+                    <div className="feature-item d-flex align-items-center mb-2"
+                      style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Customized curriculum with hands-on mentoring
+                    </div>
+                    <div className="feature-item d-flex align-items-center mb-3"
+                      style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Work on advanced, portfolio-ready projects
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill"
+                    style={{
                       border: 'none',
                       fontSize: '0.9rem',
                       transition: 'all 0.3s ease',
@@ -361,23 +346,23 @@ export default function HomePage() {
                       e.currentTarget.style.transform = 'scale(1)';
                       e.currentTarget.style.backgroundColor = '#fff';
                     }}>
-              Learn More →
-            </button>
+                    Learn More →
+                  </button>
+                </div>
+
+                {/* Overlay Gradient */}
+                <div className="position-absolute top-0 start-0 w-100 h-100"
+                  style={{
+                    //  background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)',
+                    pointerEvents: 'none'
+                  }}></div>
+              </div>
+            </div>
           </div>
-
-          {/* Overlay Gradient */}
-          <div className="position-absolute top-0 start-0 w-100 h-100" 
-               style={{ 
-                 background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)',
-                 pointerEvents: 'none'
-               }}></div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  {/* Additional CSS for animations */}
-  <style jsx>{`
+        {/* Additional CSS for animations */}
+        <style jsx>{`
     .training-card {
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
@@ -427,7 +412,7 @@ export default function HomePage() {
       }
     }
   `}</style>
-</section>
+      </section>
     </div>
   );
 }

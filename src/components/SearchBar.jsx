@@ -7,7 +7,9 @@ const SearchBar = () => {
         type="text"
         className="custom-search-input"
         placeholder="e.g. Web Development"
-        style={{paddingLeft:'10px'}}
+        style={{paddingLeft:'10px',paddingTop: '3px',
+          paddingBottom: '7px'
+        }}
       />
       <button type="submit" className="custom-search-btn">
         <span className="custom-search-icon" aria-hidden="true">

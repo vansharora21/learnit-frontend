@@ -12,15 +12,18 @@ const CourseCard = ({ title, description ,data}) => {
         className="text-decoration-none d-flex flex-column h-100"
         state={data}
       >
-        <div className="bg-primary p-4 text-center d-flex justify-content-center align-items-center" style={{ height: '140px' }}>
-          <h3 className="fs-6 text-white fw-bold text-uppercase text-center lh-base">
-            {title}
-          </h3>
+        <div className=" p-4 text-center d-flex justify-content-center align-items-center" style={{ height: '140px' }}>
+          <img 
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+            alt={title}
+            className="img-fluid"
+            style={{ maxHeight:'400px', maxWidth: '215px' }}
+          />
         </div>
         
         <div className="p-3 d-flex flex-column flex-grow-1">
           <h3 className="fs-6 mb-3 text-dark fw-normal text-center">
-            {description}
+            {title}
           </h3>
         </div>
       </Link>
@@ -29,7 +32,7 @@ const CourseCard = ({ title, description ,data}) => {
 };
 
 const CourseCategories = () => {
-  const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sulgData, setSlugData]= useState([])
   console.log("here is the slug data")
