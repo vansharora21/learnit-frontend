@@ -4,7 +4,7 @@ import axios from 'axios';
 import { reverseGenerateSlug } from './CourseCards';
 import { param } from 'framer-motion/client';
 
-const CourseCard = ({ title, description ,data}) => {
+const CourseCard = ({ title, description ,data, image}) => {
   return (
     <div className="card h-100 border shadow-sm transition-hover">
       <Link 
@@ -14,7 +14,7 @@ const CourseCard = ({ title, description ,data}) => {
       >
         <div className=" p-4 text-center d-flex justify-content-center align-items-center" style={{ height: '140px' }}>
           <img 
-            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+            src={image}
             alt={title}
             className="img-fluid"
             style={{ 
@@ -85,6 +85,7 @@ const CourseCategories = () => {
             {slugData.map((course, index) => (
               <div className="col" key={index}>
                 <CourseCard
+                  image ={course.image}
                   title={course.courseName}
                   description={course.description}
                   data={course}
