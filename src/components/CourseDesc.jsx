@@ -146,7 +146,7 @@ const TabbedSection = () => {
 };
 
 const CourseDescription = () => {
-  
+
 
 
   // For sidebar forms
@@ -168,25 +168,26 @@ const CourseDescription = () => {
   const [enrollEmail, setEnrollEmail] = useState('');
   const [enrollInquiry, setEnrollInquiry] = useState('');
   const [courseDataList, setCourseDataList] = useState([]);
+  const [openIndex, setOpenIndex] = useState(null);
 
 
   console.log("kjdbsbdljsbfjjdssdbnsbnsnbs", courseDataList)
   const { title } = useParams();
-  const location= useLocation();
-  console.log(location,"locationn is hereee")
-  console.log("titletitletitletitlev", title)
+  const location = useLocation();
   console.log("-=-=-=-==--==--=courseDataList-=-=-=-=-=-=", location.state);
 
   useEffect(() => {
-  if (location.state) {
-    setCourseDataList(location.state.courseContent);
-  }
-}, [location.state]);
+    if (location.state) {
+      setCourseDataList(location.state.courseContent);
+    }
+  }, [location.state]);
 
   const courseName = location.state.courseName;
   const CourseDescription = location.state.description;
   const courseContent = location.state.courseContent;
   const SelecyedCourseId = location.state.courseId;
+  const courseSelectImage = location.state.image;
+  const courseModel = location.state.courseContent;
 
 
   // const 
@@ -354,7 +355,7 @@ const CourseDescription = () => {
   // Pricing section Enroll Now form submit
   const handlePricingEnrollSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await axios.post('https://api.learnitfy.com/api/user/enroll', {
         name: enrollName,
@@ -365,7 +366,7 @@ const CourseDescription = () => {
 
       // Handle the response as needed
       alert(`Enrollment successful! Response: ${response.data.message}`);
-      
+
       // Reset form fields
       setEnrollName('');
       setEnrollMobile('');
@@ -375,6 +376,9 @@ const CourseDescription = () => {
       console.error('Error enrolling:', error);
       alert('There was an error enrolling. Please try again later.');
     }
+  };
+  const toggleDropdown = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
@@ -408,17 +412,18 @@ const CourseDescription = () => {
             >
               View Syllabus
             </button>
-            {courseDataList.map((modulee, index)=>{
+            {courseDataList.map((modulee, index) => {
               // {console.log(modulee.moduleTitle)}
               <div key={index}>
-              <h1>hi {modulee.moduleTitle}</h1>
+                <h1>hi {modulee.moduleTitle}</h1>
               </div>
             })}
           </div>
         </div>
         <div style={{ flex: '0 1 350px' }}>
           <img
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWR1Y2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+            src={courseSelectImage}
+            // src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWR1Y2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
             alt="Course Preview"
             style={{ width: '100%', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)', height: '200px', objectFit: 'cover' }}
           />
@@ -432,16 +437,88 @@ const CourseDescription = () => {
           <TabbedSection />
           <div ref={courseContentRef}>
             <h2 style={{ marginBottom: '20px', fontSize: '22px', color: '#333' }}>Course Content</h2>
-            {courseData.modules && courseData.modules.map((module, index) => (
-              <CourseDropdown key={index} title={module}>
-                <p style={{ color: '#666', fontSize: '14px' }}>
-                  {courseData.moduleContents && courseData.moduleContents[index] ?
-                    courseData.moduleContents[index] :
-                    `Content for ${module} goes here. This includes detailed lessons, practical exercises, quizzes, and downloadable resources to help you master this topic.`
-                  }
-                </p>
-              </CourseDropdown>
+            {/* {courseModel.map((module, index) => return (
+              // <CourseDropdown key={index} title={module}>
+              //   <p style={{ color: '#666', fontSize: '14px' }}>
+              //     {courseData.moduleContents && courseData.moduleContents[index] ?
+              //       courseData.moduleContents[index] :
+              //       `Content for ${module} goes here. This includes detailed lessons, practical exercises, quizzes, and downloadable resources to help you master this topic.`
+              //     }
+              //   </p>
+              // </CourseDropdown>
+            // ))} */}
+
+
+            {/* {courseModel.map((model, index)=>{
+              return(
+                <div key={index}>
+                  <h4>course Conntent: {model.moduleTitle}</h4>
+                  <p>Course Description :{model.description}</p>
+                </div>
+              )
+            })} */}
+
+            {courseModel.map((model, index) => (
+              <div
+                key={index}
+                style={{
+                  marginBottom: '16px',
+                  border: '1px solid #ddd',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.05)',
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  backgroundColor: '#fff',
+                }}
+              >
+                <h4
+                  onClick={() => toggleDropdown(index)}
+                  style={{
+                    margin: 0,
+                    padding: '16px',
+                    backgroundColor: '#f5f5f5',
+                    cursor: 'pointer',
+                    fontSize: '18px',
+                    color: '#333',
+                    borderBottom: openIndex === index ? '1px solid #eee' : 'none',
+                    transition: 'background-color 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
+                >
+                  📘 Course: {model.moduleTitle}
+                </h4>
+                {openIndex === index && (
+                  <div
+                    style={{
+                      padding: '16px',
+                      fontSize: '14px',
+                      color: '#ff8800',
+                      backgroundColor: '#fffaf0',
+                      borderTop: '1px solid #eee',
+                    }}
+                  >
+                    📖 Description: {model.description}
+                  </div>
+                )}
+              </div>
             ))}
+
+            {/* {courseModel.map((model, index) => (
+              <div key={index}>
+                <h4
+                  onClick={() => toggleDropdown(index)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Course Content: {model.moduleTitle}
+                </h4>
+                {openIndex === index && (
+                  <p style={{ color: '#666', fontSize: '14px', color: "orange" }}>
+                    Course Description: {model.description}
+                  </p>
+                )}
+              </div>
+            ))} */}
           </div>
           {/* Pricing & Training Options Section - Under Modules */}
           <div style={{
@@ -482,147 +559,147 @@ const CourseDescription = () => {
                   100% Money Back Guarantee
                 </span> */}
               </div>
-              <ul style={{ listStyle: 'none', paddingBottom:'10px' , margin: 0, fontSize: '15px', color: '#444', marginBottom: '12px' }}>
+              <ul style={{ listStyle: 'none', paddingBottom: '10px', margin: 0, fontSize: '15px', color: '#444', marginBottom: '12px' }}>
                 <li style={{ marginBottom: '8px' }}>✓ Duration : 40 Hrs</li> {/* APPLY THE API CALL FOR NOW ITS STATIC */}
                 <li style={{ marginBottom: '8px' }}>✓ Plus Self Paced</li>
                 <li></li>
               </ul>
               {/* Enroll Now Button with dropdown */}
-          <div ref={formRef}>
-            <button
-              onClick={() => setIsFormOpen(!isFormOpen)}
-              style={{
-                width: '100%',
-                padding: '10px',
-                backgroundColor: '#26A9E0',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                fontSize: '16px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}
-            >
-              <span>Enroll Now</span>
-              {isFormOpen ? <FiChevronUp /> : <FiChevronDown />}
-            </button>
+              <div ref={formRef}>
+                <button
+                  onClick={() => setIsFormOpen(!isFormOpen)}
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    backgroundColor: '#26A9E0',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    fontSize: '16px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}
+                >
+                  <span>Enroll Now</span>
+                  {isFormOpen ? <FiChevronUp /> : <FiChevronDown />}
+                </button>
 
-            {isFormOpen && (
-              <div style={{
-                marginTop: '10px',
-                padding: '15px',
-                backgroundColor: 'white',
-                border: '1px solid #e0e0e0',
-                borderRadius: '4px',
-                boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-              }}>
-                <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ marginBottom: '15px' }}>
-                    <label htmlFor="fullName" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                      Full Name:
-                    </label>
-                    <input
-                      type="text"
-                      id="fullName"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      placeholder="John Doe"
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '10px',
-                        border: '1px solid #ddd',
-                        borderRadius: '4px',
-                        fontSize: '14px'
-                      }}
-                    />
+                {isFormOpen && (
+                  <div style={{
+                    marginTop: '10px',
+                    padding: '15px',
+                    backgroundColor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '4px',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+                  }}>
+                    <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div style={{ marginBottom: '15px' }}>
+                        <label htmlFor="fullName" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                          Full Name:
+                        </label>
+                        <input
+                          type="text"
+                          id="fullName"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          placeholder="John Doe"
+                          required
+                          style={{
+                            width: '100%',
+                            padding: '10px',
+                            border: '1px solid #ddd',
+                            borderRadius: '4px',
+                            fontSize: '14px'
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '15px' }}>
+                        <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                          Email Address:
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="your-email@example.com"
+                          required
+                          style={{
+                            width: '100%',
+                            padding: '10px',
+                            border: '1px solid #ddd',
+                            borderRadius: '4px',
+                            fontSize: '14px'
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '15px' }}>
+                        <label htmlFor="mobile" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                          Mobile Number:
+                        </label>
+                        <input
+                          type="tel"
+                          id="mobile"
+                          value={mobile}
+                          onChange={(e) => setMobile(e.target.value)}
+                          placeholder="+91 9876543210"
+                          required
+                          style={{
+                            width: '100%',
+                            padding: '10px',
+                            border: '1px solid #ddd',
+                            borderRadius: '4px',
+                            fontSize: '14px'
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '15px' }}>
+                        <label htmlFor="courseInquiry" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                          Inquiry About:
+                        </label>
+                        <input
+                          type="text"
+                          id="courseInquiry"
+                          value={courseInquiry}
+                          onChange={(e) => setCourseInquiry(e.target.value)}
+                          placeholder={courseData.title}
+                          required
+                          style={{
+                            width: '100%',
+                            padding: '10px',
+                            border: '1px solid #ddd',
+                            borderRadius: '4px',
+                            fontSize: '14px'
+                          }}
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        style={{
+                          backgroundColor: 'orange',
+                          color: 'white',
+                          border: 'none',
+                          padding: '15px',
+                          borderRadius: '4px',
+                          cursor: 'pointer',
+                          fontWeight: 'bold',
+                          alignSelf: 'flex-start'
+                        }}
+                      >
+                        Submit Inquiry
+                      </button>
+                    </form>
                   </div>
-
-                  <div style={{ marginBottom: '15px' }}>
-                    <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                      Email Address:
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="your-email@example.com"
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '10px',
-                        border: '1px solid #ddd',
-                        borderRadius: '4px',
-                        fontSize: '14px'
-                      }}
-                    />
-                  </div>
-
-                  <div style={{ marginBottom: '15px' }}>
-                    <label htmlFor="mobile" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                      Mobile Number:
-                    </label>
-                    <input
-                      type="tel"
-                      id="mobile"
-                      value={mobile}
-                      onChange={(e) => setMobile(e.target.value)}
-                      placeholder="+91 9876543210"
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '10px',
-                        border: '1px solid #ddd',
-                        borderRadius: '4px',
-                        fontSize: '14px'
-                      }}
-                    />
-                  </div>
-
-                  <div style={{ marginBottom: '15px' }}>
-                    <label htmlFor="courseInquiry" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                      Inquiry About:
-                    </label>
-                    <input
-                      type="text"
-                      id="courseInquiry"
-                      value={courseInquiry}
-                      onChange={(e) => setCourseInquiry(e.target.value)}
-                      placeholder={courseData.title}
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '10px',
-                        border: '1px solid #ddd',
-                        borderRadius: '4px',
-                        fontSize: '14px'
-                      }}
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    style={{
-                      backgroundColor: 'orange',
-                      color: 'white',
-                      border: 'none',
-                      padding: '15px',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                      fontWeight: 'bold',
-                      alignSelf: 'flex-start'
-                    }}
-                  >
-                    Submit Inquiry
-                  </button>
-                </form>
+                )}
               </div>
-            )}
-          </div>    
             </div>
             {/* Corporate Training */}
             <div style={{
@@ -764,11 +841,11 @@ const CourseDescription = () => {
           </div>
         </div>
       </div>
-      {courseContent.map((courseMod, index)=>{
-              <div key={courseMod.moduleTitle}>
-                <h1>{courseMod.moduleTitle}</h1>
-              </div>
-            })}
+      {courseContent.map((courseMod, index) => {
+        <div key={courseMod.moduleTitle}>
+          <h1>{courseMod.moduleTitle}</h1>
+        </div>
+      })}
       <CertificateSection />
     </div>
   );
