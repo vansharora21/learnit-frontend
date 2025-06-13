@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { reverseGenerateSlug } from './CourseCards';
-import { param } from 'framer-motion/client';
 
-const CourseCard = ({ title, description ,data}) => {
+const CourseCard = ({ title, description }) => {
   return (
     <div className="card h-100 border shadow-sm transition-hover">
       <Link 
         to={`/CourseDesc/${title.replace(/\s+/g, '-').toLowerCase()}`} 
         className="text-decoration-none d-flex flex-column h-100"
-        state={data}
       >
         <div className=" p-4 text-center d-flex justify-content-center align-items-center" style={{ height: '140px' }}>
           <img 
@@ -34,16 +31,12 @@ const CourseCard = ({ title, description ,data}) => {
 const CourseCategories = () => {
   // const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sulgData, setSlugData]= useState([])
-  console.log("here is the slug data")
 
   const params = useParams();
-  console.log("params.courseSlug0-=-=-==-=-=-=:", params.courseSlug);
-
-    let name = params.courseSlug;
+  console.log("params.courseSlug:", params.courseSlug);
 
   const fetchCourses = async () => {
-    console.log("here is the anme of slug:", name)
+    if (!params.courseSlug) return;
 
     try {
 
@@ -79,12 +72,11 @@ const CourseCategories = () => {
           <p>Loading courses...</p>
         ) : (
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            {sulgData.map((course, index) => (
+            {courses.map((course, index) => (
               <div className="col" key={index}>
                 <CourseCard
                   title={course.courseName}
                   description={course.description}
-                  data={course}
                 />
               </div>
             ))}
