@@ -26,7 +26,7 @@ const SocialMediaIcon = ({ platform }) => {
                 width: '44px',
                 height: '44px',
                 borderRadius: '50%',
-                color: 'white',
+                color: 'white ',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -62,8 +62,8 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm" 
-             style={{ padding: '0.5rem 0', position: 'sticky', top: 0, zIndex: 1000 }}>
+        <nav className="navbar navbar-expand-lg navbar-light  shadow-sm" 
+             style={{ padding: '0.5rem 0', position: 'sticky', top: 0, zIndex: 1000,background:'#2C2E34' }}>
             <div className="container" style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
@@ -324,7 +324,7 @@ const SearchForm = () => (
 // Styles
 const navItemStyle = {
     position: 'relative',
-    color: '#6a778e',
+    color: 'white',
     textDecoration: 'none',
     padding: 'clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.5rem, 2vw, 1rem)',
     transition: 'color 250ms ease',
@@ -335,7 +335,7 @@ const navItemStyle = {
 const mobileNavItemStyle = {
     display: 'block',
     padding: '0.75rem 1rem',
-    color: '#6a778e',
+    color: 'white',
     textDecoration: 'none',
     borderRadius: '8px',
     transition: 'all 0.2s ease',

@@ -297,7 +297,7 @@ export default function CorporateTrainingTimeline() {
               variants={welcomeVariants}
             >
               <motion.div
-                className="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle border border-4 border-white shadow fw-bold"
+                className="d-inline-flex justify-content-center align-items-center text-white rounded-circle border border-4 border-white shadow fw-bold"
                 style={{
                   width: '120px',
                   height: '120px',
@@ -306,7 +306,8 @@ export default function CorporateTrainingTimeline() {
                   position: 'relative',
                   zIndex: 2,
                   backgroundColor: '#00c9ff',
-                  color: 'white'
+                  color: 'white',
+                  
                 }}
                 whileHover={{ 
                   scale: 1.1,
@@ -350,13 +351,14 @@ export default function CorporateTrainingTimeline() {
               >
                 {/* Animated Timeline Dot */}
                 <motion.div
-                  className="position-absolute bg-primary rounded-circle"
+                  className="position-absolute rounded-circle"
                   style={{
                     width: '12px',
                     height: '12px',
                     left: '24px',
                     top: '20px',
-                    zIndex: 2
+                    zIndex: 2,
+                    backgroundColor: '#00c9ff'
                   }}
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
@@ -398,8 +400,8 @@ export default function CorporateTrainingTimeline() {
                   variants={rightSlideVariants}
                 >
                   <motion.h6 
-                    className="fw-bold text-primary mb-1" 
-                    style={{ fontSize: '0.95rem' }}
+                    className="fw-bold mb-1" 
+                    style={{ fontSize: '0.95rem', color: '#00c9ff' }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -461,14 +463,15 @@ export default function CorporateTrainingTimeline() {
               {/* Welcome Button aligned with content */}
               <div style={{ marginLeft: '60px' }}>
                 <motion.div
-                  className="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle border border-4 border-white shadow fw-bold"
+                  className="d-inline-flex justify-content-center align-items-center rounded-circle border  text-white border-4 border-white shadow fw-bold"
                   style={{
                     width: 'clamp(80px, 20vw, 100px)',
                     height: 'clamp(80px, 20vw, 100px)',
                     fontSize: 'clamp(0.8rem, 2.5vw, 0.95rem)',
                     lineHeight: '1.2',
                     position: 'relative',
-                    zIndex: 2
+                    zIndex: 2,
+                    backgroundColor: '#00c9ff',
                   }}
                   whileHover={{ 
                     scale: 1.1,
@@ -490,6 +493,7 @@ export default function CorporateTrainingTimeline() {
         .timeline-wrapper {
           width: 100%;
           overflow: hidden;
+          padding:10px;
         }
 
         /* Mobile Specific Fixes */
@@ -583,7 +587,7 @@ export default function CorporateTrainingTimeline() {
         }
 
         .bg-primary.rounded-circle:hover {
-          box-shadow: 0 10px 30px rgba(13, 109, 253, 0.96);
+          box-shadow: 0 10px 30px rgba(0, 215, 255, 1);
         }
 
         /* Ensure proper spacing and alignment */
