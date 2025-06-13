@@ -157,7 +157,6 @@ export default function CorporateTrainingTimeline() {
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 1.5, ease: "easeInOut" }}
-              style={{ transformOrigin: "top" }}
             ></motion.div>
 
             {timelineData.map((item, idx) => (

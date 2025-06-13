@@ -32,7 +32,7 @@ function ImageSlider() {
     return () => clearInterval(interval);
   }, [length]);
 
-  const goToSlide = (idx) => setCurrent(idx);
+  
 
   return (
     <div className="position-relative w-100 overflow-hidden" style={{ minHeight: '70vh', height: '90vh', maxHeight: '800px' }}>
@@ -50,7 +50,7 @@ function ImageSlider() {
             src={img.src}
             alt={img.headline}
             className="w-100 h-100 object-fit-cover"
-            style={{ filter: 'brightness(0.7)' }}
+            style={{ filter: 'brightness(0.5)' }}
           />
           <div
             className="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center p-3 p-md-5"

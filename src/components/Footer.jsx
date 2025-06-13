@@ -11,9 +11,9 @@ const SocialMediaIcon = ({ platform }) => {
     linkedin: faLinkedin,
   };
   const links = {
-    instagram: 'https://instagram.com',
-    x: 'https://x.com',
-    linkedin: 'https://linkedin.com',
+    instagram: 'https://www.instagram.com/learnitfy/',
+    x: 'https://x.com/learnitfy',
+    linkedin: 'https://www.linkedin.com/company/learnitfy/',
   };
   
   return (
@@ -77,7 +77,7 @@ export default function Footer() {
 
             {/* About Us */}
             <div className="col-12 col-sm-6 col-lg-2 mb-4 mb-lg-0">
-              <div style={{ textAlign: 'center', textAlign: 'left' }}>
+              <div style={{ textAlign: 'center' }}>
                 <h5 style={{ 
                   color: '#ff891b', 
                   fontSize: '16px', 
@@ -101,7 +101,7 @@ export default function Footer() {
 
             {/* Contact Us */}  
             <div className="col-12 col-sm-6 col-lg-2 mb-4 mb-lg-0">
-              <div style={{ textAlign: 'center', textAlign: 'left' }}>
+              <div style={{ textAlign: 'center' }}>
                 <h5 style={{ 
                   color: '#ff891b', 
                   fontSize: '16px', 

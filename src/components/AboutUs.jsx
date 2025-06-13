@@ -56,7 +56,7 @@ function AboutUsPage() {
             lineHeight: '1.6'
           }}>At Learnitfy, our mission is to empower professionals and organizations by delivering high-end IT training that drives growth, performance, and digital transformation. In this technology-driven world, success will depend only on the ability to adapt, evolve, and stay ahead of the curve. We help businesses and individuals by equipping them with the skills and knowledge needed to develop in a constantly changing digital landscape.</p>
           <Link to="/" className="cta-button" style={{
-            display: 'inline-block',
+            
             background: '#FF6B00',
             color: '#fff',
             padding: isMobile ? '1rem 2rem' : '0.8rem 2rem',

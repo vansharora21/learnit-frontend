@@ -11,9 +11,9 @@ const SocialMediaIcon = ({ platform }) => {
         linkedin: faLinkedin,
     };
     const links = {
-        instagram: 'https://instagram.com',
-        x: 'https://x.com',
-        linkedin: 'https://linkedin.com',
+        instagram: 'https://www.instagram.com/learnitfy/',
+        x: 'https://x.com/learnitfy',
+        linkedin: 'https://www.linkedin.com/company/learnitfy/',
     };
     
     return (
