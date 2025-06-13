@@ -197,7 +197,10 @@ const Navbar = () => {
                             <Link 
                                 to="/" 
                                 className="mobile-nav-item"
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={() => {
+                                    console.log("Navigating to Home");
+                                    setIsMobileMenuOpen(false); // Close menu on link click
+                                }}
                                 style={mobileNavItemStyle}
                             >
                                 Home
@@ -205,7 +208,10 @@ const Navbar = () => {
                             <Link 
                                 to="/about" 
                                 className="mobile-nav-item"
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={() => {
+                                    console.log("Navigating to About Us");
+                                    setIsMobileMenuOpen(false); // Close menu on link click
+                                }}
                                 style={mobileNavItemStyle}
                             >
                                 About Us
@@ -213,7 +219,10 @@ const Navbar = () => {
                             <Link 
                                 to="/contact" 
                                 className="mobile-nav-item"
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={() => {
+                                    console.log("Navigating to Contact Us");
+                                    setIsMobileMenuOpen(false); // Close menu on link click
+                                }}
                                 style={mobileNavItemStyle}
                             >
                                 Contact Us
@@ -225,8 +234,8 @@ const Navbar = () => {
 
             <style jsx>{`
                 .mobile-nav-item:hover {
-                    background-color: #f8f9fa;
-                    color: #ff6b00;
+                    background-color:rgb(31, 32, 32);
+                    color:rgb(87, 87, 87);
                 }
                 
                 .nav-item {
@@ -324,7 +333,7 @@ const SearchForm = () => (
 // Styles
 const navItemStyle = {
     position: 'relative',
-    color: 'white',
+    color: 'black',
     textDecoration: 'none',
     padding: 'clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.5rem, 2vw, 1rem)',
     transition: 'color 250ms ease',
@@ -335,7 +344,7 @@ const navItemStyle = {
 const mobileNavItemStyle = {
     display: 'block',
     padding: '0.75rem 1rem',
-    color: 'white',
+    color: 'black',
     textDecoration: 'none',
     borderRadius: '8px',
     transition: 'all 0.2s ease',
