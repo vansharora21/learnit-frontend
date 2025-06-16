@@ -738,6 +738,7 @@ const CourseDescription = () => {
                   24x7 Support
                 </li>
               </ul>
+
               <button
                 style={{
                   width: '100%',
@@ -751,8 +752,8 @@ const CourseDescription = () => {
                   cursor: 'pointer',
                   marginTop: 'auto'
                 }}
+
               >
-                Contact Us
               </button>
             </div>
           </div>

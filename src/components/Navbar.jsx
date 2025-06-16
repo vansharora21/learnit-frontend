@@ -23,10 +23,10 @@ const SocialMediaIcon = ({ platform }) => {
             rel="noopener noreferrer"
             style={{
                 background: '#ff6b00',
-                width: '44px',
-                height: '44px',
+                width: '30px',
+                height: '30px',
                 borderRadius: '50%',
-                color: 'white ',
+                color: 'white',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -267,6 +267,10 @@ const Navbar = () => {
                 @media screen and (max-width: 576px) {
                     .social-icons {
                         gap: 0.3rem !important;
+                    }
+                    .social-icons a {
+                        width: 28px;
+                        height: 28px;
                     }
                 }
             `}</style>

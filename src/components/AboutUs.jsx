@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import logo from './Assets/Learnitfy_PNG.png';
+import logo from './Assets/Learnitfy_Logo (2).jpg';
 
 function AboutUsPage() {
   const [isMobile, setIsMobile] = useState(false);
