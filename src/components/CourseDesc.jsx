@@ -5,6 +5,8 @@ import CertificateSection from './Certificate';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
+
+
 // CourseDropdown (unchanged)
 const CourseDropdown = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +26,8 @@ const CourseDropdown = ({ title, children }) => {
     </div>
   );
 };
+
+
 
 // FAQItem (accordion)
 const FAQItem = ({ question, answer }) => {
@@ -48,28 +52,49 @@ const FAQItem = ({ question, answer }) => {
 
 // FAQsSection (accordion)
 const FAQsSectionIntegrated = () => {
-  const faqs = [
-    {
-      question: 'What is included in this combo product?',
-      answer: 'The product consists of a test series, which would be accessible for a fixed duration, as well as physical notes, which will be delivered to your door if the title and components of the purchased product include physical notes.',
-    },
-    {
-      question: 'Am I eligible for physical notes?',
-      answer: 'Please check the description of the combo to check the eligibility of physical notes.',
-    },
-    {
-      question: 'How long will it take to receive the physical notes?',
-      answer: 'This is applicable only if the purchased product contains physical notes. After sharing the address, the books will be dispatched within 72 hours, post that it will take 5 to 7 working days for the order to be delivered depending upon the delivery partner & service area.',
-    },
-    {
-      question: 'Can I track the delivery of the physical notes?',
-      answer: 'This is applicable only if the purchased product contains physical notes. Yes, you can track the status of the delivery in real-time on the Unacademy platform.',
-    },
-    {
-      question: 'Can I purchase the components separately?',
-      answer: 'No, the components cannot be purchased separately. In certain cases, the test series will be available separately as well.',
-    },
-  ];
+  const location = useLocation();
+  const courseId = location.state?.courseId; // optional chaining for safety
+  const [faqs, setFaqs] = useState([]);
+
+  const getFaqGet = async () => {
+    try {
+      const response = await axios.get(`https://api.learnitfy.com/api/faq/get?courseId=${courseId}`);
+      console.log("API response message:", response.data.message);
+      setFaqs(response.data.faqOfCourse?.[0]?.faq || []);
+    } catch (error) {
+      console.error("Error fetching FAQs:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (courseId) {
+      getFaqGet();
+    }
+  }, [courseId]);
+
+  // const faqs = [
+  //   {
+  //     question: 'What is included in this combo product?',
+  //     answer: 'The product consists of a test series, which would be accessible for a fixed duration, as well as physical notes, which will be delivered to your door if the title and components of the purchased product include physical notes.',
+  //   },
+  //   {
+  //     question: 'Am I eligible for physical notes?',
+  //     answer: 'Please check the description of the combo to check the eligibility of physical notes.',
+  //   },
+  //   {
+  //     question: 'How long will it take to receive the physical notes?',
+  //     answer: 'This is applicable only if the purchased product contains physical notes. After sharing the address, the books will be dispatched within 72 hours, post that it will take 5 to 7 working days for the order to be delivered depending upon the delivery partner & service area.',
+  //   },
+  //   {
+  //     question: 'Can I track the delivery of the physical notes?',
+  //     answer: 'This is applicable only if the purchased product contains physical notes. Yes, you can track the status of the delivery in real-time on the Unacademy platform.',
+  //   },
+  //   {
+  //     question: 'Can I purchase the components separately?',
+  //     answer: 'No, the components cannot be purchased separately. In certain cases, the test series will be available separately as well.',
+  //   },
+  // ];
+
   return (
     <div style={{ padding: '20px 0' }}>
       <h4 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '15px', color: '#222' }}>FAQs</h4>
