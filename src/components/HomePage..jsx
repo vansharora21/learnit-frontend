@@ -155,7 +155,7 @@ export default function HomePage() {
   return (
     <div className="d-flex flex-column min-vh-100 bg-light">
       {/* Hero Section with Image Slider */}
-      <div className="bg-dark text-white position-relative overflow-hidden" style={{ minHeight: '70vh', height: '90vh', maxHeight: '800px' }}>
+      <div className="bg-white text-white position-relative overflow-hidden" style={{ minHeight: '70vh', height: '90vh', maxHeight: '800px' }}>
         <ImageSlider />
         {/* Search Bar positioned on top of the ImageSlider */}
         <div className="search-bar-container position-absolute top-50 start-50 translate-middle-x" style={{ zIndex: 3, marginTop: '100px' }}>
@@ -188,18 +188,18 @@ export default function HomePage() {
           </div>
 
           {/* Training Cards Grid */}
-          <div className="row g-4">
+          <div className="row g-4" style={{ marginTop: '10px' }}>
             {/* Live Virtual Training Card */}
             <div className="col-12 col-md-6 col-lg-6">
               <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100"
                 style={{
-                  minHeight: '400px',
+                  minHeight: '350px',
+                  marginTop: '0',
                   background: 'linear-gradient(135deg, rgba(249, 169, 30, 0.9), rgba(255, 140, 0, 0.8)), url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  marginTop: '0'
+                  transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-8px)';
@@ -247,21 +247,7 @@ export default function HomePage() {
                   </div>
 
                   {/* CTA Button */}
-                  <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill"
-                    style={{
-                      border: 'none',
-                      fontSize: '0.9rem',
-                      transition: 'all 0.3s ease',
-                      boxShadow: '0 4px 15px rgba(255,255,255,0.3)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.05)';
-                      e.currentTarget.style.backgroundColor = '#f8f9fa';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                      e.currentTarget.style.backgroundColor = '#fff';
-                    }}>
+                  <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill">
                     Learn More →
                   </button>
                 </div>
@@ -278,7 +264,7 @@ export default function HomePage() {
             <div className="col-12 col-md-6 col-lg-6">
               <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100"
                 style={{
-                  minHeight: '400px',
+                  minHeight: '350px',
                   background: 'linear-gradient(135deg, rgba(0, 201, 255, 0.7), rgba(0, 201, 255, 0.9)), url("https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -302,7 +288,7 @@ export default function HomePage() {
                       textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                       letterSpacing: '1px'
                     }}>
-                    LIVE ONSITE CLASSROOM <br />TRAINING
+                    ONSITE CLASSROOM TRAINING
                   </h3>
 
 
@@ -331,21 +317,7 @@ export default function HomePage() {
                   </div>
 
                   {/* CTA Button */}
-                  <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill"
-                    style={{
-                      border: 'none',
-                      fontSize: '0.9rem',
-                      transition: 'all 0.3s ease',
-                      boxShadow: '0 4px 15px rgba(255,255,255,0.3)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.05)';
-                      e.currentTarget.style.backgroundColor = '#f8f9fa';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                      e.currentTarget.style.backgroundColor = '#fff';
-                    }}>
+                  <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill">
                     Learn More →
                   </button>
                 </div>
