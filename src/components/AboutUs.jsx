@@ -234,7 +234,7 @@ function AboutUsPage() {
       </section>
 
       {/* Our Journey Section */}
-      <section className="journey-section" style={{ margin: '3rem 0' }}>
+      {/* <section className="journey-section" style={{ margin: '3rem 0' }}>
         <h2 style={{
           fontFamily: "'Poppins', sans-serif",
           marginBottom: '2rem',
@@ -295,7 +295,7 @@ function AboutUsPage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Footer CTA */}
       <section className="footer-cta" style={{
