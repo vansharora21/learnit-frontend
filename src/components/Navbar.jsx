@@ -173,13 +173,14 @@ const Navbar = () => {
                         top: '100%',
                         left: 0,
                         right: 0,
-                        background: 'white',
+                        backgroundColor: 'rgb(44,46,52)',
                         boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                         transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
                         opacity: isMobileMenuOpen ? 1 : 0,
                         visibility: isMobileMenuOpen ? 'visible' : 'hidden',
                         transition: 'all 0.3s ease',
-                        zIndex: 999
+                        zIndex: 999,
+                        color: '#fff',
                     }}
                 >
                     <div style={{ padding: '1rem' }}>
