@@ -667,7 +667,7 @@ const CourseDescription = () => {
                         <input
                           type="text"
                           id="courseInquiry"
-                          value={courseInquiry}
+                          value={courseName}
                           onChange={(e) => setCourseInquiry(e.target.value)}
                           placeholder={courseData.title}
                           required
