@@ -1,8 +1,6 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AboutUs from './components/AboutUs.jsx';
 import ContactUs from './components/ContactUs.jsx';
@@ -14,6 +12,15 @@ import HomePage from './components/HomePage..jsx';
 import CourseCategories from './components/CourseCategories.jsx';
 
 function App() {
+  const location = useLocation();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToTop();
+  }, [location]); // Scroll to top on route change
 
   return (
     <div className="App">
@@ -27,7 +34,6 @@ function App() {
       </Routes>
       <Footer/>
     </div>
-
   );
 }
 

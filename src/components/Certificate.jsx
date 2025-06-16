@@ -3,64 +3,72 @@ import logo from './Assets/certificate.png';
 
 const tabContent = [
   {
-    label: "How to Get Certified?",
+    label: "How Does It Work?",
     content: (
       <ul>
-        <li>Enroll in a professional training course to gain required skills.</li>
-        <li>Format and requirements vary by course.</li>
+        <li>Select a course based on your goals and interests.</li>
+        <li>Join live or self-paced sessions led by expert instructors.</li>
+        <li>Engage in hands-on learning through projects and labs.</li>
+        <li>Get access to learning materials, community, and mentorship.</li>
+        <li>Earn a certificate of completion or achievement (if applicable).</li>
       </ul>
     ),
   },
   {
-    label: "What Does the Exam Include?",
+    label: "What Will You Do?",
     content: (
       <ul>
-        <li>Multiple-choice questions (MCQs)</li>
-        <li>Coding assessments or practical tasks</li>
-        <li>Case studies or final projects (in some cases)</li>
+        <li>Participate in interactive sessions and group activities</li>
+        <li>Complete assignments, exercises, or real-world projects</li>
+        <li>Apply concepts to hands-on labs or use case scenarios</li>
+        <li>Receive feedback and personalized guidance from instructors</li>
       </ul>
     ),
   },
   {
-    label: "Key Topics Covered",
+    label: "What You'll Learn",
     content: (
       <ul>
-        <li>Core concepts of the subject</li>
-        <li>Practical applications and tools</li>
-        <li>Real-world problem solving</li>
-        <li>Industry-relevant best practices</li>
+        <li>Foundational and advanced concepts in the subject area</li>
+        <li>Real-world tools, platforms, and technologies</li>
+        <li>Best practices, workflows, and industry standards</li>
+        <li>Problem-solving skills through practical applications</li>
         <li>
           <span style={{ color: "#888" }}>
-            (Specific topics depend on course: e.g., web development, cloud computing, cybersecurity)
+            (Topics vary by course – e.g., development, cloud, data, design)
           </span>
         </li>
       </ul>
     ),
   },
   {
-    label: "Who & Popular Certifications",
+    label: "Who Is It For?",
     content: (
       <>
         <div style={{ marginBottom: 8 }}>
-          <b>Who Should Take This?</b>
+          <b>Ideal Learners:</b>
           <ul>
-            <li>Students or graduates seeking skill validation</li>
-            <li>Working professionals aiming for upskilling</li>
-            <li>Anyone interested in structured, guided learning</li>
+            <li>Students or recent graduates starting their careers</li>
+            <li>Professionals aiming to upgrade or switch roles</li>
+            <li>Freelancers or entrepreneurs building practical skills</li>
+            <li>Anyone who prefers guided, structured learning</li>
           </ul>
         </div>
         <div>
-          <b>Popular Certifications (2025):</b>
+          <b>Popular Course Categories:</b>
           <ul>
-            <li>Entry-level, Associate, and Advanced options</li>
-            <li>Vendor-specific (Microsoft, Google, AWS) or vendor-neutral</li>
-            <li>Online and offline exam formats available</li>
+            <li>Cloud & DevOps</li>
+            <li>Software Development</li>
+            <li>Data & Business Analytics</li>
+            <li>Project & Product Management</li>
+            <li>Cybersecurity & IT Fundamentals</li>
           </ul>
         </div>
       </>
     ),
   },
 ];
+
 
 const CertificateSection = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -70,9 +78,9 @@ const CertificateSection = () => {
       {/* Left: Tabbed Info */}
       <div className="cert-card-with-tabs">
         <div className="cert-card-header">
-          <h2>Certification Exam Guide 2025</h2>
+          <h2>Certification Guide </h2>
           <p>
-            Enroll in a professional course and validate your expertise with industry-recognized certification exams.
+            Enroll in a professional course and validate your expertise with industry-recognized certifications.
           </p>
         </div>
         <div className="cert-tabs-grid">
