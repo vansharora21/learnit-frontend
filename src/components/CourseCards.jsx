@@ -14,8 +14,6 @@ export function reverseGenerateSlug(slug) {
     .join(' ');
 }
 
-
-
 export default function CategoryCards() {
   const [infra, setInfra] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,7 +31,6 @@ export default function CategoryCards() {
           console.log('Number of courses:', data.length); 
           const processedData = data.map(item => ({
             title: item.categoryName,
-            // icon: item.logo && item.logo.length > 0 ? item.logo[0] : null,
             icon: item.logo || null,
             slug: item.slug || generateSlug(item.categoryName),
             slug: item.slug || reverseGenerateSlug(item.categoryName),
@@ -45,8 +42,8 @@ export default function CategoryCards() {
           setInfra([]); 
         }
       } catch (error) {
-        console.error('Error fetching data:', error); // Log the error
-        setInfra([]); // Set to an empty array on error
+        console.error('Error fetching data:', error);
+        setInfra([]);
       } finally {
         setLoading(false);
       }
@@ -55,9 +52,7 @@ export default function CategoryCards() {
     getCategoryData();
   }, []);
 
-
   return (
-
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', background: "#f5f5f5" }}>
       <p style={{
         fontWeight: 400,
@@ -73,7 +68,7 @@ export default function CategoryCards() {
       </p>
 
       <motion.div
-        className="infra-grid-container"
+        className="Course-img"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -81,7 +76,7 @@ export default function CategoryCards() {
       >
         {loading ? (
           Array.from({ length: 8 }).map((_, i) => (
-            <div className="infra-card skeleton" key={i} />
+            <div className="country skeleton" key={i} />
           ))
         ) : infra.length === 0 ? (
           <div style={{ textAlign: 'center', width: '100%', padding: '2rem 1rem', color: '#555' }}>
@@ -95,19 +90,16 @@ export default function CategoryCards() {
               className="infra-link"
             >
               <div
-                className={`infra-card${item.highlight ? ' highlight' : ''}`}
+                className="country"
                 tabIndex={0}
                 role="button"
                 aria-label={item.categoryName}
               >
-                <div className="infra-icon">
-                  <img src={item.icon} alt={`${item.categoryName} icon`} />
-                  {item.badge && (
-                    <span className="infra-badge">{item.categoryName}</span>
-                  )}
-                </div>
-                <div>{item.title}</div>
-                
+                <img src={item.icon} alt={`${item.title} icon`} />
+                <div className="country-text">{item.title}</div>
+                {item.badge && (
+                  <span className="infra-badge">{item.badge}</span>
+                )}
               </div>
             </Link>
           ))
@@ -115,58 +107,77 @@ export default function CategoryCards() {
       </motion.div>
 
       <style jsx>{`
-        .infra-grid-container {
+        .Course-img {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 24px;
           background: #f5f5f5;
         }
+        
         .infra-link {
           text-decoration: none;
           outline: none;
         }
-        .infra-card {
-          background: #fff;
-          border-radius: 12px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 28px 16px 20px;
+        
+        .country {
           position: relative;
-          transition: all 0.25s ease;
-          outline: none;
-          border: 1px solid #e1e4e8;
+          border-radius: 12px;
+          overflow: hidden;
+          height: 220px;
           cursor: pointer;
-          min-height: 180px;
+          transition: all 0.25s ease;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+          border: 1px solid #e1e4e8;
         }
-        .infra-card:focus,
-        .infra-card:hover {
-          box-shadow: 0 6px 18px rgba(44, 62, 80, 0.15);
-          border-color: #ff6b00;
-          background: #fff7ef;
+        
+        .country:focus,
+        .country:hover {
+          box-shadow: 0 20px 18px rgba(44, 62, 80, 0.15);
+          border: 3px solid #FBB03B;
           transform: translateY(-4px);
         }
-        .infra-icon {
-          width: 64px;
-          height: 64px;
-          border-radius: 50%;
-          background: #f6f8fa;
+        
+        .country img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.25s ease;
+        }
+        
+        .country:hover img {
+          transform: scale(1.05);
+        }
+        
+        .country-text {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          top: 0;
+          background: linear-gradient(transparent, rgba(0,0,0,0.7));
+          color: white;
+          padding: 20px;
+          font-size: 1.1rem;
+          font-weight: 600;
+          text-align: center;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
           display: flex;
-          align-items: center;
+          align-items: flex-end;
           justify-content: center;
-          margin-bottom: 16px;
-          position: relative;
+          transition: all 0.3s ease;
         }
-        .infra-icon img {
-          width: 40px;
-          height: 40px;
-          object-fit: contain;
+        
+        .country:hover .country-text {
+          background: rgba(0,0,0,0.6);
+          align-items: center;
+          font-size: 1.2rem;
         }
+        
         .infra-badge {
           position: absolute;
-          top: -10px;
-          right: -16px;
+          top: 10px;
+          right: 10px;
           background: #2563eb;
           color: #fff;
           font-size: 12px;
@@ -174,67 +185,133 @@ export default function CategoryCards() {
           border-radius: 16px;
           font-weight: 600;
           letter-spacing: 0.02em;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          z-index: 2;
         }
-        .infra-title {
-          font-size: 1.1rem;
-          color: #222;
-          font-weight: 600;
-          text-align: center;
-          line-height: 1.4;
-          min-height: 44px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0 8px;
-        }
+        
         .skeleton {
           background: linear-gradient(90deg, #f5f5f5 25%, #e0e0e0 37%, #f5f5f5 63%);
           background-size: 400% 100%;
           animation: skeleton-loading 1.4s ease infinite;
-          min-height: 180px;
+          height: 220px;
           border: 1px solid #e1e4e8;
           border-radius: 12px;
         }
+        
         @keyframes skeleton-loading {
           0% { background-position: 100% 50%; }
           100% { background-position: 0 50%; }
         }
-        @media (max-width: 1000px) {
-          .infra-grid-container {
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        
+        /* Large Desktop */
+        @media (max-width: 1200px) {
+          .Course-img {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
           }
         }
-        @media (max-width: 700px) {
-          .infra-grid-container {
+        
+        /* Desktop */
+        @media (max-width: 1024px) {
+          .Course-img {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+          }
+          .country {
+            height: 200px;
+          }
+          .skeleton {
+            height: 200px;
+          }
+        }
+        
+        /* Tablet */
+        @media (max-width: 768px) {
+          .Course-img {
             grid-template-columns: repeat(2, 1fr);
             gap: 16px;
           }
-          .infra-card {
-            padding: 24px 12px 16px;
-            min-height: 160px;
+          .country {
+            height: 180px;
           }
-          .infra-icon {
-            width: 52px;
-            height: 52px;
-            margin-bottom: 12px;
-          }
-          .infra-icon img {
-            width: 32px;
-            height: 32px;
-          }
-          .infra-title {
+          .country-text {
             font-size: 1rem;
-            min-height: 36px;
+            padding: 15px;
+          }
+          .country:hover .country-text {
+            font-size: 1.1rem;
+          }
+          .skeleton {
+            height: 180px;
           }
         }
+        
+        /* Mobile Large */
+        @media (max-width: 640px) {
+          .Course-img {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+          }
+          .country {
+            height: 160px;
+          }
+          .country-text {
+            font-size: 0.9rem;
+            padding: 12px;
+          }
+          .country:hover .country-text {
+            font-size: 1rem;
+          }
+          .skeleton {
+            height: 160px;
+          }
+        }
+        
+        /* Mobile */
         @media (max-width: 480px) {
-          .infra-grid-container {
+          .Course-img {
             grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .country {
+            height: 200px;
+          }
+          .country-text {
+            font-size: 1rem;
+            padding: 16px;
+          }
+          .country:hover .country-text {
+            font-size: 1.1rem;
+          }
+          .skeleton {
+            height: 200px;
+          }
+        }
+        
+        /* Small Mobile */
+        @media (max-width: 360px) {
+          .Course-img {
+            gap: 12px;
+          }
+          .country {
+            height: 180px;
+          }
+          .country-text {
+            font-size: 0.9rem;
+            padding: 14px;
+          }
+          .country:hover .country-text {
+            font-size: 1rem;
+          }
+          .skeleton {
+            height: 180px;
+          }
+          .infra-badge {
+            font-size: 10px;
+            padding: 3px 8px;
           }
         }
       `}</style>
     </div>
   );
 }
-
