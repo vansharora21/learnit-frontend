@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import CourseCards from './CourseCards';
 import Timeline from './Tmeline';
 import SearchBar from './SearchBar';
-import img1 from './Assets/ImageSlider/img1.jpg';
-import img2 from './Assets/ImageSlider/img2.jpg';
-import img3 from './Assets/ImageSlider/img3.jpg';
-import img4 from './Assets/ImageSlider/img4.jpg';
-import img5 from './Assets/ImageSlider/img5.jpg';
-import img6 from './Assets/ImageSlider/img6.jpg';
+import img1 from './Assets/ImageSlider/img1 (1).jpg';
+import img2 from './Assets/ImageSlider/img2 (1).jpg';
+import img3 from './Assets/ImageSlider/img3 (1).jpg';
+import img4 from './Assets/ImageSlider/img4 (1).jpg';
+import img5 from './Assets/ImageSlider/img5 (1).jpg';
+import img6 from './Assets/ImageSlider/img6 (1).jpg';
 
 const sliderImages = [
   {
