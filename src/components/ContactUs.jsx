@@ -122,7 +122,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 required
                 style={inputStyle}
-                placeholder="John"
+                placeholder="First Name "
               />
             </div>
             {/* Last Name */}

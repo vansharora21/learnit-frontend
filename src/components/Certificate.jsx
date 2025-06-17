@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from './Assets/certificate.png';
+import logo from './Assets/certificate.jpeg';
 
 const tabContent = [
   {

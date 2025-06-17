@@ -12,12 +12,12 @@ import img6 from './Assets/ImageSlider/img6 (1).jpg';
 const sliderImages = [
   {
     src: img1,
-    headline: "Unlock Your Potential", 
+    headline: "Unlock Your Potential",
     subtext: "Expert-led courses for every learner.",
   },
   {
     src: img2,
-    headline: "Learn In-Demand Skills", 
+    headline: "Learn In-Demand Skills",
     subtext: "Stay ahead with industry-relevant programs.",
   },
   {
@@ -236,8 +236,9 @@ export default function HomePage() {
 
                 {/* Card Content */}
                 <div className="position-absolute bottom-0 start-0 w-100 p-3 text-white">
-                  <h3 className="fw-bold fs-2 mb-2 text-white"
+                  <h3 className="fw-bold fs-3 mb-2 text-white"
                     style={{
+                      fontSize: '1.2 rem',
                       fontFamily: 'Ubuntu, sans-serif',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                       letterSpacing: '1px'
@@ -248,32 +249,27 @@ export default function HomePage() {
 
                   {/* Features List */}
                   <div className="training-features">
-                    <div className="feature-item d-flex align-items-center mb-2"
-                      style={{ fontSize: '0.95rem' }}>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Join collaborative group sessions from anywhere
+                      Exclusive Training Session
                     </div>
-                    <div className="feature-item d-flex align-items-center mb-2"
-                      style={{ fontSize: '0.95rem' }}>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Fixed schedules with peer interaction
+                      Live Interactive Instructor-led Training
                     </div>
-                    <div className="feature-item d-flex align-items-center mb-2"
-                      style={{ fontSize: '0.95rem' }}>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Instructor-led with real-world lab simulations
+                      Flexible Schedule with Peer Interaction
                     </div>
-                    <div className="feature-item d-flex align-items-center mb-3"
-                      style={{ fontSize: '0.95rem' }}>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Certification support and team-based project work
+                      Certification Support and Team-based Project Work
+                    </div>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Join Collaborative Group Sessions From Anywhere
                     </div>
                   </div>
-
-                  {/* CTA Button */}
-                  <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill">
-                    Learn More →
-                  </button>
                 </div>
 
                 {/* Overlay Gradient */}
@@ -306,8 +302,9 @@ export default function HomePage() {
 
                 {/* Card Content */}
                 <div className="position-absolute bottom-0 start-0 w-100 p-4 text-white">
-                  <h3 className="fw-bold fs-2 mb-2 text-white"
+                  <h3 className="fw-bold fs-3 mb-2 text-white"
                     style={{
+                      fontSize: '1.2rem',
                       fontFamily: 'Ubuntu, sans-serif',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                       letterSpacing: '1px'
@@ -318,32 +315,27 @@ export default function HomePage() {
 
                   {/* Features List */}
                   <div className="training-features">
-                    <div className="feature-item d-flex align-items-center mb-2"
-                      style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      One-on-one sessions tailored to your goals
+                      Structured & Tailored Learning Experience
                     </div>
-                    <div className="feature-item d-flex align-items-center mb-2"
-                      style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Fully flexible timing and pacing
+                      Enhanced Interaction and Collaboration
                     </div>
-                    <div className="feature-item d-flex align-items-center mb-2"
-                      style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Customized curriculum with hands-on mentoring
+                      Hands-On Practical Learning
                     </div>
-                    <div className="feature-item d-flex align-items-center mb-3"
-                      style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Work on advanced, portfolio-ready projects
+                      Immediate Feedback and Clarification
                     </div>
-                  </div>
-
-                  {/* CTA Button */}
-                  <button className="btn btn-light fw-semibold px-4 py-2 rounded-pill">
-                    Learn More →
-                  </button>
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Peer-to-peer Learning
+                    </div>
+                  </div>  
                 </div>
 
                 {/* Overlay Gradient */}

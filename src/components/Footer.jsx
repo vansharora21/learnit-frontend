@@ -117,8 +117,8 @@ export default function Footer() {
                     Have questions? Reach out to our support team.
                   </p>
                   <p style={{ marginBottom: '8px' }}>
-                    Email: <a href="mailto:support@edtechsolutions.com" style={{ color: '#ff6b00', textDecoration: 'none' }}>
-                      support@edtechsolutions.com
+                    Email: <a href="mailto:info@learnitfy.com" style={{ color: '#ff6b00', textDecoration: 'none' }}>
+                    info@learnitfy.com
                     </a>
                   </p>
                   <p style={{ marginBottom: '0' }}>
