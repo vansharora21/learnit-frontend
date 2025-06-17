@@ -138,7 +138,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 required
                 style={inputStyle}
-                placeholder="Doe"
+                placeholder="Last Name "
               />
             </div>
             {/* Email */}
@@ -154,7 +154,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 required
                 style={inputStyle}
-                placeholder="john.doe@example.com"
+                placeholder="your.email@example.com"
               />
             </div>
             {/* Mobile */}
@@ -170,7 +170,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 required
                 style={inputStyle}
-                placeholder="+91 9876543210"
+                placeholder="Your MobileNumber"
               />
             </div>
             {/* Message */}
@@ -224,7 +224,7 @@ const ContactUs = () => {
               maxWidth: '600px',
               flex: '1 1 0',
               minWidth: '300px',
-              height: '680px',
+              height: '400px',
               minHeight: '400px'
             }}
           >

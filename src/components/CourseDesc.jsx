@@ -1,11 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { FiClock, FiDownload, FiMonitor, FiFileText, FiAward, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import CertificateSection from './Certificate';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-
-
 
 // CourseDropdown (unchanged)
 const CourseDropdown = ({ title, children }) => {
@@ -26,8 +24,6 @@ const CourseDropdown = ({ title, children }) => {
     </div>
   );
 };
-
-
 
 // FAQItem (accordion)
 const FAQItem = ({ question, answer }) => {
@@ -53,7 +49,7 @@ const FAQItem = ({ question, answer }) => {
 // FAQsSection (accordion)
 const FAQsSectionIntegrated = () => {
   const location = useLocation();
-  const courseId = location.state?.courseId; // optional chaining for safety
+  const courseId = location.state?.courseId;
   const [faqs, setFaqs] = useState([]);
 
   const getFaqGet = async () => {
@@ -71,29 +67,6 @@ const FAQsSectionIntegrated = () => {
       getFaqGet();
     }
   }, [courseId]);
-
-  // const faqs = [
-  //   {
-  //     question: 'What is included in this combo product?',
-  //     answer: 'The product consists of a test series, which would be accessible for a fixed duration, as well as physical notes, which will be delivered to your door if the title and components of the purchased product include physical notes.',
-  //   },
-  //   {
-  //     question: 'Am I eligible for physical notes?',
-  //     answer: 'Please check the description of the combo to check the eligibility of physical notes.',
-  //   },
-  //   {
-  //     question: 'How long will it take to receive the physical notes?',
-  //     answer: 'This is applicable only if the purchased product contains physical notes. After sharing the address, the books will be dispatched within 72 hours, post that it will take 5 to 7 working days for the order to be delivered depending upon the delivery partner & service area.',
-  //   },
-  //   {
-  //     question: 'Can I track the delivery of the physical notes?',
-  //     answer: 'This is applicable only if the purchased product contains physical notes. Yes, you can track the status of the delivery in real-time on the Unacademy platform.',
-  //   },
-  //   {
-  //     question: 'Can I purchase the components separately?',
-  //     answer: 'No, the components cannot be purchased separately. In certain cases, the test series will be available separately as well.',
-  //   },
-  // ];
 
   return (
     <div style={{ padding: '20px 0' }}>
@@ -171,9 +144,6 @@ const TabbedSection = () => {
 };
 
 const CourseDescription = () => {
-
-
-
   // For sidebar forms
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isBrochureFormOpen, setIsBrochureFormOpen] = useState(false);
@@ -195,11 +165,12 @@ const CourseDescription = () => {
   const [courseDataList, setCourseDataList] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
 
-
   console.log("kjdbsbdljsbfjjdssdbnsbnsnbs", courseDataList)
   const { title } = useParams();
   const location = useLocation();
   console.log("-=-=-=-==--==--=courseDataList-=-=-=-=-=-=", location.state);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.state) {
@@ -213,9 +184,6 @@ const CourseDescription = () => {
   const SelecyedCourseId = location.state.courseId;
   const courseSelectImage = location.state.image;
   const courseModel = location.state.courseContent;
-
-
-  // const 
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -259,14 +227,6 @@ const CourseDescription = () => {
     }
   };
 
-
-  //have to uploade PDF
-  //have to uploade PDF
-  //have to uploade PDF
-  //have to uploade PDF
-  //have to uploade PDF
-  //have to uploade PDF
-  //have to uploade PDF
   const handleBrochureRequest = async (event) => {
     event.preventDefault();
     try {
@@ -321,7 +281,6 @@ const CourseDescription = () => {
         { icon: "certificate", text: "Certificate of completion" }
       ]
     },
-    // ... (add other courses as needed)
   };
 
   const defaultCourse = {
@@ -389,10 +348,8 @@ const CourseDescription = () => {
         inquiry: enrollInquiry,
       });
 
-      // Handle the response as needed
       alert(`Enrollment successful! Response: ${response.data.message}`);
 
-      // Reset form fields
       setEnrollName('');
       setEnrollMobile('');
       setEnrollEmail('');
@@ -402,6 +359,7 @@ const CourseDescription = () => {
       alert('There was an error enrolling. Please try again later.');
     }
   };
+
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -437,18 +395,11 @@ const CourseDescription = () => {
             >
               View Syllabus
             </button>
-            {courseDataList.map((modulee, index) => {
-              // {console.log(modulee.moduleTitle)}
-              <div key={index}>
-                <h1>hi {modulee.moduleTitle}</h1>
-              </div>
-            })}
           </div>
         </div>
         <div style={{ flex: '0 1 350px' }}>
           <img
             src={courseSelectImage}
-            // src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWR1Y2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
             alt="Course Preview"
             style={{ width: '100%', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)', height: '200px', objectFit: 'cover' }}
           />
@@ -462,26 +413,6 @@ const CourseDescription = () => {
           <TabbedSection />
           <div ref={courseContentRef}>
             <h2 style={{ marginBottom: '20px', fontSize: '22px', color: '#333' }}>Course Content</h2>
-            {/* {courseModel.map((module, index) => return (
-              // <CourseDropdown key={index} title={module}>
-              //   <p style={{ color: '#666', fontSize: '14px' }}>
-              //     {courseData.moduleContents && courseData.moduleContents[index] ?
-              //       courseData.moduleContents[index] :
-              //       `Content for ${module} goes here. This includes detailed lessons, practical exercises, quizzes, and downloadable resources to help you master this topic.`
-              //     }
-              //   </p>
-              // </CourseDropdown>
-            // ))} */}
-
-
-            {/* {courseModel.map((model, index)=>{
-              return(
-                <div key={index}>
-                  <h4>course Conntent: {model.moduleTitle}</h4>
-                  <p>Course Description :{model.description}</p>
-                </div>
-              )
-            })} */}
 
             {courseModel.map((model, index) => (
               <div
@@ -528,244 +459,367 @@ const CourseDescription = () => {
                 )}
               </div>
             ))}
-
-            {/* {courseModel.map((model, index) => (
-              <div key={index}>
-                <h4
-                  onClick={() => toggleDropdown(index)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  Course Content: {model.moduleTitle}
-                </h4>
-                {openIndex === index && (
-                  <p style={{ color: '#666', fontSize: '14px', color: "orange" }}>
-                    Course Description: {model.description}
-                  </p>
-                )}
-              </div>
-            ))} */}
           </div>
-          {/* Pricing & Training Options Section - Under Modules */}
+
+          {/* Updated Training Cards Section */}
           <div style={{
             display: 'flex',
-            gap: '24px',
+            gap: '16px',
             margin: '40px 0',
             flexWrap: 'wrap',
             justifyContent: 'flex-start',
             alignItems: 'stretch'
           }}>
-            {/* Online Classroom Program */}
+            {/* Live Virtual Training Card */}
             <div style={{
               flex: '1 1 320px',
               minWidth: '320px',
-              border: '1px solid #e0e0e0',
-              borderRadius: '10px',
-              background: '#fff',
-              padding: '28px 26px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+              background: 'linear-gradient(135deg, #FFA726 0%, #FF8F00 100%)',
+              borderRadius: '16px',
+              padding: '32px 28px',
+              color: 'white',
+              position: 'relative',
+              overflow: 'hidden',
+              minHeight: '320px',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'flex-start'
+              justifyContent: 'space-between'
             }}>
-              <div style={{ fontWeight: 700, fontSize: '20px', marginBottom: '14px', letterSpacing: '0.5px', color: '#222' }}>
-                ONLINE CLASS ROOM PROGRAM
-              </div>
-              <ul style={{ listStyle: 'none', paddingBottom: '10px', margin: 0, fontSize: '15px', color: '#444', marginBottom: '12px' }}>
-                <li style={{ marginBottom: '8px' }}>✓ Duration : 40 Hrs</li> {/* APPLY THE API CALL FOR NOW ITS STATIC */}
-                <li style={{ marginBottom: '8px' }}>✓ Plus Self Paced</li>
-                <li></li>
-              </ul>
-              {/* Enroll Now Button with dropdown */}
-              <div ref={formRef}>
-                <button
-                  onClick={() => setIsFormOpen(!isFormOpen)}
-                  style={{
-                    width: '100%',
-                    padding: '10px',
-                    backgroundColor: '#26A9E0',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}
-                >
-                  <span>Enroll Now</span>
-                  {isFormOpen ? <FiChevronUp /> : <FiChevronDown />}
-                </button>
+              {/* Background Pattern */}
+              <div style={{
+                position: 'absolute',
+                top: '-50px',
+                right: '-50px',
+                width: '200px',
+                height: '200px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '50%',
+                zIndex: 1
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                bottom: '-30px',
+                left: '-30px',
+                width: '150px',
+                height: '150px',
+                background: 'rgba(255, 255, 255, 0.08)',
+                borderRadius: '50%',
+                zIndex: 1
+              }}></div>
 
-                {isFormOpen && (
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <h3 style={{
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  marginBottom: '24px',
+                  letterSpacing: '0.5px',
+                  lineHeight: '1.2'
+                }}>
+                  Structured Online Learning Program
+                </h3>
+
+                <div style={{ marginBottom: '24px' }}>
                   <div style={{
-                    marginTop: '10px',
-                    padding: '15px',
-                    backgroundColor: 'white',
-                    border: '1px solid #e0e0e0',
-                    borderRadius: '4px',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
                   }}>
-                    <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-                      <div style={{ marginBottom: '15px' }}>
-                        <label htmlFor="fullName" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                          Full Name:
-                        </label>
-                        <input
-                          type="text"
-                          id="fullName"
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
-                          placeholder="John Doe"
-                          required
-                          style={{
-                            width: '100%',
-                            padding: '10px',
-                            border: '1px solid #ddd',
-                            borderRadius: '4px',
-                            fontSize: '14px'
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: '15px' }}>
-                        <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                          Email Address:
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="your-email@example.com"
-                          required
-                          style={{
-                            width: '100%',
-                            padding: '10px',
-                            border: '1px solid #ddd',
-                            borderRadius: '4px',
-                            fontSize: '14px'
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: '15px' }}>
-                        <label htmlFor="mobile" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                          Mobile Number:
-                        </label>
-                        <input
-                          type="tel"
-                          id="mobile"
-                          value={mobile}
-                          onChange={(e) => setMobile(e.target.value)}
-                          placeholder="+91 9876543210"
-                          required
-                          style={{
-                            width: '100%',
-                            padding: '10px',
-                            border: '1px solid #ddd',
-                            borderRadius: '4px',
-                            fontSize: '14px'
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: '15px' }}>
-                        <label htmlFor="courseInquiry" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                          Inquiry About:
-                        </label>
-                        <input
-                          type="text"
-                          id="courseInquiry"
-                          value={courseName}
-                          onChange={(e) => setCourseInquiry(e.target.value)}
-                          placeholder={courseData.title}
-                          required
-                          style={{
-                            width: '100%',
-                            padding: '10px',
-                            border: '1px solid #ddd',
-                            borderRadius: '4px',
-                            fontSize: '14px'
-                          }}
-                        />
-                      </div>
-
-                      <button
-                        type="submit"
-                        style={{
-                          backgroundColor: 'orange',
-                          color: 'white',
-                          border: 'none',
-                          padding: '15px',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                          fontWeight: 'bold',
-                          alignSelf: 'flex-start'
-                        }}
-                      >
-                        Submit Inquiry
-                      </button>
-                    </form>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Certification Upon Completion
                   </div>
-                )}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
+                  }}>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Customized Training Delivery Model
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
+                  }}>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Flexible Schedule with Peer Interaction
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
+                  }}>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Dedicated Learning Pathways
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
+                  }}>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Join Collaborative Group Sessions From Anywhere
+                  </div>
+                </div>
+
+                <div ref={formRef}>
+                  <button
+                    onClick={() => setIsFormOpen(!isFormOpen)}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      backgroundColor: 'white',
+                      color: '#FF8F00',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    }}
+                  >
+                    <span>Enroll Now</span>
+                    {isFormOpen ? <FiChevronUp /> : <FiChevronDown />}
+                  </button>
+
+                  {isFormOpen && (
+                    <div style={{
+                      marginTop: '10px',
+                      padding: '15px',
+                      backgroundColor: 'white',
+                      border: '1px solid #e0e0e0',
+                      borderRadius: '4px',
+                      boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+                    }}>
+                      <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ marginBottom: '15px' }}>
+                          <label htmlFor="fullName" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                            Full Name:
+                          </label>
+                          <input
+                            type="text"
+                            id="fullName"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                            placeholder="John Doe"
+                            required
+                            style={{
+                              width: '100%',
+                              padding: '10px',
+                              border: '1px solid #ddd',
+                              borderRadius: '4px',
+                              fontSize: '14px'
+                            }}
+                          />
+                        </div>
+
+                        <div style={{ marginBottom: '15px' }}>
+                          <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                            Email Address:
+                          </label>
+                          <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="your-email@example.com"
+                            required
+                            style={{
+                              width: '100%',
+                              padding: '10px',
+                              border: '1px solid #ddd',
+                              borderRadius: '4px',
+                              fontSize: '14px'
+                            }}
+                          />
+                        </div>
+
+                        <div style={{ marginBottom: '15px' }}>
+                          <label htmlFor="mobile" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                            Mobile Number:
+                          </label>
+                          <input
+                            type="tel"
+                            id="mobile"
+                            value={mobile}
+                            onChange={(e) => setMobile(e.target.value)}
+                            placeholder="+91 9876543210"
+                            required
+                            style={{
+                              width: '100%',
+                              padding: '10px',
+                              border: '1px solid #ddd',
+                              borderRadius: '4px',
+                              fontSize: '14px'
+                            }}
+                          />
+                        </div>
+
+                        <div style={{ marginBottom: '15px' }}>
+                          <label htmlFor="courseInquiry" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                            Inquiry About:
+                          </label>
+                          <input
+                            type="text"
+                            id="courseInquiry"
+                            value={courseName}
+                            onChange={(e) => setCourseInquiry(e.target.value)}
+                            placeholder={courseData.title}
+                            required
+                            style={{
+                              width: '100%',
+                              padding: '10px',
+                              border: '1px solid #ddd',
+                              borderRadius: '4px',
+                              fontSize: '14px'
+                            }}
+                          />
+                        </div>
+
+                        <button
+                          type="submit"
+                          style={{
+                            backgroundColor: 'orange',
+                            color: 'white',
+                            border: 'none',
+                            padding: '15px',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            alignSelf: 'flex-start'
+                          }}
+                        >
+                          Submit Inquiry
+                        </button>
+                      </form>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-            {/* Corporate Training */}
+
+            {/* Onsite Classroom Training Card */}
             <div style={{
               flex: '1 1 320px',
               minWidth: '320px',
-              border: '1px solid #e0e0e0',
-              borderRadius: '10px',
-              background: '#fff',
-              padding: '28px 26px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+              background: 'linear-gradient(135deg, #29B6F6 0%, #1976D2 100%)',
+              borderRadius: '16px',
+              padding: '32px 28px',
+              color: 'white',
+              position: 'relative',
+              overflow: 'hidden',
+              minHeight: '320px',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'flex-start'
+              justifyContent: 'space-between'
             }}>
-              <div style={{ fontWeight: 700, fontSize: '20px', marginBottom: '18px', letterSpacing: '0.5px', color: '#222' }}>
-                CORPORATE TRAINING
-              </div>
-              <div style={{ textAlign: 'center', marginBottom: '18px', width: '100%' }}>
-                <span style={{ fontSize: '38px', color: '#2563eb' }}>👥</span>
-              </div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '16px', color: '#222', marginBottom: '22px' }}>
-                <li style={{ marginBottom: '12px' }}>
-                  <span style={{ color: '#23b26d', marginRight: '7px', fontSize: '18px', verticalAlign: 'middle' }}>✔️</span>
-                  Customized Training Delivery Model
-                </li>
-                <li style={{ marginBottom: '12px' }}>
-                  <span style={{ color: '#23b26d', marginRight: '7px', fontSize: '18px', verticalAlign: 'middle' }}>✔️</span>
-                  Flexible Training Schedule Options
-                </li>
-                <li style={{ marginBottom: '12px' }}>
-                  <span style={{ color: '#23b26d', marginRight: '7px', fontSize: '18px', verticalAlign: 'middle' }}>✔️</span>
-                  Industry Experienced Trainers
-                </li>
-                <li style={{ marginBottom: '12px' }}>
-                  <span style={{ color: '#23b26d', marginRight: '7px', fontSize: '18px', verticalAlign: 'middle' }}>✔️</span>
-                  24x7 Support
-                </li>
-              </ul>
+              {/* Background Pattern */}
+              <div style={{
+                position: 'absolute',
+                top: '-50px',
+                right: '-50px',
+                width: '200px',
+                height: '200px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '50%',
+                zIndex: 1
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                bottom: '-30px',
+                left: '-30px',
+                width: '150px',
+                height: '150px',
+                background: 'rgba(255, 255, 255, 0.08)',
+                borderRadius: '50%',
+                zIndex: 1
+              }}></div>
 
-              <button
-                style={{
-                  width: '100%',
-                  padding: '14px 0',
-                  backgroundColor: '#2563eb',
-                  color: '#fff',
-                  fontWeight: 700,
-                  fontSize: '18px',
-                  border: 'none',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  marginTop: 'auto'
-                }}
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <h3 style={{
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  marginBottom: '24px',
+                  letterSpacing: '0.5px',
+                  lineHeight: '1.2'
+                }}>
+                  Team-Based Corporate Upskilling
+                </h3>
 
-              >
-              </button>
+                <div style={{ marginBottom: '24px' }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
+                  }}>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Structured & Tailored Learning Experience
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
+                  }}>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Enhanced Interaction and Collaboration
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
+                  }}>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Hands-On Practical Learning
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
+                  }}>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Immediate Feedback and Clarification
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    fontSize: '16px'
+                  }}>
+                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                    Peer-to-peer Learning
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => navigate('/contact')}
+                  style={{
+                    width: '100%',
+                    padding: '14px 0',
+                    backgroundColor: 'white',
+                    color: '#1976D2',
+                    fontWeight: '600',
+                    fontSize: '16px',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    marginTop: 'auto',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  }}
+                >
+                  Contact Us
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -853,11 +907,6 @@ const CourseDescription = () => {
           </div>
         </div>
       </div>
-      {courseContent.map((courseMod, index) => {
-        <div key={courseMod.moduleTitle}>
-          <h1>{courseMod.moduleTitle}</h1>
-        </div>
-      })}
       <CertificateSection />
     </div>
   );
