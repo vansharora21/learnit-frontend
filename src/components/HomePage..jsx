@@ -2,21 +2,45 @@ import React, { useState, useEffect } from 'react';
 import CourseCards from './CourseCards';
 import Timeline from './Tmeline';
 import SearchBar from './SearchBar';
+import img1 from './Assets/ImageSlider/img1.jpg';
+import img2 from './Assets/ImageSlider/img2.jpg';
+import img3 from './Assets/ImageSlider/img3.jpg';
+import img4 from './Assets/ImageSlider/img4.jpg';
+import img5 from './Assets/ImageSlider/img5.jpg';
+import img6 from './Assets/ImageSlider/img6.jpg';
 
-const sliderImages = [{
-      src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
-      headline: "Unlock Your Potential", 
-      subtext: "Expert-led courses for every learner.",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-      headline: "Learn In-Demand Skills", 
-      subtext: "Stay ahead with industry-relevant programs.",
-    },
-    { src: "", 
+const sliderImages = [
+  {
+    src: img1,
+    headline: "Unlock Your Potential", 
+    subtext: "Expert-led courses for every learner.",
+  },
+  {
+    src: img2,
+    headline: "Learn In-Demand Skills", 
+    subtext: "Stay ahead with industry-relevant programs.",
+  },
+  {
+    src: img3,
     headline: "Transform Your Career",
-    subtext: "Join thousands of successful graduates.", },];
-
+    subtext: "Join thousands of successful graduates.",
+  },
+  {
+    src: img4,
+    headline: "Connect & Collaborate",
+    subtext: "Build lasting professional relationships.",
+  },
+  {
+    src: img5,
+    headline: "Flexible Learning",
+    subtext: "Study at your own pace, anywhere, anytime.",
+  },
+  {
+    src: img6,
+    headline: "Achieve Your Goals",
+    subtext: "Turn your dreams into reality with our guidance.",
+  }
+];
 
 
 
@@ -48,8 +72,8 @@ function ImageSlider() {
           <img
             src={img.src}
             alt={img.headline}
-            className="w-100 h-100 object-fit-cover"
-            style={{ filter: 'brightness(0.5)' }}
+            className="w-100 h-100"
+            style={{ filter: 'brightness(1.1)', objectFit: 'cover' }}
           />
           <div
             className="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center p-3 p-md-5"

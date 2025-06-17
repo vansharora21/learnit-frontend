@@ -570,20 +570,6 @@ const CourseDescription = () => {
               <div style={{ fontWeight: 700, fontSize: '20px', marginBottom: '14px', letterSpacing: '0.5px', color: '#222' }}>
                 ONLINE CLASS ROOM PROGRAM
               </div>
-
-              <div style={{ marginBottom: '18px' }}>
-                {/* <span style={{
-                  background: '#23b26d',
-                  color: '#fff',
-                  fontWeight: 600,
-                  fontSize: '13px',
-                  padding: '6px 14px',
-                  borderRadius: '18px',
-                  display: 'inline-block'
-                }}>
-                  100% Money Back Guarantee
-                </span> */}
-              </div>
               <ul style={{ listStyle: 'none', paddingBottom: '10px', margin: 0, fontSize: '15px', color: '#444', marginBottom: '12px' }}>
                 <li style={{ marginBottom: '8px' }}>✓ Duration : 40 Hrs</li> {/* APPLY THE API CALL FOR NOW ITS STATIC */}
                 <li style={{ marginBottom: '8px' }}>✓ Plus Self Paced</li>
