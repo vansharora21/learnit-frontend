@@ -51,7 +51,11 @@ const FAQsSectionIntegrated = () => {
   const location = useLocation();
   const courseId = location.state?.courseId;
   const [faqs, setFaqs] = useState([]);
+<<<<<<< Updated upstream
   console.log(courseId);
+=======
+  console.log(courseId)
+>>>>>>> Stashed changes
 
   const getFaqGet = async () => {
     try {
@@ -139,6 +143,7 @@ const AboutSection = () => {
   );
 };
 
+
 // TabbedSection (About/FAQs)
 const TabbedSection = () => {
   const [activeTab, setActiveTab] = useState('About');
@@ -193,13 +198,12 @@ const CourseDescription = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const [moreCourseContent, setMoreCourseContent] = useState([]);
 
-  console.log("jehfajfjdevd", moreCourseContent)
-
-
-  console.log("moreCourseContentmoreCourseContent----------", moreCourseContent);
+  console.log("moreCourseContentmoreCourseContent----------", moreCourseContent)
 
   const { title } = useParams();
   const location = useLocation();
+  // console.log("-=-=-=-==--==--=courseDataList-=-=-=-=-=-=", location.state);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -208,14 +212,13 @@ const CourseDescription = () => {
     }
   }, [location.state]);
 
-  // Safe access to location.state with fallbacks
-  const courseName = location.state?.courseName || 'Course Name';
-  const CourseDescription = location.state?.description || 'Course Description';
-  const courseContent = location.state?.courseContent || [];
-  const SelecyedCourseId = location.state?.courseId || '';
-  const courseSelectImage = location.state?.image || '';
-  const courseModel = location.state?.courseContent || [];
-  const courseID = location.state?.courseId || '';
+  const courseName = location.state.courseName;
+  const CourseDescription = location.state.description;
+  const courseContent = location.state.courseContent;
+  const SelecyedCourseId = location.state.courseId;
+  const courseSelectImage = location.state.image;
+  const courseModel = location.state.courseContent;
+  const courseID = location.state.courseId;
 
   const moreContent = async () => {
     try {
@@ -224,14 +227,7 @@ const CourseDescription = () => {
       );
       const notes = response.data?.data?.coursesList || [];
       console.log('API notes value:', notes);
-
-      // Ensure we're setting an array
-      const moreAboutCourse = notes[0].categoryName;
-    if (Array.isArray(moreAboutCourse)) {
-        setMoreCourseContent(moreAboutCourse);
-      } else {
-        setMoreCourseContent([]);
-      }
+      setMoreCourseContent(notes[0]?.moreAboutCourse || []);
     } catch (error) {
       console.error('API call error:', error);
       setMoreCourseContent([]);
@@ -239,8 +235,8 @@ const CourseDescription = () => {
   };
 
   useEffect(() => {
-    moreContent();
-  }, []);
+    moreContent()
+  }, [])
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -893,15 +889,20 @@ const CourseDescription = () => {
           }}>
             <h3 style={{ marginBottom: '20px', fontSize: '18px', color: '#333' }}>This course includes:</h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              {/* Fixed the array check and mapping */}
-              {
-                moreCourseContent.map((item, index) => (
-                  <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '15px', color: '#555', fontSize: '14px' }}>
-                    <span style={{ marginRight: '10px', color: '#555' }}>{getIcon('hours')}</span>
-                    {item.duration}nbjnkjjn
-                  </li>
-                ))
-              }
+              {moreCourseContent.length === 0 ? (
+                <p>No additional course content available.</p>
+              ) : (
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  <p>hje</p>
+                  {moreCourseContent.map((item, index) => (
+                    <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '15px', color: '#555', fontSize: '14px' }}>
+                      {/* <span style={{ marginRight: '10px', color: '#555' }}>{item.duration}</span> */}
+                      <span style={{ marginRight: '10px', color: '#555' }}>111111</span>
+
+                    </li>
+                  ))}
+                </ul>
+              )}
             </ul>
 
             {/* Brochure Request Dropdown */}
