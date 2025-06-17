@@ -79,7 +79,7 @@ function ImageSlider() {
             className="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center p-3 p-md-5"
             style={{
               color: '#fff',
-              background: 'linear-gradient(90deg, rgba(33,37,41,0.7) 0%, rgba(33,37,41,0.2) 100%)',
+              background: 'linear-gradient(90deg, rgba(33,37,41,0.7) 0%, rgba(38, 42, 47, 0.2) 90%)',
             }}
           >
             <div className="text-center mb-4 mb-lg-5" style={{ width: '100%' }}>

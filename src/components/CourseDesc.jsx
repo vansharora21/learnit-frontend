@@ -51,6 +51,7 @@ const FAQsSectionIntegrated = () => {
   const location = useLocation();
   const courseId = location.state?.courseId;
   const [faqs, setFaqs] = useState([]);
+  console.log(courseId);
 
   const getFaqGet = async () => {
     try {
@@ -82,31 +83,57 @@ const FAQsSectionIntegrated = () => {
 
 // AboutSection
 const AboutSection = () => {
-  const [readMore, setReadMore] = useState(false);
-  const bulletPoints = [
-    '650+ Live interactive lectures',
-    '14 Minor & 4 Major full length tests',
-    'ELP & QFT solving masterclass',
-    'Small Group Learning: Rank-Producing Educators in small personalized batches (1:150)',
-    '2 Way Interactions Enabled: 2-Way Interactive Video Classes for Real-Time Doubt Solving',
-    'Mentorship Unlimited: Complete Access to Plus & Iconic with Unlimited Mentorship',
-    'Learn, Revise & Practice: Physical QFT100, Flashcards & Access to Physical Notes...',
-  ];
+  const [courseNotes, setCourseNotes] = useState([]);
+
+  const aboutAPICall = async () => {
+    try {
+      const response = await axios.get(
+        'https://api.learnitfy.com/api/admin/get/courses?courseId=CI93914177'
+      );
+      const notes = response.data?.data?.coursesList || [];
+      setCourseNotes(Array.isArray(notes) ? notes : []);
+    } catch (error) {
+      console.error('API call error:', error);
+      setCourseNotes([]); // fallback in case of error
+    }
+  };
+
+  useEffect(() => {
+    aboutAPICall();
+  }, []);
+
   return (
     <div style={{ padding: '20px 0' }}>
-      <h4 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '15px', color: '#222' }}>About this combo</h4>
-      <div style={{ fontSize: '15px', color: '#444', lineHeight: '1.5', marginBottom: '15px', maxWidth: '600px' }}>
-        <ul style={{ paddingLeft: '20px', margin: 0 }}>
-          {(readMore ? bulletPoints : bulletPoints.slice(0, 5)).map((point, idx) => (
-            <li key={idx} style={{ marginBottom: '8px' }}>{point}</li>
-          ))}
-        </ul>
-        <span
-          onClick={() => setReadMore(!readMore)}
-          style={{ color: '#26A9E0', cursor: 'pointer', fontWeight: '600', userSelect: 'none' }}
-        >
-          {readMore ? 'Read less' : 'Read more'}
-        </span>
+      <h4
+        style={{
+          fontSize: '20px',
+          fontWeight: '700',
+          marginBottom: '15px',
+          color: '#222',
+        }}
+      >
+        About this combo
+      </h4>
+      <div
+        style={{
+          fontSize: '15px',
+          color: '#444',
+          lineHeight: '1.5',
+          marginBottom: '15px',
+          maxWidth: '600px',
+        }}
+      >
+        {Array.isArray(courseNotes) &&
+          courseNotes.map((course, index) => {
+            const notes = course.notes || {};
+            return (
+              <ul key={index}>
+                {Object.keys(notes).map((key) => (
+                  <li key={key}>{notes[key]}</li>
+                ))}
+              </ul>
+            );
+          })}
       </div>
     </div>
   );
@@ -164,26 +191,56 @@ const CourseDescription = () => {
   const [enrollInquiry, setEnrollInquiry] = useState('');
   const [courseDataList, setCourseDataList] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
+  const [moreCourseContent, setMoreCourseContent] = useState([]);
 
-  console.log("kjdbsbdljsbfjjdssdbnsbnsnbs", courseDataList)
+  console.log("jehfajfjdevd", moreCourseContent)
+
+
+  console.log("moreCourseContentmoreCourseContent----------", moreCourseContent);
+
   const { title } = useParams();
   const location = useLocation();
-  console.log("-=-=-=-==--==--=courseDataList-=-=-=-=-=-=", location.state);
-
   const navigate = useNavigate();
 
   useEffect(() => {
     if (location.state) {
-      setCourseDataList(location.state.courseContent);
+      setCourseDataList(location.state.courseContent || []);
     }
   }, [location.state]);
 
-  const courseName = location.state.courseName;
-  const CourseDescription = location.state.description;
-  const courseContent = location.state.courseContent;
-  const SelecyedCourseId = location.state.courseId;
-  const courseSelectImage = location.state.image;
-  const courseModel = location.state.courseContent;
+  // Safe access to location.state with fallbacks
+  const courseName = location.state?.courseName || 'Course Name';
+  const CourseDescription = location.state?.description || 'Course Description';
+  const courseContent = location.state?.courseContent || [];
+  const SelecyedCourseId = location.state?.courseId || '';
+  const courseSelectImage = location.state?.image || '';
+  const courseModel = location.state?.courseContent || [];
+  const courseID = location.state?.courseId || '';
+
+  const moreContent = async () => {
+    try {
+      const response = await axios.get(
+        'https://api.learnitfy.com/api/admin/get/courses?courseId=CI93914177'
+      );
+      const notes = response.data?.data?.coursesList || [];
+      console.log('API notes value:', notes);
+
+      // Ensure we're setting an array
+      const moreAboutCourse = notes[0].categoryName;
+    if (Array.isArray(moreAboutCourse)) {
+        setMoreCourseContent(moreAboutCourse);
+      } else {
+        setMoreCourseContent([]);
+      }
+    } catch (error) {
+      console.error('API call error:', error);
+      setMoreCourseContent([]);
+    }
+  };
+
+  useEffect(() => {
+    moreContent();
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -202,7 +259,9 @@ const CourseDescription = () => {
 
   const scrollToCourseContent = (e) => {
     e.preventDefault();
-    courseContentRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (courseContentRef.current) {
+      courseContentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleFormSubmit = async (event) => {
@@ -237,7 +296,7 @@ const CourseDescription = () => {
       alert(`Brochure will be sent to: ${brochureEmail}`);
       setBrochureEmail('');
       setIsBrochureFormOpen(false);
-      console.log("here is the send data broture:", response)
+      console.log("here is the send data brochure:", response);
     } catch (error) {
       console.error('Error sending brochure:', error.response ? error.response.data : error.message);
       alert('There was an error sending the brochure. Please try again later.');
@@ -413,7 +472,6 @@ const CourseDescription = () => {
           <TabbedSection />
           <div ref={courseContentRef}>
             <h2 style={{ marginBottom: '20px', fontSize: '22px', color: '#333' }}>Course Content</h2>
-
             {courseModel.map((model, index) => (
               <div
                 key={index}
@@ -835,13 +893,17 @@ const CourseDescription = () => {
           }}>
             <h3 style={{ marginBottom: '20px', fontSize: '18px', color: '#333' }}>This course includes:</h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              {courseData.includes && courseData.includes.map((item, index) => (
-                <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '15px', color: '#555', fontSize: '14px' }}>
-                  <span style={{ marginRight: '10px', color: '#555' }}>{getIcon(item.icon)}</span>
-                  {item.text}
-                </li>
-              ))}
+              {/* Fixed the array check and mapping */}
+              {
+                moreCourseContent.map((item, index) => (
+                  <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '15px', color: '#555', fontSize: '14px' }}>
+                    <span style={{ marginRight: '10px', color: '#555' }}>{getIcon('hours')}</span>
+                    {item.duration}nbjnkjjn
+                  </li>
+                ))
+              }
             </ul>
+
             {/* Brochure Request Dropdown */}
             <div ref={brochureFormRef} style={{ marginTop: '20px', borderTop: '1px solid #e0e0e0', paddingTop: '20px' }}>
               <button
@@ -862,7 +924,7 @@ const CourseDescription = () => {
                   marginBottom: '15px'
                 }}
               >
-                <span> Course Brochure</span>
+                <span>Course Brochure</span>
                 {isBrochureFormOpen ? <FiChevronUp /> : <FiChevronDown />}
               </button>
               {isBrochureFormOpen && (
