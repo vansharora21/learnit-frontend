@@ -51,11 +51,7 @@ const FAQsSectionIntegrated = () => {
   const location = useLocation();
   const courseId = location.state?.courseId;
   const [faqs, setFaqs] = useState([]);
-<<<<<<< Updated upstream
-  console.log(courseId);
-=======
   console.log(courseId)
->>>>>>> Stashed changes
 
   const getFaqGet = async () => {
     try {
@@ -196,7 +192,10 @@ const CourseDescription = () => {
   const [enrollInquiry, setEnrollInquiry] = useState('');
   const [courseDataList, setCourseDataList] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
-  const [moreCourseContent, setMoreCourseContent] = useState([]);
+  const [moreCourseContent, setMoreCourseContent] = useState();
+
+
+  // const mapobjet = moreCourseContent.Activities;
 
   console.log("moreCourseContentmoreCourseContent----------", moreCourseContent)
 
@@ -227,7 +226,7 @@ const CourseDescription = () => {
       );
       const notes = response.data?.data?.coursesList || [];
       console.log('API notes value:', notes);
-      setMoreCourseContent(notes[0]?.moreAboutCourse || []);
+      setMoreCourseContent(notes[0].moreAboutCourse || []);
     } catch (error) {
       console.error('API call error:', error);
       setMoreCourseContent([]);
@@ -888,23 +887,15 @@ const CourseDescription = () => {
             backgroundColor: '#f9f9f9'
           }}>
             <h3 style={{ marginBottom: '20px', fontSize: '18px', color: '#333' }}>This course includes:</h3>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-              {moreCourseContent.length === 0 ? (
-                <p>No additional course content available.</p>
-              ) : (
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <p>hje</p>
-                  {moreCourseContent.map((item, index) => (
-                    <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '15px', color: '#555', fontSize: '14px' }}>
-                      {/* <span style={{ marginRight: '10px', color: '#555' }}>{item.duration}</span> */}
-                      <span style={{ marginRight: '10px', color: '#555' }}>111111</span>
-
-                    </li>
-                  ))}
-                </ul>
-              )}
+            <ul className="list-group mb-4">
+              {moreCourseContent &&
+                Object.entries(moreCourseContent).map(([key, value]) => (
+                  <li key={key} className="list-group-item d-flex justify-content-between align-items-center">
+                    <span className="text-capitalize fw-semibold">{key.replace(/([A-Z])/g, ' $1')}</span>
+                    <span className="badge bg-primary rounded-pill">{value}</span>
+                  </li>
+                ))}
             </ul>
-
             {/* Brochure Request Dropdown */}
             <div ref={brochureFormRef} style={{ marginTop: '20px', borderTop: '1px solid #e0e0e0', paddingTop: '20px' }}>
               <button
