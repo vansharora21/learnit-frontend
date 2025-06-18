@@ -1,12 +1,17 @@
 import React from 'react';
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
+  const handleChange = (e) => {
+    onSearch(e.target.value);
+  };
+
   return (
     <form className="custom-search-bar" autoComplete="off">
       <input
         type="text"
         className="custom-search-input"
         placeholder="e.g. Web Development"
+        onChange={handleChange}
         style={{paddingLeft:'10px',paddingTop: '3px',
           paddingBottom: '7px'
         }}

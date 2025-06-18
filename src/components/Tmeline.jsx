@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 
 // Timeline data for advantages of corporate training
@@ -114,6 +114,9 @@ const welcomeVariants = {
 };
 
 export default function CorporateTrainingTimeline() {
+  // Memoize the timeline data to prevent unnecessary re-renders
+  const memoizedTimelineData = useMemo(() => timelineData, []);
+
   return (
     <div style={{ background: "#f5f5f5", padding: '2rem 0' }}>
       <div className="container" style={{ maxWidth: '1200px', padding: '0 1rem' }}>
@@ -159,7 +162,7 @@ export default function CorporateTrainingTimeline() {
               transition={{ duration: 1.5, ease: "easeInOut" }}
             ></motion.div> */}
 
-            {timelineData.map((item, idx) => (
+            {memoizedTimelineData.map((item, idx) => (
               <motion.div 
                 key={idx} 
                 className="row mb-5 position-relative align-items-center"
@@ -339,7 +342,7 @@ export default function CorporateTrainingTimeline() {
               transition={{ duration: 1.2, ease: "easeInOut" }}
             ></motion.div>
 
-            {timelineData.map((item, idx) => (
+            {memoizedTimelineData.map((item, idx) => (
               <motion.div 
                 key={idx} 
                 className="d-flex mb-4 position-relative" 
