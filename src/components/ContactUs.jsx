@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logo from './Assets/PNG-01.png'
 
 const ContactUs = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -237,6 +238,41 @@ const ContactUs = () => {
               allowFullScreen=""
               loading="lazy"
             />
+            <div>
+            <div className="col-12 col-lg-4 mb-4 mb-lg-0">
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center',
+                paddingTop: '100px', 
+                textAlign: 'left',
+                padding: '20px',
+              }}>
+                <img
+                  src={logo}
+                  alt="Logo"
+                  style={{
+                    width: '300px',
+                    height: 'auto',
+                    marginRight: '20px',
+                  }}
+                />
+                <div style={{ 
+                  fontSize: '16px',
+                  lineHeight: '1.5',
+                  color: 'black',
+                }}>
+                   <p style={{ marginBottom: '0px' }}>
+                    Email: <a href="mailto:info@learnitfy.com" style={{ color: '#ff6b00', textDecoration: 'none' }}>
+                    info@learnitfy.com
+                    </a>
+                  </p>
+                  <p style={{ marginBottom: '0' }}>
+                    Phone: <span style={{ color: '#ff6b00',fontSize:'20px' }}>+91 9983969869</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            </div>
           </div>
         </div>
       </section>
@@ -255,3 +291,4 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+
