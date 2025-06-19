@@ -240,37 +240,41 @@ const ContactUs = () => {
             />
             <div>
             <div className="col-12 col-lg-4 mb-4 mb-lg-0">
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center',
-                paddingTop: '100px', 
-                textAlign: 'left',
-                padding: '20px',
-              }}>
-                <img
-                  src={logo}
-                  alt="Logo"
-                  style={{
-                    width: '300px',
-                    height: 'auto',
-                    marginRight: '20px',
-                  }}
-                />
-                <div style={{ 
-                  fontSize: '16px',
-                  lineHeight: '1.5',
-                  color: 'black',
-                }}>
-                   <p style={{ marginBottom: '0px' }}>
-                    Email: <a href="mailto:info@learnitfy.com" style={{ color: '#ff6b00', textDecoration: 'none' }}>
-                    info@learnitfy.com
-                    </a>
-                  </p>
-                  <p style={{ marginBottom: '0' }}>
-                    Phone: <span style={{ color: '#ff6b00',fontSize:'20px' }}>+91 9983969869</span>
-                  </p>
-                </div>
-              </div>
+            <div style={{ width: '100%', maxWidth: '400px', marginBottom: '1.5rem' }}>
+  <div style={{
+    backgroundColor: '#f9f9f9',
+    padding: '24px',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+  }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>115, Crown Square, 1st Floor</p>
+      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>Gandhi Path, Vaishali Nagar</p>
+      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>Jaipur, 302021, India</p>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>
+        <strong>Email:</strong>{' '}
+        <a href="mailto:info@learnitfy.com" style={{
+          color: '#007bff',
+          textDecoration: 'none',
+          fontWeight: 500
+        }}>
+          info@learnitfy.com
+        </a>
+      </p>
+      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>
+        <strong>Phone:</strong>{' '}
+        <span style={{ color: '#555', fontWeight: 500 }}>+91 998-3969-869</span>
+      </p>
+    </div>
+  </div>
+</div>
+
             </div>
             </div>
           </div>

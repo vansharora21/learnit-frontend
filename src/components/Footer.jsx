@@ -122,7 +122,7 @@ export default function Footer() {
                     </a>
                   </p>
                   <p style={{ marginBottom: '0' }}>
-                    Phone: <span style={{ color: '#ff6b00' }}>+91 9983969869</span>
+                    Phone: <span style={{ color: '#ff6b00' }}>+91 998-3969-869</span>
                   </p>
                 </div>
               </div>
