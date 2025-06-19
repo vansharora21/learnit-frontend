@@ -5,11 +5,19 @@ import axios from 'axios';
 import { reverseGenerateSlug } from './CourseCards';
 
 const CourseCard = ({ title, description, data, image }) => {
+  const slug = title.replace(/\s+/g, '-').toLowerCase(); // e.g., React JS => react-js
+
   return (
     <Link
-      to={`/CourseDesc/${title.replace(/\s+/g, '-').toLowerCase()}`}
+      to={`/${slug}`}
       className="infra-link"
-      state={data}
+      state={{
+        courseName: title,
+        description: description,
+        courseContent: data.courseContent,
+        courseId: data.courseId,
+        image: image,
+      }}
     >
       <div
         className="country"
@@ -23,6 +31,7 @@ const CourseCard = ({ title, description, data, image }) => {
     </Link>
   );
 };
+
 
 const CourseCategories = () => {
   const [loading, setLoading] = useState(true);
