@@ -214,8 +214,8 @@ const ContactUs = () => {
               Submit
             </button>
           </form>
-            
-             <div
+
+          <div
             style={{
               background: 'white',
               padding: '1rem',
@@ -238,45 +238,14 @@ const ContactUs = () => {
               allowFullScreen=""
               loading="lazy"
             />
-            <div>
-            <div className="col-12 col-lg-4 mb-4 mb-lg-0">
-            <div style={{ width: '100%', maxWidth: '400px', marginBottom: '1.5rem' }}>
-  <div style={{
-    backgroundColor: '#f9f9f9',
-    padding: '24px',
-    borderRadius: '12px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-  }}>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>115, Crown Square, 1st Floor</p>
-      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>Gandhi Path, Vaishali Nagar</p>
-      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>Jaipur, 302021, India</p>
-    </div>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>
-        <strong>Email:</strong>{' '}
-        <a href="mailto:info@learnitfy.com" style={{
-          color: '#007bff',
-          textDecoration: 'none',
-          fontWeight: 500
-        }}>
-          info@learnitfy.com
-        </a>
-      </p>
-      <p style={{ margin: 0, fontSize: '1rem', color: '#333' }}>
-        <strong>Phone:</strong>{' '}
-        <span style={{ color: '#555', fontWeight: 500 }}>+91 998-3969-869</span>
-      </p>
-    </div>
-  </div>
-</div>
+            <div className="contact-details">
+              <h2>Contact Information</h2>
+              <p>115, Crown Square, 1st Floor,</p>
+              <p>Gandhi Path, Vaishali Nagar, Jaipur, 302021, India</p>
+              <p>Email: <a href="mailto:info@learnitfy.com" className="email-link">info@learnitfy.com</a></p>
+              <p>Phone: <span className="phone-number">+91 998-3969-869</span></p>
+            </div>
 
-            </div>
-            </div>
           </div>
         </div>
       </section>
@@ -288,6 +257,41 @@ const ContactUs = () => {
             flex-direction: column;
             align-items: center;
           }
+        }
+        .contact-us-container {
+          display: flex;
+          flex-direction: column; /* Stack map and details vertically */
+          align-items: center; /* Center align items */
+          padding: 20px; /* Padding around the container */
+        }
+
+        .contact-details {
+          background-color: #f9f9f9; /* Light background for contrast */
+          padding: 20px; /* Padding around the details */
+          border-radius: 8px; /* Rounded corners */
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+          text-align: left; /* Align text to the left */
+          width: 100%; /* Full width for details */
+          max-width: 600px; /* Max width for better layout */
+          margin-top: 20px; /* Add margin to create space between the map and details *
+        }
+
+        .contact-details h2 {
+          margin-bottom: 10px; /* Space below the title */
+        }
+
+        .contact-details p {
+          margin: 5px 0; /* Space between paragraphs */
+        }
+
+        .email-link {
+          color: #ff6b00; /* Email link color */
+          text-decoration: none; /* Remove underline */
+        }
+
+        .phone-number {
+          color: #ff6b00; /* Phone number color */
+          font-size: 18px; /* Slightly larger font size for emphasis */
         }
       `}</style>
     </div>
