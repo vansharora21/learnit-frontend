@@ -212,7 +212,7 @@ export default function HomePage() {
           </div>
 
           {/* Training Cards Grid */}
-          <div className="row g-4" style={{ marginTop: '10px' }}>
+          <div className="row g-3" style={{ marginTop: '0' }}>
             {/* Live Virtual Training Card */}
             <div className="col-12 col-md-6 col-lg-6">
               <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100"
@@ -236,9 +236,10 @@ export default function HomePage() {
 
                 {/* Card Content */}
                 <div className="position-absolute bottom-0 start-0 w-100 p-3 text-white">
-                  <h3 className="fw-bold fs-3 mb-2 text-white"
+                  <h3 className="fw-bold fs-3 mb-4  text-white"
                     style={{
-                      fontSize: '1.2 rem',
+                      marginTop: '0',
+                      fontSize: '1.2rem',
                       fontFamily: 'Ubuntu, sans-serif',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                       letterSpacing: '1px'
@@ -255,6 +256,11 @@ export default function HomePage() {
                     </div>
                     <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Work On Live Project 
+                    </div>
+                    
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
                       Live Interactive Instructor-led Training
                     </div>
                     <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
@@ -267,7 +273,7 @@ export default function HomePage() {
                     </div>
                     <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Join Collaborative Group Sessions From Anywhere
+                      Join Collaborative Group Sessions From Anywhere
                     </div>
                   </div>
                 </div>
@@ -285,6 +291,7 @@ export default function HomePage() {
               <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100"
                 style={{
                   minHeight: '350px',
+                  marginTop: '0',
                   background: 'linear-gradient(135deg, rgba(0, 201, 255, 0.7), rgba(0, 201, 255, 0.9)), url("https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -302,9 +309,10 @@ export default function HomePage() {
 
                 {/* Card Content */}
                 <div className="position-absolute bottom-0 start-0 w-100 p-4 text-white">
-                  <h3 className="fw-bold fs-3 mb-2 text-white"
+                  <h3 className="fw-bold fs-3 mb-4 text-white"
                     style={{
-                      fontSize: '1.2rem',
+                      marginTop:'0px',
+                      fontSize: '2 rem',
                       fontFamily: 'Ubuntu, sans-serif',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                       letterSpacing: '1px'
@@ -321,6 +329,11 @@ export default function HomePage() {
                     </div>
                     <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
+                      Customized Learning Paths
+                    </div>
+                    
+                    <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+                      <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
                       Enhanced Interaction and Collaboration
                     </div>
                     <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
@@ -333,7 +346,7 @@ export default function HomePage() {
                     </div>
                     <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Peer-to-peer Learning
+                      Peer-to-peer Learning
                     </div>
                   </div>  
                 </div>

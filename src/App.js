@@ -27,8 +27,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/About-Us" element={<AboutUs />} />
+        <Route path="/Contact-Us" element={<ContactUs />} />
         <Route path="/courses/:courseSlug" element={<CourseCategories />} /> {/* Dynamic route for course categories */}
         <Route path="/:title" element={<CourseDescription />} /> {/* New route for course description */}
       </Routes>
