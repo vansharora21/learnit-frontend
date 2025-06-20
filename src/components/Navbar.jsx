@@ -102,10 +102,10 @@ const Navbar = () => {
                         <Link to="/" className="nav-item" style={navItemStyle}>
                             <span className="nav-text">Home</span>
                         </Link>
-                        <Link to="/about" className="nav-item" style={navItemStyle}>
+                        <Link to="/About-Us" className="nav-item" style={navItemStyle}>
                             <span className="nav-text">About Us</span>
                         </Link>
-                        <Link to="/contact" className="nav-item" style={navItemStyle}>
+                        <Link to="/Contact-Us" className="nav-item" style={navItemStyle}>
                             <span className="nav-text">Contact Us</span>
                         </Link>
                     </div>
@@ -207,7 +207,7 @@ const Navbar = () => {
                                 Home
                             </Link>
                             <Link 
-                                to="/about" 
+                                to="/About-Us" 
                                 className="mobile-nav-item"
                                 onClick={() => {
                                     console.log("Navigating to About Us");
@@ -218,7 +218,7 @@ const Navbar = () => {
                                 About Us
                             </Link>
                             <Link 
-                                to="/contact" 
+                                to="/Contact-Us" 
                                 className="mobile-nav-item"
                                 onClick={() => {
                                     console.log("Navigating to Contact Us");

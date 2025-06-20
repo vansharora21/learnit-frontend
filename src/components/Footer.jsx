@@ -84,7 +84,7 @@ export default function Footer() {
                   fontWeight: '600',
                   marginBottom: '15px'
                 }}>
-                  <Link to="/about" style={{ color: '#ff891b', textDecoration: 'none' }}>
+                  <Link to="/About-Us" style={{ color: '#ff891b', textDecoration: 'none' }}>
                     About Us
                   </Link>
                 </h5>
@@ -108,7 +108,7 @@ export default function Footer() {
                   fontWeight: '600',
                   marginBottom: '15px'
                 }}>
-                  <Link to="/contact" style={{ color: '#ff891b', textDecoration: 'none' }}>
+                  <Link to="/Contact-Us" style={{ color: '#ff891b', textDecoration: 'none' }}>
                     Contact Us
                   </Link>
                 </h5>
