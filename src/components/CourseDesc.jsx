@@ -913,11 +913,20 @@ const CourseDescription = () => {
           }}>
             <h3 style={{ marginBottom: '20px', fontSize: '18px', color: '#333' }}>This course includes:</h3>
             <ul className="list-group mb-4">
+              <li className="list-group-item d-flex justify-content-between align-items-center">
+                <span className="fw-semibold">Time</span>
+                <span className="badge bg-primary rounded-pill">20+ hours</span>
+              </li>
+              <li className="list-group-item d-flex justify-content-between align-items-center">
+                <span className="fw-semibold">Location</span>
+                <span className="badge bg-primary rounded-pill">India</span>
+              </li>
               {moreCourseContent &&
                 Object.entries(moreCourseContent).map(([key, value]) => (
                   <li key={key} className="list-group-item d-flex justify-content-between align-items-center">
                     <span className="text-capitalize fw-semibold">{key.replace(/([A-Z])/g, ' $1')}</span>
                     <span className="badge bg-primary rounded-pill">{value}</span>
+
                   </li>
                 ))}
             </ul>
