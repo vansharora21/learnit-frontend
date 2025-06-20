@@ -83,15 +83,19 @@ const FAQsSectionIntegrated = () => {
 
 // AboutSection
 const AboutSection = () => {
+  const location = useLocation();
   const [courseNotes, setCourseNotes] = useState([]);
+  const courseId = location.state?.courseId;
+
+  console.log(courseId, "--=-=-=-==-=-=-=-=-")
+
 
   const aboutAPICall = async () => {
     try {
-      const response = await axios.get(
-        'https://api.learnitfy.com/api/admin/get/courses?courseId=CI93914177'
-      );
-      const notes = response.data?.data?.coursesList || [];
-      setCourseNotes(Array.isArray(notes) ? notes : []);
+      const response = await axios.get(`https://api.learnitfy.com/api/admin/get/courses?courseId=${courseId}`);
+      // const notes = response.data?.data?.coursesList || [];
+      // setCourseNotes(Array.isArray(notes) ? notes : []);
+      console.log("here is th eresponse", response)
     } catch (error) {
       console.error('API call error:', error);
       setCourseNotes([]); // fallback in case of error
@@ -144,6 +148,28 @@ const AboutSection = () => {
 const TabbedSection = () => {
   const [activeTab, setActiveTab] = useState('About');
   const tabs = ['About', 'FAQs'];
+  const location = useLocation();
+  const courseId = location.state?.courseId;
+  const [about, setAbout] = useState([]);
+  console.log(courseId)  
+
+  const getFaqGet = async () => {
+    try {
+      const response = await axios.get(`https://api.learnitfy.com/api/get?courseId=${courseId}`);
+      // console.log("API response message:", response.data.message);
+      console.log("API response message:", response);
+
+      // setFaqs(response.data.faqOfCourse?.[0]?.faq || []);
+    } catch (error) {
+      console.error("Error fetching FAQs:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (courseId) {
+      getFaqGet();
+    }
+  }, [courseId]);
   return (
     <div style={{ maxWidth: '800px', marginTop: '40px' }}>
       <div style={{ display: 'flex', borderBottom: '2px solid #ddd', marginBottom: '20px' }}>
@@ -197,7 +223,7 @@ const CourseDescription = () => {
 
   // const mapobjet = moreCourseContent.Activities;
 
-  console.log("moreCourseContentmoreCourseContent----------", moreCourseContent)
+  console.log("moreCourseContentmoreCourseContent----------", courseDataList)
 
   const { title } = useParams();
   const location = useLocation();
@@ -214,19 +240,22 @@ const CourseDescription = () => {
   const courseName = location.state.courseName;
   const CourseDescription = location.state.description;
   const courseContent = location.state.courseContent;
-  const SelecyedCourseId = location.state.courseId;
+  const SelectedCourseId = location.state.courseId;
   const courseSelectImage = location.state.image;
   const courseModel = location.state.courseContent;
+  const courseList = location.state.coursesList;
   const courseID = location.state.courseId;
+
+  console.log("ksjdbkljslkjd", courseList)
 
   const moreContent = async () => {
     try {
       const response = await axios.get(
-        'https://api.learnitfy.com/api/admin/get/courses?courseId=CI93914177'
+        `https://api.learnitfy.com/api/admin/get/courses?courseId=${courseID}`
       );
       const notes = response.data?.data?.coursesList || [];
       console.log('API notes value:', notes);
-      setMoreCourseContent(notes[0].moreAboutCourse || []);
+      setMoreCourseContent(notes[0]);
     } catch (error) {
       console.error('API call error:', error);
       setMoreCourseContent([]);
@@ -266,7 +295,7 @@ const CourseDescription = () => {
         name: fullName,
         mobile: mobile,
         email: email,
-        courseId: SelecyedCourseId,
+        courseId: SelectedCourseId,
         inquiry: courseInquiry,
       });
       alert(`Enrollment successful! Response: ${response.data.message}`);
@@ -285,10 +314,10 @@ const CourseDescription = () => {
     event.preventDefault();
     try {
       const response = await axios.post("https://api.learnitfy.com/api/user/send/brochure", {
-        courseId: SelecyedCourseId,
+        courseId: SelectedCourseId,
         email: brochureEmail,
       });
-      alert(`Brochure will be sent to: ${brochureEmail}`);
+          alert (`Brochure will be sent to: ${brochureEmail}`);
       setBrochureEmail('');
       setIsBrochureFormOpen(false);
       console.log("here is the send data brochure:", response);
