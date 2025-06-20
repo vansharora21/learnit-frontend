@@ -87,21 +87,20 @@ const AboutSection = () => {
   const [courseNotes, setCourseNotes] = useState([]);
   const courseId = location.state?.courseId;
 
-  console.log(courseId, "--=-=-=-==-=-=-=-=-")
+  console.log(courseNotes, "--=-=-=-==-=-=-=-=-")
 
 
   const aboutAPICall = async () => {
     try {
       const response = await axios.get(`https://api.learnitfy.com/api/admin/get/courses?courseId=${courseId}`);
-      // const notes = response.data?.data?.coursesList || [];
-      // setCourseNotes(Array.isArray(notes) ? notes : []);
+      const notes = response.data?.data?.coursesList || [];
+      setCourseNotes(Array.isArray(notes) ? notes : []);
       console.log("here is th eresponse", response)
     } catch (error) {
       console.error('API call error:', error);
       setCourseNotes([]); // fallback in case of error
     }
   };
-
   useEffect(() => {
     aboutAPICall();
   }, []);
@@ -118,24 +117,21 @@ const AboutSection = () => {
       >
         About this combo
       </h4>
-      <div
-        style={{
-          fontSize: '15px',
-          color: '#444',
-          lineHeight: '1.5',
-          marginBottom: '15px',
-          maxWidth: '600px',
-        }}
-      >
+      <div className="mb-4" style={{ maxWidth: '600px' }}>
         {Array.isArray(courseNotes) &&
           courseNotes.map((course, index) => {
             const notes = course.notes || {};
             return (
-              <ul key={index}>
-                {Object.keys(notes).map((key) => (
-                  <li key={key}>{notes[key]}</li>
-                ))}
-              </ul>
+              <div key={index} className="mb-3">
+                <h5 className="fw-bold mb-2">Module {index + 1}</h5>
+                <ul className="list-group list-group-flush">
+                  {Object.entries(notes).map(([key, value]) => (
+                    <li key={key} className="list-group-item px-0">
+                      <span className="fw-semibold text-primary">{key.replace(/([A-Z])/g, ' $1')}:</span> {value}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             );
           })}
       </div>
@@ -151,7 +147,7 @@ const TabbedSection = () => {
   const location = useLocation();
   const courseId = location.state?.courseId;
   const [about, setAbout] = useState([]);
-  console.log(courseId)  
+  console.log(courseId)
 
   const getFaqGet = async () => {
     try {
@@ -223,7 +219,7 @@ const CourseDescription = () => {
 
   // const mapobjet = moreCourseContent.Activities;
 
-  console.log("moreCourseContentmoreCourseContent----------", courseDataList)
+  console.log("moreCourseContentmoreCourseContent----------", moreCourseContent)
 
   const { title } = useParams();
   const location = useLocation();
@@ -255,7 +251,7 @@ const CourseDescription = () => {
       );
       const notes = response.data?.data?.coursesList || [];
       console.log('API notes value:', notes);
-      setMoreCourseContent(notes[0]);
+      setMoreCourseContent(notes[0].moreAboutCourse);
     } catch (error) {
       console.error('API call error:', error);
       setMoreCourseContent([]);
@@ -317,7 +313,7 @@ const CourseDescription = () => {
         courseId: SelectedCourseId,
         email: brochureEmail,
       });
-          alert (`Brochure will be sent to: ${brochureEmail}`);
+      alert(`Brochure will be sent to: ${brochureEmail}`);
       setBrochureEmail('');
       setIsBrochureFormOpen(false);
       console.log("here is the send data brochure:", response);
