@@ -117,23 +117,37 @@ const AboutSection = () => {
       >
         About this combo
       </h4>
-      <div className="mb-4" style={{ maxWidth: '600px' }}>
-        {Array.isArray(courseNotes) &&
-          courseNotes.map((course, index) => {
-            const notes = course.notes || {};
-            return (
-              <div key={index} className="mb-3">
-                <ul className="list-group list-group-flush">
-                  {Object.entries(notes).map(([key, value]) => (
-                    <li key={key} className="list-group-item px-0">
-                      <span className="fw-semibold text-primary">{key.replace(/([A-Z])/g, ' $1')}:</span> {value}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
-      </div>
+<div className="mb-4" style={{ maxWidth: '600px' }}>
+  {Array.isArray(courseNotes) &&
+    courseNotes.map((course, index) => {
+      const notes = course.notes || {};
+      return (
+        <div
+          key={index}
+          className="bg-light shadow-sm rounded p-3 mb-4 border"
+        >
+          <h6 className="fw-bold text-dark mb-3">
+            📘 Notes {index + 1}
+          </h6>
+          <ul className="list-group">
+            {Object.entries(notes).map(([key, value]) => (
+              <li
+                key={key}
+                className="list-group-item d-flex justify-content-between align-items-center border border-secondary-subtle rounded mb-2"
+              >
+                <span className="text-dark fw-semibold text-capitalize">
+                  {key.replace(/([A-Z])/g, ' $1')}
+                </span>
+                <span className="text-muted text-end">{value}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    })}
+</div>
+
+
     </div>
   );
 };
