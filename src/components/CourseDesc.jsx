@@ -123,7 +123,6 @@ const AboutSection = () => {
             const notes = course.notes || {};
             return (
               <div key={index} className="mb-3">
-                <h5 className="fw-bold mb-2">Module {index + 1}</h5>
                 <ul className="list-group list-group-flush">
                   {Object.entries(notes).map(([key, value]) => (
                     <li key={key} className="list-group-item px-0">
@@ -442,6 +441,8 @@ const CourseDescription = () => {
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  const iconList = [FiAward, FiMonitor, FiFileText]
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif' }}>
@@ -911,25 +912,66 @@ const CourseDescription = () => {
             marginBottom: '30px',
             backgroundColor: '#f9f9f9'
           }}>
-            <h3 style={{ marginBottom: '20px', fontSize: '18px', color: '#333' }}>This course includes:</h3>
+            <h3 style={{ marginBottom: '25px', fontSize: '20px', fontWeight: '500', color: '#333' }}>
+              This course includes:
+            </h3>
             <ul className="list-group mb-4">
-              <li className="list-group-item d-flex justify-content-between align-items-center">
-                <span className="fw-semibold">Time</span>
-                <span className="badge bg-primary rounded-pill">20+ hours</span>
-              </li>
-              <li className="list-group-item d-flex justify-content-between align-items-center">
-                <span className="fw-semibold">Location</span>
-                <span className="badge bg-primary rounded-pill">India</span>
+              <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
+                <span className="fw-semibold d-flex align-items-center">
+                  <FiClock className="me-2" /> Time
+                </span>
+                <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                  20+ hours
+                </span>
               </li>
               {moreCourseContent &&
-                Object.entries(moreCourseContent).map(([key, value]) => (
-                  <li key={key} className="list-group-item d-flex justify-content-between align-items-center">
-                    <span className="text-capitalize fw-semibold">{key.replace(/([A-Z])/g, ' $1')}</span>
-                    <span className="badge bg-primary rounded-pill">{value}</span>
+                Object.entries(moreCourseContent).map(([key, value], index) => {
+                  const Icon = iconList[index]; // Get corresponding icon by index
+                  return (
+                    <>
+                      <li
+                        key={key}
+                        className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect"
+                      >
+                        <span className="text-capitalize fw-semibold text-dark">
+                          {Icon && <Icon size={16} />} {key.replace(/([A-Z])/g, " $1")}
+                        </span>
+                        <span
+                          className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
+                          style={{
+                            background: "linear-gradient(45deg, #6a11cb, #2575fc)",
+                            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                          }}
+                        >
+                          {value}
+                        </span>
 
-                  </li>
-                ))}
+                      </li>
+                      
+                    </>
+                  );
+                })}
+                <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
+                        <span className="fw-semibold"><FiClock className="me-2" />Access</span>
+                        <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                          Life time access
+                        </span>
+                      </li>
             </ul>
+            <style jsx>{`
+                .list-group-item {
+                  transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+                
+                .list-group-item:hover {
+                  transform: translateY(-5px);
+                  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+                }
+
+                .hover-effect:hover {
+                  background-color: #f8f9fa;
+                }
+              `}</style>
             {/* Brochure Request Dropdown */}
             <div ref={brochureFormRef} style={{ marginTop: '20px', borderTop: '1px solid #e0e0e0', paddingTop: '20px' }}>
               <button
