@@ -509,8 +509,7 @@ const CourseDescription = () => {
 
   const moreContent = async () => {
     try {
-      const response = await axios.get(
-        `https://api.learnitfy.com/api/admin/get/courses?courseId=${courseID}`
+      const response = await axios.get(`https://api.learnitfy.com/api/admin/get/courses?courseId=${courseID}`
       );
       const notes = response.data?.data?.coursesList || [];
       console.log('API notes value:', notes);
