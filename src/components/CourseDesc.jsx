@@ -1169,137 +1169,196 @@ const CourseDescription = () => {
 
         {/* Right Column - Course Details */}
         <div style={{ flex: '1 1 300px' }}>
-          <div style={{
-            border: '1px solid #e0e0e0',
-            borderRadius: '5px',
-            padding: '20px',
-            marginBottom: '30px',
-            backgroundColor: '#f9f9f9'
-          }}>
-            <h3 style={{ marginBottom: '25px', fontSize: '20px', fontWeight: '500', color: '#333' }}>
-              This course includes:
-            </h3>
-            <ul className="list-group mb-4">
-              <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
-                <span className="fw-semibold d-flex align-items-center">
-                  <FiClock className="me-2" /> Time
+  <div style={{
+    border: '1px solid #e0e0e0',
+    borderRadius: '5px',
+    padding: '20px',
+    marginBottom: '30px',
+    backgroundColor: '#f9f9f9'
+  }}>
+    <h3 style={{ marginBottom: '25px', fontSize: '20px', fontWeight: '500', color: '#333' }}>
+      This course includes:
+    </h3>
+    <ul className="list-group mb-4">
+      {/* Time/Duration */}
+      {moreCourseContent?.duration && (
+        <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
+          <span className="fw-semibold d-flex align-items-center">
+            <FiClock className="me-2" /> Duration
+          </span>
+          <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+            {moreCourseContent.duration}
+          </span>
+        </li>
+      )}
+
+      {/* Number of Modules */}
+      {moreCourseContent?.noOfModules && (
+        <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
+          <span className="text-capitalize fw-semibold text-dark">
+            <FiMonitor className="me-2" /> Modules
+          </span>
+          <span
+            className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
+            style={{
+              background: "linear-gradient(45deg, #6a11cb, #2575fc)",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            {moreCourseContent.noOfModules}+ Modules
+          </span>
+        </li>
+      )}
+
+      {/* Activities */}
+      {moreCourseContent?.Activities && (
+        <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
+          <span className="text-capitalize fw-semibold text-dark">
+            <FiFileText className="me-2" /> Activities
+          </span>
+          <span
+            className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
+            style={{
+              background: "linear-gradient(45deg, #6a11cb, #2575fc)",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            {moreCourseContent.Activities}+ Activities
+          </span>
+        </li>
+      )}
+
+      {/* Dynamic rendering for any additional fields */}
+      {moreCourseContent && 
+        Object.entries(moreCourseContent)
+          .filter(([key]) => !['duration', 'noOfModules', 'Activities'].includes(key))
+          .map(([key, value], index) => {
+            // Get icon based on key name or use default
+            const getIconForKey = (keyName) => {
+              const lowerKey = keyName.toLowerCase();
+              if (lowerKey.includes('time') || lowerKey.includes('duration')) return FiClock;
+              if (lowerKey.includes('module') || lowerKey.includes('course')) return FiMonitor;
+              if (lowerKey.includes('activity') || lowerKey.includes('exercise')) return FiFileText;
+              if (lowerKey.includes('download') || lowerKey.includes('resource')) return FiDownload;
+              if (lowerKey.includes('certificate') || lowerKey.includes('award')) return FiAward;
+              return FiClock; // Default icon
+            };
+
+            const Icon = getIconForKey(key);
+            
+            return (
+              <li
+                key={key}
+                className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect"
+              >
+                <span className="text-capitalize fw-semibold text-dark">
+                  <Icon className="me-2" /> {key.replace(/([A-Z])/g, " $1").trim()}
                 </span>
-                <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-                  20+ hours
+                <span
+                  className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
+                  style={{
+                    background: "linear-gradient(45deg, #6a11cb, #2575fc)",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  }}
+                >
+                  {value}
                 </span>
               </li>
-              {moreCourseContent &&
-                Object.entries(moreCourseContent).map(([key, value], index) => {
-                  const Icon = iconList[index]; // Get corresponding icon by index
-                  return (
-                    <>
-                      <li
-                        key={key}
-                        className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect"
-                      >
-                        <span className="text-capitalize fw-semibold text-dark">
-                          {Icon && <Icon size={16} />} {key.replace(/([A-Z])/g, " $1")}
-                        </span>
-                        <span
-                          className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
-                          style={{
-                            background: "linear-gradient(45deg, #6a11cb, #2575fc)",
-                            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                          }}
-                        >
-                          {value}
-                        </span>
+            );
+          })
+      }
 
-                      </li>
-                      
-                    </>
-                  );
-                })}
-                <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
-                        <span className="fw-semibold"><FiClock className="me-2" />Access</span>
-                        <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-                          Life time access
-                        </span>
-                      </li>
-            </ul>
-            <style jsx>{`
-                .list-group-item {
-                  transition: transform 0.3s ease, box-shadow 0.3s ease;
-                }
-                
-                .list-group-item:hover {
-                  transform: translateY(-5px);
-                  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-                }
+      {/* Static Lifetime Access */}
+      <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
+        <span className="fw-semibold">
+          <FiClock className="me-2" />Access
+        </span>
+        <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+          Lifetime access
+        </span>
+      </li>
+    </ul>
 
-                .hover-effect:hover {
-                  background-color: #f8f9fa;
-                }
-              `}</style>
-            {/* Brochure Request Dropdown */}
-            <div ref={brochureFormRef} style={{ marginTop: '20px', borderTop: '1px solid #e0e0e0', paddingTop: '20px' }}>
-              <button
-                onClick={() => setIsBrochureFormOpen(!isBrochureFormOpen)}
-                style={{
-                  width: '100%',
-                  padding: '12px 15px',
-                  backgroundColor: '#26A9E0',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '15px'
-                }}
-              >
-                <span>Course Brochure</span>
-                {isBrochureFormOpen ? <FiChevronUp /> : <FiChevronDown />}
-              </button>
-              {isBrochureFormOpen && (
-                <div style={{ padding: '15px', backgroundColor: 'white', border: '1px solid #e0e0e0', borderRadius: '4px', marginBottom: '15px' }}>
-                  <p style={{ marginBottom: '15px', color: '#555', fontSize: '14px' }}>
-                    Enter your email address to receive the course brochure.
-                  </p>
-                  <form onSubmit={handleBrochureRequest} style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ marginBottom: '15px' }}>
-                      <label htmlFor="brochureEmail" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                        Email Address:
-                      </label>
-                      <input
-                        type="email"
-                        id="brochureEmail"
-                        value={brochureEmail}
-                        onChange={(e) => setBrochureEmail(e.target.value)}
-                        placeholder="your-email@example.com"
-                        required
-                        style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      style={{
-                        backgroundColor: 'orange',
-                        color: 'white',
-                        border: 'none',
-                        padding: '10px 15px',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                        alignSelf: 'flex-start'
-                      }}
-                    >
-                      Send Brochure
-                    </button>
-                  </form>
-                </div>
-              )}
+    <style jsx>{`
+      .list-group-item {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .list-group-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .hover-effect:hover {
+        background-color: #f8f9fa;
+      }
+    `}</style>
+
+    {/* Brochure Request Dropdown */}
+    <div ref={brochureFormRef} style={{ marginTop: '20px', borderTop: '1px solid #e0e0e0', paddingTop: '20px' }}>
+      <button
+        onClick={() => setIsBrochureFormOpen(!isBrochureFormOpen)}
+        style={{
+          width: '100%',
+          padding: '12px 15px',
+          backgroundColor: '#26A9E0',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          fontSize: '14px',
+          fontWeight: '500',
+          cursor: 'pointer',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '15px'
+        }}
+      >
+        <span>Course Brochure</span>
+        {isBrochureFormOpen ? <FiChevronUp /> : <FiChevronDown />}
+      </button>
+      {isBrochureFormOpen && (
+        <div style={{ padding: '15px', backgroundColor: 'white', border: '1px solid #e0e0e0', borderRadius: '4px', marginBottom: '15px' }}>
+          <p style={{ marginBottom: '15px', color: '#555', fontSize: '14px' }}>
+            Enter your email address to receive the course brochure.
+          </p>
+          <form onSubmit={handleBrochureRequest} style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ marginBottom: '15px' }}>
+              <label htmlFor="brochureEmail" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                Email Address:
+              </label>
+              <input
+                type="email"
+                id="brochureEmail"
+                value={brochureEmail}
+                onChange={(e) => setBrochureEmail(e.target.value)}
+                placeholder="your-email@example.com"
+                required
+                style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
+              />
             </div>
-          </div>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: 'orange',
+                color: 'white',
+                border: 'none',
+                padding: '10px 15px',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                alignSelf: 'flex-start'
+              }}
+            >
+              Send Brochure
+            </button>
+          </form>
         </div>
+      )}
+    </div>
+  </div>
+</div>
+
       </div>
       <CertificateSection />
     </div>
