@@ -48,7 +48,7 @@ const CourseCategories = () => {
     console.log("here is the name of slug:", name);
 
     try {
-      let res = name.toLowerCase();
+      let res = name
       const response = await axios.get(`https://api.learnitfy.com/api/admin/get/courses?categoryName=${res}`);
       console.log("-----------response", response);
       setSlugData(response.data.data.coursesList);

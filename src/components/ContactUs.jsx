@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const ContactUs = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,255 +47,510 @@ const ContactUs = () => {
 
   const themeColor = 'rgb(255, 112, 10)';
 
-  // Input style
-  const inputStyle = {
-    width: '100%',
-    padding: '0.75rem 1rem',
-    fontSize: '1rem',
-    borderRadius: '0.375rem',
-    border: '1px solid #d1d5db',
-    outline: 'none',
-    transition: 'border-color 0.2s ease-in-out'
-  };
-
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', minHeight: '100vh' }}>
-      {/* Hero Section */}
-      <section style={{
-        background: `linear-gradient(135deg, ${themeColor} 0%, #ff8c42 100%)`,
-        color: 'white',
-        padding: '4rem 0',
-        textAlign: 'center',
-        position: 'relative'
-      }}>
-        <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Contact Us</h1>
-        <p style={{ fontSize: '1.2rem', opacity: 0.9 }}>
-          We'd love to hear from you. Fill out the form below to get in touch.
-        </p>
-      </section>
-
-      {/* Form & Map Section */}
-      <section
-        style={{
-          background: '#f9fafb',
-          padding: '4rem 1rem',
-          display: 'flex',
-          justifyContent: 'center'
-        }}
-      >
-        <div
-          className="contact-container"
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-            gap: '2rem',
-            maxWidth: '1200px',
-            width: '100%'
-          }}
-        >
-          {/* Form */}
-          <form
-            onSubmit={handleSubmit}
-            style={{
-              background: 'white',
-              padding: '2rem',
-              borderRadius: '0.5rem',
-              boxShadow: '0 0 10px rgba(0,0,0,0.05)',
-              width: '100%',
-              maxWidth: '600px',
-              flex: '1 1 0',
-              minWidth: '300px'
-            }}
-          >
-            {/* First Name */}
-            <div style={{ marginBottom: '1rem' }}>
-              <label htmlFor="firstName" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                First Name
-              </label>
-              <input
-                id="firstName"
-                name="firstName"
-                type="text"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-                style={inputStyle}
-                placeholder="First Name "
-              />
-            </div>
-            {/* Last Name */}
-            <div style={{ marginBottom: '1rem' }}>
-              <label htmlFor="lastName" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                Last Name
-              </label>
-              <input
-                id="lastName"
-                name="lastName"
-                type="text"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-                style={inputStyle}
-                placeholder="Last Name "
-              />
-            </div>
-            {/* Email */}
-            <div style={{ marginBottom: '1rem' }}>
-              <label htmlFor="email" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                style={inputStyle}
-                placeholder="your.email@example.com"
-              />
-            </div>
-            {/* Mobile */}
-            <div style={{ marginBottom: '1rem' }}>
-              <label htmlFor="mobile" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                Mobile
-              </label>
-              <input
-                id="mobile"
-                name="mobile"
-                type="tel"
-                value={formData.mobile}
-                onChange={handleChange}
-                required
-                style={inputStyle}
-                placeholder="Your MobileNumber"
-              />
-            </div>
-            {/* Message */}
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label htmlFor="message" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={4}
-                required
-                style={{ ...inputStyle, resize: 'vertical' }}
-                placeholder="Tell us more about your inquiry..."
-              />
-            </div>
-            {/* Submit Button */}
-            <button
-              type="submit"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              style={{
-                backgroundColor: themeColor,
-                color: 'white',
-                border: 'none',
-                padding: '0.75rem 1.5rem',
-                borderRadius: '0.375rem',
-                fontSize: '1rem',
-                fontWeight: 500,
-                cursor: 'pointer',
-                transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
-                boxShadow: isHovered
-                  ? '0 8px 15px rgba(255, 107, 0, 0.2)'
-                  : '0 2px 4px rgba(255, 107, 0, 0.1)',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              Submit
-            </button>
-          </form>
-
-          <div
-            style={{
-              background: 'white',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              boxShadow: '0 0 10px rgba(0,0,0,0.05)',
-              width: '100%',
-              maxWidth: '600px',
-              flex: '1 1 0',
-              minWidth: '300px',
-              height: '400px',
-              minHeight: '400px'
-            }}
-          >
-            <iframe
-              title="Google Maps"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1668.7096558668325!2d75.74276264959961!3d26.90530964898532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db49bb5a72b39%3A0x4b2a16b4ad946ddf!2sGandhi%20Path%20W%2C%20Girnar%20Colony%2C%20Scheme%20Number%208%2C%20Girnar%20Colony%20South%2C%20Sanjay%20Nagar%2C%20Jaipur%2C%20Rajasthan%20302021!5e0!3m2!1sen!2sin!4v1749541441041!5m2!1sen!2sin"
-              width="100%"
-              height="100%"
-              style={{ border: 0, borderRadius: '0.5rem' }}
-              allowFullScreen=""
-              loading="lazy"
-            />
-            <div className="contact-details">
-              <h2>Contact Information</h2>
-              <p>115, Crown Square, 1st Floor,</p>
-              <p>Gandhi Path, Vaishali Nagar, Jaipur, 302021, India</p>
-              <p>Email: <a href="mailto:info@learnitfy.com" className="email-link">info@learnitfy.com</a></p>
-              <p>Phone: <span className="phone-number">+91 998-3969-869</span></p>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Responsive Styles */}
+    <>
       <style jsx>{`
-        @media (max-width: 768px) {
-          .contact-container {
-            flex-direction: column;
-            align-items: center;
-          }
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
         }
-        .contact-us-container {
+
+        .contact-page {
+          font-family: 'Inter', sans-serif;
+          min-height: 100vh;
+        }
+
+        .hero-section {
+          background: linear-gradient(135deg, ${themeColor} 0%, #ff8c42 100%);
+          color: white;
+          padding: 3rem 1rem;
+          text-align: center;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+          margin-bottom: 1rem;
+          font-weight: 700;
+        }
+
+        .hero-subtitle {
+          font-size: 1.1rem;
+          opacity: 0.9;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .main-section {
+          background: #f9fafb;
+          padding: 3rem 1rem;
+        }
+
+        .contact-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+          align-items: start;
+        }
+
+        .form-container {
+          background: white;
+          padding: 2rem;
+          border-radius: 0.75rem;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+          margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          color: #374151;
+          font-size: 0.95rem;
+        }
+
+        .form-input {
+          width: 100%;
+          padding: 0.875rem 1rem;
+          font-size: 1rem;
+          border-radius: 0.5rem;
+          border: 1px solid #d1d5db;
+          outline: none;
+          transition: all 0.2s ease-in-out;
+          background: #fff;
+        }
+
+        .form-input:focus {
+          border-color: ${themeColor};
+          box-shadow: 0 0 0 3px rgba(255, 112, 10, 0.1);
+        }
+
+        .form-textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+
+        .submit-button {
+          background-color: ${themeColor};
+          color: white;
+          border: none;
+          padding: 0.875rem 2rem;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          width: 100%;
+        }
+
+        .submit-button:hover {
+          background-color: #e6640a;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(255, 112, 10, 0.3);
+        }
+
+        .right-section {
           display: flex;
-          flex-direction: column; /* Stack map and details vertically */
-          align-items: center; /* Center align items */
-          padding: 20px; /* Padding around the container */
+          flex-direction: column;
+          background: white;
+          border-radius: 0.75rem;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+          overflow: hidden;
+          height: fit-content;
         }
 
-        .contact-details {
-          background-color: #f9f9f9; /* Light background for contrast */
-          padding: 20px; /* Padding around the details */
-          border-radius: 8px; /* Rounded corners */
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-          text-align: left; /* Align text to the left */
-          width: 100%; /* Full width for details */
-          max-width: 600px; /* Max width for better layout */
-          margin-top: 20px; /* Add margin to create space between the map and details *
+        .map-container {
+          width: 100%;
+          height: 350px;
+          position: relative;
         }
 
-        .contact-details h2 {
-          margin-bottom: 10px; /* Space below the title */
+        .map-iframe {
+          width: 100%;
+          height: 100%;
+          border: 0;
+          display: block;
         }
 
-        .contact-details p {
-          margin: 5px 0; /* Space between paragraphs */
+        .contact-info-section {
+          padding: 1rem;
+          background: #fff;
+          border-top: 1px solid #e5e7eb;
+        }
+
+        .contact-info-title {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #1f2937;
+          margin-bottom: 1.5rem;
+          border-bottom: 2px solid ${themeColor};
+          padding-bottom: 0.5rem;
+        }
+
+        .contact-info {
+          line-height: 1.6;
+        }
+
+        .contact-info p {
+          margin: 0.75rem 0;
+          color: #4b5563;
+          font-size: 0.95rem;
+        }
+
+        .contact-info strong {
+          color: #1f2937;
+          font-weight: 600;
         }
 
         .email-link {
-          color: #ff6b00; /* Email link color */
-          text-decoration: none; /* Remove underline */
+          color: ${themeColor};
+          text-decoration: none;
+          font-weight: 500;
+          transition: color 0.2s ease;
+        }
+
+        .email-link:hover {
+          color: #e6640a;
+          text-decoration: underline;
         }
 
         .phone-number {
-          color: #ff6b00; /* Phone number color */
-          font-size: 18px; /* Slightly larger font size for emphasis */
+          color: ${themeColor};
+          font-weight: 600;
+          font-size: 1.1rem;
+        }
+
+        /* Mobile Contact Info Section */
+        .mobile-contact-info {
+          display: none;
+          background: white;
+          padding: 1.5rem;
+          border-radius: 0.75rem;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+          margin-bottom: 1.5rem;
+        }
+
+        .mobile-contact-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+        }
+
+        .contact-item {
+          text-align: center;
+          padding: 1rem;
+          border-radius: 0.5rem;
+          background: #f8f9fa;
+        }
+
+        .contact-icon {
+          font-size: 1.5rem;
+          color: ${themeColor};
+          margin-bottom: 0.5rem;
+        }
+
+        .contact-item h4 {
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+          font-size: 0.8rem;
+          color: #4b5563;
+          margin: 0;
+          line-height: 1.4;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+          .contact-container {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+
+          .hero-title {
+            font-size: 2rem;
+          }
+
+          .hero-subtitle {
+            font-size: 1rem;
+          }
+
+          .main-section {
+            padding: 2rem 1rem;
+          }
+
+          .form-container {
+            padding: 1.5rem;
+            order: 2;
+          }
+
+          .map-container {
+            height: 250px;
+          }
+
+          .right-section {
+            order: 3;
+          }
+
+          /* Show mobile contact info */
+          .mobile-contact-info {
+            display: block;
+            order: 1;
+          }
+
+          /* Hide desktop contact info section on mobile */
+          .contact-info-section {
+            display: none;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero-section {
+            padding: 2rem 1rem;
+          }
+
+          .hero-title {
+            font-size: 1.75rem;
+          }
+
+          .main-section {
+            padding: 1.5rem 0.75rem;
+          }
+
+          .form-container {
+            padding: 1.25rem;
+          }
+
+          .form-input {
+            padding: 0.75rem;
+            font-size: 0.95rem;
+          }
+
+          .submit-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+          }
+
+          .map-container {
+            height: 200px;
+          }
+
+          .mobile-contact-info {
+            padding: 1.25rem;
+          }
+
+          .mobile-contact-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+          }
+
+          .contact-item {
+            padding: 0.75rem;
+          }
         }
       `}</style>
-    </div>
+
+      <div className="contact-page">
+        {/* Hero Section */}
+        <section className="hero-section">
+          <h1 className="hero-title">Contact Us</h1>
+          <p className="hero-subtitle">
+            We'd love to hear from you. Fill out the form below to get in touch with our team.
+          </p>
+        </section>
+
+        {/* Main Content Section */}
+        <section className="main-section">
+          <div className="contact-container">
+            {/* Mobile Contact Information - Shows only on mobile */}
+            <div className="mobile-contact-info">
+              <h2 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: '700', 
+                color: '#1f2937', 
+                marginBottom: '1rem',
+                textAlign: 'center',
+                borderBottom: `2px solid ${themeColor}`,
+                paddingBottom: '0.5rem'
+              }}>
+                Contact Information
+              </h2>
+              <div className="mobile-contact-grid">
+                <div className="contact-item">
+                  <div className="contact-icon">📍</div>
+                  <h4>Address</h4>
+                  <p>115, Crown Square, 1st Floor<br />Gandhi Path, Vaishali Nagar<br />Jaipur, 302021, India</p>
+                </div>
+                <div className="contact-item">
+                  <div className="contact-icon">📞</div>
+                  <h4>Phone</h4>
+                  <p style={{ color: themeColor, fontWeight: '600' }}>+91 998-3969-869</p>
+                </div>
+                <div className="contact-item">
+                  <div className="contact-icon">✉️</div>
+                  <h4>Email</h4>
+                  <p>
+                    <a href="mailto:info@learnitfy.com" style={{ 
+                      color: themeColor, 
+                      textDecoration: 'none',
+                      fontWeight: '500'
+                    }}>
+                      info@learnitfy.com
+                    </a>
+                  </p>
+                </div>
+                {/* <div className="contact-item">
+                  <div className="contact-icon">🕒</div>
+                  <h4>Business Hours</h4>
+                  <p>Mon-Fri: 9:00 AM - 6:00 PM<br />Saturday: 10:00 AM - 4:00 PM</p>
+                </div> */}
+              </div>
+            </div>
+
+            {/* Contact Form */}
+            <div className="form-container">
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="firstName" className="form-label">
+                    First Name *
+                  </label>
+                  <input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                    className="form-input"
+                    placeholder="Enter your first name"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="lastName" className="form-label">
+                    Last Name *
+                  </label>
+                  <input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                    className="form-input"
+                    placeholder="Enter your last name"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="email" className="form-label">
+                    Email Address *
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="form-input"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="mobile" className="form-label">
+                    Mobile Number *
+                  </label>
+                  <input
+                    id="mobile"
+                    name="mobile"
+                    type="tel"
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    required
+                    className="form-input"
+                    placeholder="+91 98765 43210"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="message" className="form-label">
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="form-input form-textarea"
+                    placeholder="Tell us more about your inquiry..."
+                    rows={4}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="submit-button"
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+
+            {/* Map and Contact Information - Desktop */}
+            <div className="right-section">
+              {/* Map Section */}
+              <div className="map-container">
+                <iframe
+                  className="map-iframe"
+                  title="Google Maps - Learnitfy Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1668.7096558668325!2d75.74276264959961!3d26.90530964898532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db49bb5a72b39%3A0x4b2a16b4ad946ddf!2sGandhi%20Path%20W%2C%20Girnar%20Colony%2C%20Scheme%20Number%208%2C%20Girnar%20Colony%20South%2C%20Sanjay%20Nagar%2C%20Jaipur%2C%20Rajasthan%20302021!5e0!3m2!1sen!2sin!4v1749541441041!5m2!1sen!2sin"
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+              
+              {/* Contact Information Section - Desktop Only */}
+              <div className="contact-info-section">
+                <h2 className="contact-info-title">Contact Information</h2>
+                <div className="contact-info">
+                  <p><strong>Address:</strong></p>
+                  <p>115, Crown Square, 1st Floor,<br />
+                     Gandhi Path, Vaishali Nagar,<br />
+                     Jaipur, 302021, India</p>
+                  
+                  <p><strong>Email:</strong></p>
+                  <p>
+                    <a href="mailto:info@learnitfy.com" className="email-link">
+                      info@learnitfy.com
+                    </a>
+                  </p>
+                  
+                  <p><strong>Phone:</strong></p>
+                  <p className="phone-number">+91 998-3969-869</p>
+                  
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 
 export default ContactUs;
-
