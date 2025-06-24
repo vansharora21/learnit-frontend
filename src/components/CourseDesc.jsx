@@ -527,7 +527,7 @@ const CourseDescription = () => {
   useEffect(() => {
     function handleClickOutside(event) {
       if (formRef.current && !formRef.current.contains(event.target)) {
-        setIsFormOpen(false);
+        setIsFormOpen(false); 
       }
       if (brochureFormRef.current && !brochureFormRef.current.contains(event.target)) {
         setIsBrochureFormOpen(false);
