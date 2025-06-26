@@ -95,7 +95,7 @@ export default function CategoryCards() {
                 role="button"
                 aria-label={item.categoryName}
               >
-                <img src={item.icon} alt={`${item.title} icon`} />
+                <img src={item.icon} alt={`${item.title} icon`} style={{ width: '350px', height: '200px' }} />
                 <div className="country-text">{item.title}</div>
                 {item.badge && (
                   <span className="infra-badge">{item.badge}</span>

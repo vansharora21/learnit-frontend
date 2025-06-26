@@ -88,6 +88,8 @@ const AboutSection = () => {
   const [loading, setLoading] = useState(true);
   const courseId = location.state?.courseId;
 
+  console.log(courseNotes, "--=-=-=-==-=-=-=-=-")
+
   const aboutAPICall = async () => {
     try {
       setLoading(true);
@@ -106,295 +108,111 @@ const AboutSection = () => {
     aboutAPICall();
   }, []);
 
-  if (loading) {
-    return (
-      <div style={{ padding: '32px 0' }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          minHeight: '200px',
-          flexDirection: 'column',
-          gap: '16px'
-        }}>
-          <div style={{
-            width: '40px',
-            height: '40px',
-            border: '3px solid #f3f3f3',
-            borderTop: '3px solid #26A9E0',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite'
-          }}></div>
-          <p style={{ color: '#6c757d', fontSize: '16px' }}>Loading course details...</p>
-        </div>
-        <style jsx>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    );
-  }
+  // Get the first course from the array
+  const firstCourse = courseNotes[0];
+  const courseDetail = firstCourse?.courseDetail;
 
   return (
-    <div style={{ padding: '32px 0' }}>
-      {/* Section Header */}
-      <div style={{ marginBottom: '32px' }}>
-        <h4 style={{
-          fontSize: '28px',
-          fontWeight: '700',
-          color: '#1a202c',
-          marginBottom: '8px',
-          letterSpacing: '-0.025em'
-        }}>
-          About this combo
-        </h4>
-        <div style={{
-          width: '60px',
-          height: '4px',
-          background: 'linear-gradient(90deg, #26A9E0, #4FD1C7)',
-          borderRadius: '2px',
-          marginBottom: '16px'
-        }}></div>
-        <p style={{
-          fontSize: '16px',
-          color: '#718096',
-          lineHeight: '1.6',
-          maxWidth: '600px'
-        }}>
-          Discover what makes this course combination unique and comprehensive for your learning journey.
-        </p>
-      </div>
-
-      <div style={{ maxWidth: '900px' }}>
-        {Array.isArray(courseNotes) && courseNotes.map((course, index) => {
-          const notes = course.notes || {};
-          const noteEntries = Object.entries(notes);
+    <div style={{ padding: '20px 0' }}>
+      {courseDetail && (
+        <div>
+          <h1 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '15px', color: '#222' }}>
+            {courseDetail.heading}
+          </h1>
+          {courseDetail.aboutCourse && (
+            <p style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '20px', color: '#555' }}>
+              {courseDetail.aboutCourse}
+            </p>
+          )}
           
-          if (noteEntries.length === 0) return null;
+          {courseDetail.subHeading && (
+            <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px', color: '#333' }}>
+              {courseDetail.subHeading}
+            </h2>
+          )}
           
-          return (
-            <div
-              key={index}
-              style={{
-                background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
-                border: '1px solid #e2e8f0',
-                borderRadius: '16px',
-                padding: '32px',
-                marginBottom: '24px',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                position: 'relative',
-                overflow: 'hidden',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
-              }}
-            >
-              {/* Decorative Background Pattern */}
-              <div style={{
-                position: 'absolute',
-                top: '-50px',
-                right: '-50px',
-                width: '150px',
-                height: '150px',
-                background: 'linear-gradient(135deg, rgba(38, 169, 224, 0.1), rgba(79, 209, 199, 0.1))',
-                borderRadius: '50%',
-                zIndex: 1
-              }}></div>
-              
-              {/* Course Title */}
-              {course.title && (
-                <div style={{
-                  position: 'relative',
-                  zIndex: 2,
-                  marginBottom: '24px'
-                }}>
-                  <h5 style={{
-                    fontSize: '22px',
-                    fontWeight: '600',
-                    color: '#26A9E0',
-                    marginBottom: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px'
-                  }}>
-                    <span style={{
-                      width: '20px',
-                      height: '20px',
-                      backgroundColor: '#26A9E0',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'white',
-                      fontSize: '12px',
-                      fontWeight: 'bold'
+          
+          <div style={{ marginTop: '20px' }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => {
+                const pointKey = `point${num}`;
+                const pointValue = courseDetail[pointKey];
+                
+                if (pointValue) {
+                  return (
+                    <li key={num} style={{ 
+                      display: 'flex', 
+                      alignItems: 'flex-start', 
+                      marginBottom: '10px',
+                      padding: '8px 0'
                     }}>
-                      ✓
-                    </span>
-                    {course.title}
-                  </h5>
-                  <div style={{
-                    width: '40px',
-                    height: '2px',
-                    backgroundColor: '#26A9E0',
-                    borderRadius: '1px'
-                  }}></div>
-                </div>
-              )}
-              
-              {/* Notes Grid */}
-              <div style={{
-                position: 'relative',
-                zIndex: 2,
-                display: 'grid',
-                gap: '16px',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'
-              }}>
-                {noteEntries.map(([key, value]) => (
-                  <div
-                    key={key}
-                    style={{
-                      background: 'linear-gradient(135deg, #ffffff 0%, #f7fafc 100%)',
-                      border: '1px solid #e2e8f0',
-                      borderRadius: '12px',
-                      padding: '20px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '12px',
-                      transition: 'all 0.2s ease-in-out',
-                      cursor: 'default',
-                      position: 'relative',
-                      overflow: 'hidden'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.borderColor = '#26A9E0';
-                      e.currentTarget.style.boxShadow = '0 8px 25px -8px rgba(38, 169, 224, 0.3)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.borderColor = '#e2e8f0';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
-                  >
-                    {/* Checkmark Icon */}
-                    <div style={{
-                      position: 'absolute',
-                      top: '12px',
-                      right: '12px',
-                      width: '24px',
-                      height: '24px',
-                      backgroundColor: '#22C55E',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '14px',
-                      fontWeight: 'bold',
-                      color: 'white',
-                      boxShadow: '0 2px 4px rgba(34, 197, 94, 0.3)'
-                    }}>
-                      ✓
-                    </div>
-                    
-                    {/* Key */}
-                    {/* <div style={{
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      color: '#4a5568',
-                      textTransform: 'capitalize',
-                      letterSpacing: '0.025em',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}>
-                      <span style={{
-                        width: '6px',
-                        height: '6px',
-                        backgroundColor: '#26A9E0',
-                        borderRadius: '50%'
-                      }}></span>
-                      {key.replace(/([A-Z])/g, ' $1').trim()}
-                    </div> */}
-                    
-                    {/* Value */}
-                    <div style={{
-                      fontSize: '16px',
-                      color: '#26A9E0',
-                      fontWeight: '500',
-                      lineHeight: '1.5',
-                      paddingLeft: '14px'
-                    }}>
-                      {value}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-        
-        {/* Enhanced Empty State */}
-        {(!courseNotes || courseNotes.length === 0) && !loading && (
-          <div style={{
-            textAlign: 'center',
-            padding: '60px 40px',
-            background: 'linear-gradient(145deg, #f8fafc 0%, #ffffff 100%)',
-            borderRadius: '16px',
-            border: '2px dashed #cbd5e0',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
-            {/* Background Pattern */}
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '200px',
-              height: '200px',
-              background: 'radial-gradient(circle, rgba(38, 169, 224, 0.05) 0%, transparent 70%)',
-              borderRadius: '50%'
-            }}></div>
-            
-            <div style={{
-              position: 'relative',
-              zIndex: 2
-            }}>
-              <div style={{
-                fontSize: '64px',
-                marginBottom: '20px',
-                opacity: '0.6'
-              }}>
-                📚
-              </div>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: '600',
-                color: '#4a5568',
-                marginBottom: '8px'
-              }}>
-                Course Details Coming Soon
-              </h3>
-              <p style={{
-                color: '#718096',
-                fontSize: '16px',
-                margin: '0',
-                lineHeight: '1.5'
-              }}>
-                We're preparing comprehensive course information for you. Check back soon!
-              </p>
-            </div>
+                      <span style={{ 
+                        backgroundColor: 'black', 
+                        color: 'white', 
+                        borderRadius: '50%', 
+                        width: '8px', 
+                        height: '8px', 
+                        marginTop: '8px',
+                        marginRight: '12px',
+                        flexShrink: 0
+                      }}>
+                      </span>
+                      <span style={{ 
+                        fontSize: '16px', 
+                        color: '#333', 
+                        lineHeight: '1.5',
+                        flex: 1
+                      }}>
+                        {pointValue}
+                      </span>
+                    </li>
+                  );
+                }
+                return null;
+              })}
+            </ul>
           </div>
-        )}
+        </div>
+      )}
+
+      <h4
+        style={{
+          fontSize: '20px',
+          fontWeight: '700',
+          marginBottom: '15px',
+          color: '#222',
+        }}
+      >
+        About this combo
+      </h4>
+      <div className="mb-4" style={{ maxWidth: '600px' }}>
+        {Array.isArray(courseNotes) &&
+          courseNotes.map((course, index) => {
+            const notes = course.notes || {};
+            return (
+              <div
+                key={index}
+                className="bg-light shadow-sm rounded p-3 mb-4 border"
+              >
+                <h6 className="fw-bold text-dark mb-3">
+                  Notes {index + 1}
+                </h6>
+                <ul className="list-group">
+                  {Object.entries(notes).map(([key, value]) => (
+                    <li
+                      key={key}
+                      className="list-group-item d-flex justify-content-between align-items-center border border-secondary-subtle rounded mb-2"
+                    >
+                      <span className="text-dark fw-semibold text-capitalize">
+                        {key.replace(/([A-Z])/g, ' $1')}
+                      </span>
+                      <span className="text-muted text-end">{value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
@@ -744,7 +562,7 @@ const CourseDescription = () => {
           <img
             src={courseSelectImage}
             alt="Course Preview"
-            style={{ width: '100%', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)', height: '200px', objectFit: 'cover' }}
+            style={{ width: '350px', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)', height: '200px', objectFit: 'cover' }}
           />
         </div>
       </div>
@@ -784,20 +602,26 @@ const CourseDescription = () => {
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
                 >
-                  📘 Course: {model.moduleTitle}
+                  📘 Lesson: {model.moduleTitle}
                 </h4>
                 {openIndex === index && (
-                  <div
-                    style={{
-                      padding: '16px',
-                      fontSize: '14px',
-                      color: '#ff8800',
-                      backgroundColor: '#fffaf0',
-                      borderTop: '1px solid #eee',
-                    }}
-                  >
-                    📖 Description: {model.description}
-                  </div>
+                  <>
+                    {['point1', 'point2', 'point3', 'point4', 'point5', 'point6']
+                      .map((key, idx) => model?.[key] && (
+                        <div
+                          key={key}
+                          style={{
+                            padding: '16px',
+                            fontSize: '14px',
+                            color: '#ff8800',
+                            backgroundColor: '#fffaf0',
+                            borderTop: '1px solid #eee',
+                          }}
+                        >
+                          {idx + 1}.{model[key]}
+                        </div>
+                      ))}
+                  </>
                 )}
               </div>
             ))}

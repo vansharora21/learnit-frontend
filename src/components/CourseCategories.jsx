@@ -25,7 +25,7 @@ const CourseCard = ({ title, description, data, image }) => {
         role="button"
         aria-label={title}
       >
-        <img src={image} alt={`${title} icon`} />
+        <img src={image} alt={`${title} icon`} style={{ width: '350px', height: '200px' }}/>
         <div className="country-text">{title}</div>
       </div>
     </Link>
@@ -77,7 +77,7 @@ const CourseCategories = () => {
         textAlign: 'center',
         padding: '0 1rem'
       }}>
-        
+        here is the course datadetials 
       </p>
 
       <motion.div
