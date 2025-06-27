@@ -5,6 +5,8 @@ import CertificateSection from './Certificate';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
+import { CheckCircle } from 'lucide-react';
+
 // CourseDropdown (unchanged)
 const CourseDropdown = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +41,7 @@ const FAQItem = ({ question, answer }) => {
       </div>
       {open && (
         <div style={{ marginTop: '8px', fontSize: '14px', color: '#555', lineHeight: '1.4' }}>
-          {answer}
+           <span style={{ fontSize: '20px', color: '#26A9E0', marginRight: '10px' }}>✅ </span>{answer}
         </div>
       )}
     </div>
@@ -86,6 +88,7 @@ const AboutSection = () => {
   const location = useLocation();
   const [courseNotes, setCourseNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAllPoints, setShowAllPoints] = useState(false);
   const courseId = location.state?.courseId;
 
   console.log(courseNotes, "--=-=-=-==-=-=-=-=-")
@@ -130,48 +133,72 @@ const AboutSection = () => {
               {courseDetail.subHeading}
             </h2>
           )}
-          
-          
           <div style={{ marginTop: '20px' }}>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => {
-                const pointKey = `point${num}`;
-                const pointValue = courseDetail[pointKey];
-                
-                if (pointValue) {
-                  return (
-                    <li key={num} style={{ 
-                      display: 'flex', 
-                      alignItems: 'flex-start', 
-                      marginBottom: '10px',
-                      padding: '8px 0'
-                    }}>
-                      <span style={{ 
-                        backgroundColor: 'black', 
-                        color: 'white', 
-                        borderRadius: '50%', 
-                        width: '8px', 
-                        height: '8px', 
-                        marginTop: '8px',
-                        marginRight: '12px',
-                        flexShrink: 0
-                      }}>
-                      </span>
-                      <span style={{ 
-                        fontSize: '16px', 
-                        color: '#333', 
-                        lineHeight: '1.5',
-                        flex: 1
-                      }}>
-                        {pointValue}
-                      </span>
-                    </li>
-                  );
-                }
-                return null;
-              })}
+              {(() => {
+                // Gather all available points
+                const points = [1,2,3,4,5,6,7,8,9,10,11,12]
+                  .map(num => courseDetail[`point${num}`])
+                  .filter(Boolean);
+                const pointsToShow = showAllPoints ? points : points.slice(0, 3);
+                return pointsToShow.map((pointValue, idx) => (
+                  <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>
+                    <span style={{ backgroundColor: 'black', color: 'white', borderRadius: '50%', width: '8px', height: '8px', marginTop: '8px', marginRight: '12px', flexShrink: 0 }}></span>
+                    <span style={{ fontSize: '16px', color: '#333', lineHeight: '1.5', flex: 1 }}>{pointValue}</span>
+                    
+                  </li>
+                ));
+              })()}
             </ul>
+            {/* Read More button after 3rd point if there are more than 3 points and not showing all */}
+            {(() => {
+              const points = [1,2,3,4,5,6,7,8,9,10,11,12]
+                .map(num => courseDetail[`point${num}`])
+                .filter(Boolean);
+              return !showAllPoints && points.length > 3 ? (
+                <button
+                  style={{
+                    marginTop: '10px',
+                    background: '#26A9E0',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    marginBottom: '80px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => setShowAllPoints(true)}
+                >
+                  Read More
+                </button>
+              ) : null;
+            })()}
           </div>
+          {/* Show these sections only if showAllPoints is true */}
+          {showAllPoints && (
+            <>
+              <div style={{ marginTop: '20px' }}>
+                <h1 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '15px', color: '#222' }}>
+                  Who Should Enroll:
+                </h1>
+                <ul>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Aspiring cybersecurity professionals with no prior experience.</li>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>IT pros looking to level up in cybersecurity.</li>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Individuals interested in roles such as Security Analyst, Penetration Tester, Security Engineer, Network Administrator, and System Administrator.</li>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Professionals preparing for cybersecurity certifications like CompTIA Security+, CEH, CISSP, and CISA.</li>
+                </ul>
+              </div>
+              <div style={{ marginTop: '20px', marginBottom: '80px' }}>
+                <h1 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '15px', color: '#222' }}>
+                  Prerequisites:
+                </h1>
+                <ul>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Basic computer literacy is recommended.</li>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Familiarity with Linux command-line is beneficial for advanced modules.</li>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       )}
 
@@ -183,7 +210,7 @@ const AboutSection = () => {
           color: '#222',
         }}
       >
-        About this combo
+        About this Course
       </h4>
       <div className="mb-4" style={{ maxWidth: '600px' }}>
         {Array.isArray(courseNotes) &&
@@ -573,59 +600,58 @@ const CourseDescription = () => {
         <div style={{ flex: '1 1 650px' }}>
           <TabbedSection />
           <div ref={courseContentRef}>
-            <h2 style={{ marginBottom: '20px', fontSize: '22px', color: '#333' }}>Course Content</h2>
-            {courseModel.map((model, index) => (
+  <h2 style={{ marginBottom: '20px', fontSize: '22px', color: '#222' }}>Course Content</h2>
+  {courseModel.map((model, index) => (
+    <div
+      key={index}
+      style={{
+        marginBottom: '12px',
+        borderRadius: '10px',
+        border: '1px solid #ccc',
+        backgroundColor: '#fff',
+        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
+      }}
+    >
+      <div
+        onClick={() => toggleDropdown(index)}
+        style={{
+          padding: '14px 18px',
+          backgroundColor: openIndex === index ? '#fff' : '#dee2e6',
+          cursor: 'pointer',
+          fontWeight: 600,
+          fontSize: '16px',
+          color: '#333',
+          borderBottom: openIndex === index ? '1px solid #ddd' : 'none',
+          transition: 'background 0.2s ease',
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#eaeaea')}
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.backgroundColor = openIndex === index ? '#eee' : '#dee2e6')
+        }
+      >
+        📘 Lesson: {model.moduleTitle}
+      </div>
+      {openIndex === index && (
+        <div style={{ padding: '10px 18px', backgroundColor: '#fff' }}>
+          {['point1', 'point2', 'point3', 'point4', 'point5', 'point6']
+            .map((key, idx) => model?.[key] && (
               <div
-                key={index}
+                key={key}
                 style={{
-                  marginBottom: '16px',
-                  border: '1px solid #ddd',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.05)',
-                  overflow: 'hidden',
-                  transition: 'all 0.3s ease',
-                  backgroundColor: '#fff',
+                  fontSize: '14px',
+                  padding: '6px 0',
+                  color: '#444',
                 }}
               >
-                <h4
-                  onClick={() => toggleDropdown(index)}
-                  style={{
-                    margin: 0,
-                    padding: '16px',
-                    backgroundColor: '#f5f5f5',
-                    cursor: 'pointer',
-                    fontSize: '18px',
-                    color: '#333',
-                    borderBottom: openIndex === index ? '1px solid #eee' : 'none',
-                    transition: 'background-color 0.3s ease',
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
-                >
-                  📘 Lesson: {model.moduleTitle}
-                </h4>
-                {openIndex === index && (
-                  <>
-                    {['point1', 'point2', 'point3', 'point4', 'point5', 'point6']
-                      .map((key, idx) => model?.[key] && (
-                        <div
-                          key={key}
-                          style={{
-                            padding: '16px',
-                            fontSize: '14px',
-                            color: '#ff8800',
-                            backgroundColor: '#fffaf0',
-                            borderTop: '1px solid #eee',
-                          }}
-                        >
-                          {idx + 1}.{model[key]}
-                        </div>
-                      ))}
-                  </>
-                )}
+                {idx + 1}. {model[key]}
               </div>
             ))}
-          </div>
+        </div>
+      )}
+    </div>
+  ))}
+</div>
+
 
           {/* Updated Training Cards Section */}
           <div style={{
