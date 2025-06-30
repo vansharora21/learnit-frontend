@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
+
+
 
 const ContactUs = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -49,6 +52,18 @@ const ContactUs = () => {
 
   return (
     <>
+      <Helmet>
+        <link rel="icon" href="/logo.png" />
+        <title>Contact Us | Learnitfy – Get in Touch Today
+
+
+        </title>
+        <meta name="description" content="Connect with Learnitfy to learn more about our Corporate IT training programs or to get expert assistance from our support team.
+
+
+" />
+        <meta name="keywords" content="Learnitfy, courses, education" />
+      </Helmet>
       <style jsx>{`
         * {
           box-sizing: border-box;
@@ -372,10 +387,10 @@ const ContactUs = () => {
           <div className="contact-container">
             {/* Mobile Contact Information - Shows only on mobile */}
             <div className="mobile-contact-info">
-              <h2 style={{ 
-                fontSize: '1.25rem', 
-                fontWeight: '700', 
-                color: '#1f2937', 
+              <h2 style={{
+                fontSize: '1.25rem',
+                fontWeight: '700',
+                color: '#1f2937',
                 marginBottom: '1rem',
                 textAlign: 'center',
                 borderBottom: `2px solid ${themeColor}`,
@@ -398,8 +413,8 @@ const ContactUs = () => {
                   <div className="contact-icon">✉️</div>
                   <h4>Email</h4>
                   <p>
-                    <a href="mailto:info@learnitfy.com" style={{ 
-                      color: themeColor, 
+                    <a href="mailto:info@learnitfy.com" style={{
+                      color: themeColor,
                       textDecoration: 'none',
                       fontWeight: '500'
                     }}>
@@ -522,26 +537,26 @@ const ContactUs = () => {
                   referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
-              
+
               {/* Contact Information Section - Desktop Only */}
               <div className="contact-info-section">
                 <h2 className="contact-info-title">Contact Information</h2>
                 <div className="contact-info">
                   <p><strong>Address:</strong></p>
                   <p>115, Crown Square, 1st Floor,<br />
-                     Gandhi Path, Vaishali Nagar,<br />
-                     Jaipur, 302021, India</p>
-                  
+                    Gandhi Path, Vaishali Nagar,<br />
+                    Jaipur, 302021, India</p>
+
                   <p><strong>Email:</strong></p>
                   <p>
                     <a href="mailto:info@learnitfy.com" className="email-link">
                       info@learnitfy.com
                     </a>
                   </p>
-                  
+
                   <p><strong>Phone:</strong></p>
                   <p className="phone-number">+91 998-3969-869</p>
-                  
+
 
                 </div>
               </div>

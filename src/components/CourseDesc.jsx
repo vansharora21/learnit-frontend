@@ -4,6 +4,7 @@ import { FiClock, FiDownload, FiMonitor, FiFileText, FiAward, FiChevronDown, FiC
 import CertificateSection from './Certificate';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import { CheckCircle } from 'lucide-react';
 
@@ -91,8 +92,6 @@ const AboutSection = () => {
   const [showAllPoints, setShowAllPoints] = useState(false);
   const courseId = location.state?.courseId;
 
-  console.log(courseNotes, "--=-=-=-==-=-=-=-=-")
-
   const aboutAPICall = async () => {
     try {
       setLoading(true);
@@ -114,6 +113,11 @@ const AboutSection = () => {
   // Get the first course from the array
   const firstCourse = courseNotes[0];
   const courseDetail = firstCourse?.courseDetail;
+
+  const handleReadLess = () => {
+    setShowAllPoints(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div style={{ padding: '20px 0' }}>
@@ -171,7 +175,7 @@ const AboutSection = () => {
                 >
                   Read More
                 </button>
-              ) : null;
+                              ) : null;
             })()}
           </div>
           {/* Show these sections only if showAllPoints is true */}
@@ -196,51 +200,27 @@ const AboutSection = () => {
                   <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Basic computer literacy is recommended.</li>
                   <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Familiarity with Linux command-line is beneficial for advanced modules.</li>
                 </ul>
+                {/* Read Less button */}
+                <button
+                  style={{
+                    marginTop: '10px',
+                    background: '#FF5733',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    marginBottom: '80px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                  }}
+                  onClick={handleReadLess}
+                >
+                  Read Less
+                </button>
               </div>
             </>
           )}
         </div>
       )}
-
-      <h4
-        style={{
-          fontSize: '20px',
-          fontWeight: '700',
-          marginBottom: '15px',
-          color: '#222',
-        }}
-      >
-        About this Course
-      </h4>
-      <div className="mb-4" style={{ maxWidth: '600px' }}>
-        {Array.isArray(courseNotes) &&
-          courseNotes.map((course, index) => {
-            const notes = course.notes || {};
-            return (
-              <div
-                key={index}
-                className="bg-light shadow-sm rounded p-3 mb-4 border"
-              >
-                <h6 className="fw-bold text-dark mb-3">
-                  Notes {index + 1}
-                </h6>
-                <ul className="list-group">
-                  {Object.entries(notes).map(([key, value]) => (
-                    <li
-                      key={key}
-                      className="list-group-item d-flex justify-content-between align-items-center border border-secondary-subtle rounded mb-2"
-                    >
-                      <span className="text-dark fw-semibold text-capitalize">
-                        {key.replace(/([A-Z])/g, ' $1')}
-                      </span>
-                      <span className="text-muted text-end">{value}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
-      </div>
     </div>
   );
 };
@@ -301,7 +281,7 @@ const TabbedSection = () => {
   );
 };
 
-const CourseDescription = () => {
+const CourseDescriptionComponent = () => {
   // For sidebar forms
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isBrochureFormOpen, setIsBrochureFormOpen] = useState(false);
@@ -510,7 +490,7 @@ const CourseDescription = () => {
     setEnrollInquiry(courseData.title);
   }, [courseData.title]);
 
-  const getIcon = (iconType) => {
+  const getIconComponent = (iconType) => {
     switch (iconType) {
       case 'hours': return <FiClock />;
       case 'modules': return <FiMonitor />;
@@ -553,665 +533,672 @@ const CourseDescription = () => {
   const iconList = [FiAward, FiMonitor, FiFileText]
 
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif' }}>
-      {/* Header Section */}
-      <div style={{
-        backgroundColor: '#26A9E0',
-        color: 'white',
-        padding: '30px 20px 40px',
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        gap: '20px'
-      }}>
-        <div style={{ flex: '1 1 500px', paddingRight: '20px' }}>
-          <h1 style={{ fontSize: '28px', marginBottom: '15px', fontWeight: 'normal' }}>{courseName}</h1>
-          <p style={{ fontSize: '16px', lineHeight: '1.5', marginBottom: '20px', opacity: '0.9' }}>{CourseDescription}</p>
-          <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'center' }}>
-            <button
-              onClick={scrollToCourseContent}
-              style={{
-                backgroundColor: '#FBB03B',
-                color: 'white',
-                border: 'none',
-                padding: '10px 25px',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-                fontSize: '15px'
-              }}
-            >
-              View Syllabus
-            </button>
-          </div>
-        </div>
-        <div style={{ flex: '0 1 350px' }}>
-          <img
-            src={courseSelectImage}
-            alt="Course Preview"
-            style={{ width: '350px', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)', height: '200px', objectFit: 'cover' }}
-          />
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', padding: '30px 20px', maxWidth: '1200px', margin: '0 auto', gap: '30px' }}>
-        {/* Left Column - About and FAQs */}
-        <div style={{ flex: '1 1 650px' }}>
-          <TabbedSection />
-          <div ref={courseContentRef}>
-  <h2 style={{ marginBottom: '20px', fontSize: '22px', color: '#222' }}>Course Content</h2>
-  {courseModel.map((model, index) => (
-    <div
-      key={index}
-      style={{
-        marginBottom: '12px',
-        borderRadius: '10px',
-        border: '1px solid #ccc',
-        backgroundColor: '#fff',
-        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
-      }}
-    >
-      <div
-        onClick={() => toggleDropdown(index)}
-        style={{
-          padding: '14px 18px',
-          backgroundColor: openIndex === index ? '#fff' : '#dee2e6',
-          cursor: 'pointer',
-          fontWeight: 600,
-          fontSize: '16px',
-          color: '#333',
-          borderBottom: openIndex === index ? '1px solid #ddd' : 'none',
-          transition: 'background 0.2s ease',
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#eaeaea')}
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.backgroundColor = openIndex === index ? '#eee' : '#dee2e6')
-        }
-      >
-        📘 Lesson: {model.moduleTitle}
-      </div>
-      {openIndex === index && (
-        <div style={{ padding: '10px 18px', backgroundColor: '#fff' }}>
-          {['point1', 'point2', 'point3', 'point4', 'point5', 'point6']
-            .map((key, idx) => model?.[key] && (
-              <div
-                key={key}
+    <>
+      <Helmet>
+        <link rel="icon" href="/logo.png" />
+        <title>{courseName}</title>
+        <meta name="description" content={CourseDescription} />
+        <meta name="keywords" content={`courses, ${courseName}`} />
+      </Helmet>
+      <div style={{ fontFamily: 'Arial, sans-serif' }}>
+        {/* Header Section */}
+        <div style={{
+          backgroundColor: '#26A9E0',
+          color: 'white',
+          padding: '30px 20px 40px',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          gap: '20px'
+        }}>
+          <div style={{ flex: '1 1 500px', paddingRight: '20px' }}>
+            <h1 style={{ fontSize: '28px', marginBottom: '15px', fontWeight: 'normal' }}>{courseName}</h1>
+            <p style={{ fontSize: '16px', lineHeight: '1.5', marginBottom: '20px', opacity: '0.9' }}>{CourseDescription}</p>
+            <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button
+                onClick={scrollToCourseContent}
                 style={{
-                  fontSize: '14px',
-                  padding: '6px 0',
-                  color: '#444',
+                  backgroundColor: '#FBB03B',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 25px',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                  fontSize: '15px'
                 }}
               >
-                {idx + 1}. {model[key]}
-              </div>
-            ))}
+                View Syllabus
+              </button>
+            </div>
+          </div>
+          <div style={{ flex: '0 1 350px' }}>
+            <img
+              src={courseSelectImage}
+              alt="Course Preview"
+              style={{ width: '350px', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)', height: '200px', objectFit: 'cover' }}
+            />
+          </div>
         </div>
-      )}
-    </div>
-  ))}
-</div>
 
-
-          {/* Updated Training Cards Section */}
-          <div style={{
-            display: 'flex',
-            gap: '16px',
-            margin: '40px 0',
-            flexWrap: 'wrap',
-            justifyContent: 'flex-start',
-            alignItems: 'stretch'
-          }}>
-            {/* Live Virtual Training Card */}
-            <div style={{
-              flex: '1 1 320px',
-              minWidth: '320px',
-              background: 'linear-gradient(135deg, #FFA726 0%, #FF8F00 100%)',
-              borderRadius: '16px',
-              padding: '32px 28px',
-              color: 'white',
-              position: 'relative',
-              overflow: 'hidden',
-              minHeight: '320px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between'
-            }}>
-              {/* Background Pattern */}
-              <div style={{
-                position: 'absolute',
-                top: '-50px',
-                right: '-50px',
-                width: '200px',
-                height: '200px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                borderRadius: '50%',
-                zIndex: 1
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                bottom: '-30px',
-                left: '-30px',
-                width: '150px',
-                height: '150px',
-                background: 'rgba(255, 255, 255, 0.08)',
-                borderRadius: '50%',
-                zIndex: 1
-              }}></div>
-
-              <div style={{ position: 'relative', zIndex: 2 }}>
-                <h3 style={{
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  marginBottom: '24px',
-                  letterSpacing: '0.5px',
-                  lineHeight: '1.2'
-                }}>
-                  Structured Online Learning Program
-                </h3>
-
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
+        {/* Main Content */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', padding: '30px 20px', maxWidth: '1200px', margin: '0 auto', gap: '30px' }}>
+          {/* Left Column - About and FAQs */}
+          <div style={{ flex: '1 1 650px' }}>
+            <TabbedSection />
+            <div ref={courseContentRef}>
+              <h2 style={{ marginBottom: '20px', fontSize: '22px', color: '#222' }}>Course Content</h2>
+              {courseModel.map((model, index) => (
+                <div
+                  key={index}
+                  style={{
                     marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Certification Upon Completion
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Customized Training Delivery Model
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Flexible Schedule with Peer Interaction
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Dedicated Learning Pathways
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Join Collaborative Group Sessions From Anywhere
-                  </div>
-                </div>
-
-                <div ref={formRef}>
-                  <button
-                    onClick={() => setIsFormOpen(!isFormOpen)}
+                    borderRadius: '10px',
+                    border: '1px solid #ccc',
+                    backgroundColor: '#fff',
+                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
+                  }}
+                >
+                  <div
+                    onClick={() => toggleDropdown(index)}
                     style={{
-                      width: '100%',
-                      padding: '10px',
-                      backgroundColor: 'white',
-                      color: '#FF8F00',
-                      border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '16px',
-                      fontWeight: '600',
+                      padding: '14px 18px',
+                      backgroundColor: openIndex === index ? '#fff' : '#dee2e6',
                       cursor: 'pointer',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                      fontWeight: 600,
+                      fontSize: '16px',
+                      color: '#333',
+                      borderBottom: openIndex === index ? '1px solid #ddd' : 'none',
+                      transition: 'background 0.2s ease',
                     }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#eaeaea')}
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = openIndex === index ? '#eee' : '#dee2e6')
+                    }
                   >
-                    <span>Enroll Now</span>
-                    {isFormOpen ? <FiChevronUp /> : <FiChevronDown />}
-                  </button>
-
-                  {isFormOpen && (
-                    <div style={{
-                      marginTop: '10px',
-                      padding: '15px',
-                      backgroundColor: 'white',
-                      border: '1px solid #e0e0e0',
-                      borderRadius: '4px',
-                      boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-                    }}>
-                      <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div style={{ marginBottom: '15px' }}>
-                          <label htmlFor="fullName" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                            Full Name:
-                          </label>
-                          <input
-                            type="text"
-                            id="fullName"
-                            value={fullName}
-                            onChange={(e) => setFullName(e.target.value)}
-                            placeholder="John Doe"
-                            required
+                    📘 Lesson: {model.moduleTitle}
+                  </div>
+                  {openIndex === index && (
+                    <div style={{ padding: '10px 18px', backgroundColor: '#fff' }}>
+                      {['point1', 'point2', 'point3', 'point4', 'point5', 'point6']
+                        .map((key, idx) => model?.[key] && (
+                          <div
+                            key={key}
                             style={{
-                              width: '100%',
-                              padding: '10px',
-                              border: '1px solid #ddd',
-                              borderRadius: '4px',
-                              fontSize: '14px'
+                              fontSize: '14px',
+                              padding: '6px 0',
+                              color: '#444',
                             }}
-                          />
-                        </div>
-
-                        <div style={{ marginBottom: '15px' }}>
-                          <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                            Email Address:
-                          </label>
-                          <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="your-email@example.com"
-                            required
-                            style={{
-                              width: '100%',
-                              padding: '10px',
-                              border: '1px solid #ddd',
-                              borderRadius: '4px',
-                              fontSize: '14px'
-                            }}
-                          />
-                        </div>
-
-                        <div style={{ marginBottom: '15px' }}>
-                          <label htmlFor="mobile" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                            Mobile Number:
-                          </label>
-                          <input
-                            type="tel"
-                            id="mobile"
-                            value={mobile}
-                            onChange={(e) => setMobile(e.target.value)}
-                            placeholder="+91 9876543210"
-                            required
-                            style={{
-                              width: '100%',
-                              padding: '10px',
-                              border: '1px solid #ddd',
-                              borderRadius: '4px',
-                              fontSize: '14px'
-                            }}
-                          />
-                        </div>
-
-                        <div style={{ marginBottom: '15px' }}>
-                          <label htmlFor="courseInquiry" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                            Inquiry About:
-                          </label>
-                          <input
-                            type="text"
-                            id="courseInquiry"
-                            value={courseName}
-                            onChange={(e) => setCourseInquiry(e.target.value)}
-                            placeholder={courseData.title}
-                            required
-                            style={{
-                              width: '100%',
-                              padding: '10px',
-                              border: '1px solid #ddd',
-                              borderRadius: '4px',
-                              fontSize: '14px'
-                            }}
-                          />
-                        </div>
-
-                        <button
-                          type="submit"
-                          style={{
-                            backgroundColor: 'orange',
-                            color: 'white',
-                            border: 'none',
-                            padding: '15px',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold',
-                            alignSelf: 'flex-start'
-                          }}
-                        >
-                          Submit Inquiry
-                        </button>
-                      </form>
+                          >
+                            {idx + 1}. {model[key]}
+                          </div>
+                        ))}
                     </div>
                   )}
                 </div>
-              </div>
+              ))}
             </div>
 
-            {/* Onsite Classroom Training Card */}
+
+            {/* Updated Training Cards Section */}
             <div style={{
-              flex: '1 1 320px',
-              minWidth: '320px',
-              background: 'linear-gradient(135deg, #29B6F6 0%, #1976D2 100%)',
-              borderRadius: '16px',
-              padding: '32px 28px',
-              color: 'white',
-              position: 'relative',
-              overflow: 'hidden',
-              minHeight: '320px',
               display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between'
+              gap: '16px',
+              margin: '40px 0',
+              flexWrap: 'wrap',
+              justifyContent: 'flex-start',
+              alignItems: 'stretch'
             }}>
-              {/* Background Pattern */}
+              {/* Live Virtual Training Card */}
               <div style={{
-                position: 'absolute',
-                top: '-50px',
-                right: '-50px',
-                width: '200px',
-                height: '200px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                borderRadius: '50%',
-                zIndex: 1
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                bottom: '-30px',
-                left: '-30px',
-                width: '150px',
-                height: '150px',
-                background: 'rgba(255, 255, 255, 0.08)',
-                borderRadius: '50%',
-                zIndex: 1
-              }}></div>
+                flex: '1 1 320px',
+                minWidth: '320px',
+                background: 'linear-gradient(135deg, #FFA726 0%, #FF8F00 100%)',
+                borderRadius: '16px',
+                padding: '32px 28px',
+                color: 'white',
+                position: 'relative',
+                overflow: 'hidden',
+                minHeight: '320px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between'
+              }}>
+                {/* Background Pattern */}
+                <div style={{
+                  position: 'absolute',
+                  top: '-50px',
+                  right: '-50px',
+                  width: '200px',
+                  height: '200px',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  borderRadius: '50%',
+                  zIndex: 1
+                }}></div>
+                <div style={{
+                  position: 'absolute',
+                  bottom: '-30px',
+                  left: '-30px',
+                  width: '150px',
+                  height: '150px',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  borderRadius: '50%',
+                  zIndex: 1
+                }}></div>
 
-              <div style={{ position: 'relative', zIndex: 2 }}>
-                <h3 style={{
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  marginBottom: '24px',
-                  letterSpacing: '0.5px',
-                  lineHeight: '1.2'
-                }}>
-                  Team-Based Corporate Upskilling
-                </h3>
+                <div style={{ position: 'relative', zIndex: 2 }}>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '24px',
+                    letterSpacing: '0.5px',
+                    lineHeight: '1.2'
+                  }}>
+                    Structured Online Learning Program
+                  </h3>
 
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Structured & Tailored Learning Experience
+                  <div style={{ marginBottom: '24px' }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Certification Upon Completion
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Customized Training Delivery Model
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Flexible Schedule with Peer Interaction
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Dedicated Learning Pathways
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Join Collaborative Group Sessions From Anywhere
+                    </div>
                   </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Enhanced Interaction and Collaboration
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Hands-On Practical Learning
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Immediate Feedback and Clarification
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    fontSize: '16px'
-                  }}>
-                    <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
-                    Peer-to-peer Learning
+
+                  <div ref={formRef}>
+                    <button
+                      onClick={() => setIsFormOpen(!isFormOpen)}
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        backgroundColor: 'white',
+                        color: '#FF8F00',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                      }}
+                    >
+                      <span>Enroll Now</span>
+                      {isFormOpen ? <FiChevronUp /> : <FiChevronDown />}
+                    </button>
+
+                    {isFormOpen && (
+                      <div style={{
+                        marginTop: '10px',
+                        padding: '15px',
+                        backgroundColor: 'white',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '4px',
+                        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+                      }}>
+                        <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+                          <div style={{ marginBottom: '15px' }}>
+                            <label htmlFor="fullName" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                              Full Name:
+                            </label>
+                            <input
+                              type="text"
+                              id="fullName"
+                              value={fullName}
+                              onChange={(e) => setFullName(e.target.value)}
+                              placeholder="John Doe"
+                              required
+                              style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '4px',
+                                fontSize: '14px'
+                              }}
+                            />
+                          </div>
+
+                          <div style={{ marginBottom: '15px' }}>
+                            <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                              Email Address:
+                            </label>
+                            <input
+                              type="email"
+                              id="email"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              placeholder="your-email@example.com"
+                              required
+                              style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '4px',
+                                fontSize: '14px'
+                              }}
+                            />
+                          </div>
+
+                          <div style={{ marginBottom: '15px' }}>
+                            <label htmlFor="mobile" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                              Mobile Number:
+                            </label>
+                            <input
+                              type="tel"
+                              id="mobile"
+                              value={mobile}
+                              onChange={(e) => setMobile(e.target.value)}
+                              placeholder="+91 9876543210"
+                              required
+                              style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '4px',
+                                fontSize: '14px'
+                              }}
+                            />
+                          </div>
+
+                          <div style={{ marginBottom: '15px' }}>
+                            <label htmlFor="courseInquiry" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                              Inquiry About:
+                            </label>
+                            <input
+                              type="text"
+                              id="courseInquiry"
+                              value={courseName}
+                              onChange={(e) => setCourseInquiry(e.target.value)}
+                              placeholder={courseData.title}
+                              required
+                              style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '4px',
+                                fontSize: '14px'
+                              }}
+                            />
+                          </div>
+
+                          <button
+                            type="submit"
+                            style={{
+                              backgroundColor: 'orange',
+                              color: 'white',
+                              border: 'none',
+                              padding: '15px',
+                              borderRadius: '4px',
+                              cursor: 'pointer',
+                              fontWeight: 'bold',
+                              alignSelf: 'flex-start'
+                            }}
+                          >
+                            Submit Inquiry
+                          </button>
+                        </form>
+                      </div>
+                    )}
                   </div>
                 </div>
+              </div>
 
+              {/* Onsite Classroom Training Card */}
+              <div style={{
+                flex: '1 1 320px',
+                minWidth: '320px',
+                background: 'linear-gradient(135deg, #29B6F6 0%, #1976D2 100%)',
+                borderRadius: '16px',
+                padding: '32px 28px',
+                color: 'white',
+                position: 'relative',
+                overflow: 'hidden',
+                minHeight: '320px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between'
+              }}>
+                {/* Background Pattern */}
+                <div style={{
+                  position: 'absolute',
+                  top: '-50px',
+                  right: '-50px',
+                  width: '200px',
+                  height: '200px',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  borderRadius: '50%',
+                  zIndex: 1
+                }}></div>
+                <div style={{
+                  position: 'absolute',
+                  bottom: '-30px',
+                  left: '-30px',
+                  width: '150px',
+                  height: '150px',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  borderRadius: '50%',
+                  zIndex: 1
+                }}></div>
+
+                <div style={{ position: 'relative', zIndex: 2 }}>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '24px',
+                    letterSpacing: '0.5px',
+                    lineHeight: '1.2'
+                  }}>
+                    Team-Based Corporate Upskilling
+                  </h3>
+
+                  <div style={{ marginBottom: '24px' }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Structured & Tailored Learning Experience
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Enhanced Interaction and Collaboration
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Hands-On Practical Learning
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Immediate Feedback and Clarification
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px',
+                      fontSize: '16px'
+                    }}>
+                      <span style={{ marginRight: '12px', fontSize: '18px' }}>✓</span>
+                      Peer-to-peer Learning
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => navigate('/contact')}
+                    style={{
+                      width: '100%',
+                      padding: '14px 0',
+                      backgroundColor: 'white',
+                      color: '#1976D2',
+                      fontWeight: '600',
+                      fontSize: '16px',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      marginTop: 'auto',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    }}
+                  >
+                    Contact Us
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Course Details */}
+          <div style={{ flex: '1 1 300px' }}>
+            <div style={{
+              border: '1px solid #e0e0e0',
+              borderRadius: '5px',
+              padding: '20px',
+              marginBottom: '30px',
+              backgroundColor: '#f9f9f9'
+            }}>
+              <h3 style={{ marginBottom: '25px', fontSize: '20px', fontWeight: '500', color: '#333' }}>
+                This course includes:
+              </h3>
+              <ul className="list-group mb-4">
+                {/* Time/Duration */}
+                {moreCourseContent?.duration && (
+                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
+                    <span className="fw-semibold d-flex align-items-center">
+                      <FiClock className="me-2" /> Duration
+                    </span>
+                    <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                      {moreCourseContent.duration}
+                    </span>
+                  </li>
+                )}
+
+                {/* Number of Modules */}
+                {moreCourseContent?.noOfModules && (
+                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
+                    <span className="text-capitalize fw-semibold text-dark">
+                      <FiMonitor className="me-2" /> Modules
+                    </span>
+                    <span
+                      className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
+                      style={{
+                        background: "linear-gradient(45deg, #6a11cb, #2575fc)",
+                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      }}
+                    >
+                      {moreCourseContent.noOfModules}+ Modules
+                    </span>
+                  </li>
+                )}
+
+                {/* Activities */}
+                {moreCourseContent?.Activities && (
+                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
+                    <span className="text-capitalize fw-semibold text-dark">
+                      <FiFileText className="me-2" /> Activities
+                    </span>
+                    <span
+                      className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
+                      style={{
+                        background: "linear-gradient(45deg, #6a11cb, #2575fc)",
+                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      }}
+                    >
+                      {moreCourseContent.Activities}+ Activities
+                    </span>
+                  </li>
+                )}
+
+                {/* Dynamic rendering for any additional fields */}
+                {moreCourseContent && 
+                  Object.entries(moreCourseContent)
+                    .filter(([key]) => !['duration', 'noOfModules', 'Activities'].includes(key))
+                    .map(([key, value], index) => {
+                      // Get icon based on key name or use default
+                      const getIconForKey = (keyName) => {
+                        const lowerKey = keyName.toLowerCase();
+                        if (lowerKey.includes('time') || lowerKey.includes('duration')) return FiClock;
+                        if (lowerKey.includes('module') || lowerKey.includes('course')) return FiMonitor;
+                        if (lowerKey.includes('activity') || lowerKey.includes('exercise')) return FiFileText;
+                        if (lowerKey.includes('download') || lowerKey.includes('resource')) return FiDownload;
+                        if (lowerKey.includes('certificate') || lowerKey.includes('award')) return FiAward;
+                        return FiClock; // Default icon
+                      };
+
+                      const Icon = getIconForKey(key);
+                      
+                      return (
+                        <li
+                          key={key}
+                          className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect"
+                        >
+                          <span className="text-capitalize fw-semibold text-dark">
+                            <Icon className="me-2" /> {key.replace(/([A-Z])/g, " $1").trim()}
+                          </span>
+                          <span
+                            className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
+                            style={{
+                              background: "linear-gradient(45deg, #6a11cb, #2575fc)",
+                              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                            }}
+                          >
+                            {value}
+                          </span>
+                        </li>
+                      );
+                    })
+                }
+
+                {/* Static Lifetime Access */}
+                <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
+                  <span className="fw-semibold">
+                    <FiClock className="me-2" />Access
+                  </span>
+                  <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                    Lifetime access
+                  </span>
+                </li>
+              </ul>
+
+              <style jsx>{`
+                .list-group-item {
+                  transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+                
+                .list-group-item:hover {
+                  transform: translateY(-5px);
+                  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+                }
+
+                .hover-effect:hover {
+                  background-color: #f8f9fa;
+                }
+              `}</style>
+
+              {/* Brochure Request Dropdown */}
+              <div ref={brochureFormRef} style={{ marginTop: '20px', borderTop: '1px solid #e0e0e0', paddingTop: '20px' }}>
                 <button
-                  onClick={() => navigate('/contact')}
+                  onClick={() => setIsBrochureFormOpen(!isBrochureFormOpen)}
                   style={{
                     width: '100%',
-                    padding: '14px 0',
-                    backgroundColor: 'white',
-                    color: '#1976D2',
-                    fontWeight: '600',
-                    fontSize: '16px',
+                    padding: '12px 15px',
+                    backgroundColor: '#26A9E0',
+                    color: 'white',
                     border: 'none',
-                    borderRadius: '8px',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    fontWeight: '500',
                     cursor: 'pointer',
-                    marginTop: 'auto',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '15px'
                   }}
                 >
-                  Contact Us
+                  <span>Course Brochure</span>
+                  {isBrochureFormOpen ? <FiChevronUp /> : <FiChevronDown />}
                 </button>
+                {isBrochureFormOpen && (
+                  <div style={{ padding: '15px', backgroundColor: 'white', border: '1px solid #e0e0e0', borderRadius: '4px', marginBottom: '15px' }}>
+                    <p style={{ marginBottom: '15px', color: '#555', fontSize: '14px' }}>
+                      Enter your email address to receive the course brochure.
+                    </p>
+                    <form onSubmit={handleBrochureRequest} style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div style={{ marginBottom: '15px' }}>
+                        <label htmlFor="brochureEmail" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
+                          Email Address:
+                        </label>
+                        <input
+                          type="email"
+                          id="brochureEmail"
+                          value={brochureEmail}
+                          onChange={(e) => setBrochureEmail(e.target.value)}
+                          placeholder="your-email@example.com"
+                          required
+                          style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        style={{
+                          backgroundColor: 'orange',
+                          color: 'white',
+                          border: 'none',
+                          padding: '10px 15px',
+                          borderRadius: '4px',
+                          cursor: 'pointer',
+                          fontWeight: 'bold',
+                          alignSelf: 'flex-start'
+                        }}
+                      >
+                        Send Brochure
+                      </button>
+                    </form>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
-
-        {/* Right Column - Course Details */}
-        <div style={{ flex: '1 1 300px' }}>
-  <div style={{
-    border: '1px solid #e0e0e0',
-    borderRadius: '5px',
-    padding: '20px',
-    marginBottom: '30px',
-    backgroundColor: '#f9f9f9'
-  }}>
-    <h3 style={{ marginBottom: '25px', fontSize: '20px', fontWeight: '500', color: '#333' }}>
-      This course includes:
-    </h3>
-    <ul className="list-group mb-4">
-      {/* Time/Duration */}
-      {moreCourseContent?.duration && (
-        <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
-          <span className="fw-semibold d-flex align-items-center">
-            <FiClock className="me-2" /> Duration
-          </span>
-          <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-            {moreCourseContent.duration}
-          </span>
-        </li>
-      )}
-
-      {/* Number of Modules */}
-      {moreCourseContent?.noOfModules && (
-        <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
-          <span className="text-capitalize fw-semibold text-dark">
-            <FiMonitor className="me-2" /> Modules
-          </span>
-          <span
-            className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
-            style={{
-              background: "linear-gradient(45deg, #6a11cb, #2575fc)",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            {moreCourseContent.noOfModules}+ Modules
-          </span>
-        </li>
-      )}
-
-      {/* Activities */}
-      {moreCourseContent?.Activities && (
-        <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
-          <span className="text-capitalize fw-semibold text-dark">
-            <FiFileText className="me-2" /> Activities
-          </span>
-          <span
-            className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
-            style={{
-              background: "linear-gradient(45deg, #6a11cb, #2575fc)",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            {moreCourseContent.Activities}+ Activities
-          </span>
-        </li>
-      )}
-
-      {/* Dynamic rendering for any additional fields */}
-      {moreCourseContent && 
-        Object.entries(moreCourseContent)
-          .filter(([key]) => !['duration', 'noOfModules', 'Activities'].includes(key))
-          .map(([key, value], index) => {
-            // Get icon based on key name or use default
-            const getIconForKey = (keyName) => {
-              const lowerKey = keyName.toLowerCase();
-              if (lowerKey.includes('time') || lowerKey.includes('duration')) return FiClock;
-              if (lowerKey.includes('module') || lowerKey.includes('course')) return FiMonitor;
-              if (lowerKey.includes('activity') || lowerKey.includes('exercise')) return FiFileText;
-              if (lowerKey.includes('download') || lowerKey.includes('resource')) return FiDownload;
-              if (lowerKey.includes('certificate') || lowerKey.includes('award')) return FiAward;
-              return FiClock; // Default icon
-            };
-
-            const Icon = getIconForKey(key);
-            
-            return (
-              <li
-                key={key}
-                className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect"
-              >
-                <span className="text-capitalize fw-semibold text-dark">
-                  <Icon className="me-2" /> {key.replace(/([A-Z])/g, " $1").trim()}
-                </span>
-                <span
-                  className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
-                  style={{
-                    background: "linear-gradient(45deg, #6a11cb, #2575fc)",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  {value}
-                </span>
-              </li>
-            );
-          })
-      }
-
-      {/* Static Lifetime Access */}
-      <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
-        <span className="fw-semibold">
-          <FiClock className="me-2" />Access
-        </span>
-        <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ background: 'linear-gradient(45deg, #6a11cb, #2575fc)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-          Lifetime access
-        </span>
-      </li>
-    </ul>
-
-    <style jsx>{`
-      .list-group-item {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      
-      .list-group-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      .hover-effect:hover {
-        background-color: #f8f9fa;
-      }
-    `}</style>
-
-    {/* Brochure Request Dropdown */}
-    <div ref={brochureFormRef} style={{ marginTop: '20px', borderTop: '1px solid #e0e0e0', paddingTop: '20px' }}>
-      <button
-        onClick={() => setIsBrochureFormOpen(!isBrochureFormOpen)}
-        style={{
-          width: '100%',
-          padding: '12px 15px',
-          backgroundColor: '#26A9E0',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          fontSize: '14px',
-          fontWeight: '500',
-          cursor: 'pointer',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '15px'
-        }}
-      >
-        <span>Course Brochure</span>
-        {isBrochureFormOpen ? <FiChevronUp /> : <FiChevronDown />}
-      </button>
-      {isBrochureFormOpen && (
-        <div style={{ padding: '15px', backgroundColor: 'white', border: '1px solid #e0e0e0', borderRadius: '4px', marginBottom: '15px' }}>
-          <p style={{ marginBottom: '15px', color: '#555', fontSize: '14px' }}>
-            Enter your email address to receive the course brochure.
-          </p>
-          <form onSubmit={handleBrochureRequest} style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="brochureEmail" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', color: '#333' }}>
-                Email Address:
-              </label>
-              <input
-                type="email"
-                id="brochureEmail"
-                value={brochureEmail}
-                onChange={(e) => setBrochureEmail(e.target.value)}
-                placeholder="your-email@example.com"
-                required
-                style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
-              />
-            </div>
-            <button
-              type="submit"
-              style={{
-                backgroundColor: 'orange',
-                color: 'white',
-                border: 'none',
-                padding: '10px 15px',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-                alignSelf: 'flex-start'
-              }}
-            >
-              Send Brochure
-            </button>
-          </form>
-        </div>
-      )}
-    </div>
-  </div>
-</div>
-
       </div>
       <CertificateSection />
-    </div>
+    </>
   );
 };
 
-export default CourseDescription;
+export default CourseDescriptionComponent;

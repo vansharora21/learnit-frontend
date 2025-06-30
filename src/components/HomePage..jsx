@@ -8,6 +8,7 @@ import img3 from './Assets/ImageSlider/img3 (1).jpg';
 import img4 from './Assets/ImageSlider/img4 (1).jpg';
 import img5 from './Assets/ImageSlider/img5 (1).jpg';
 import img6 from './Assets/ImageSlider/img6 (1).jpg';
+import { Helmet } from 'react-helmet';
 
 const sliderImages = [
   {
@@ -58,6 +59,7 @@ function ImageSlider() {
 
 
   return (
+
     <div className="position-relative w-100 overflow-hidden" style={{ minHeight: '70vh', height: '90vh', maxHeight: '800px' }}>
       {sliderImages.map((img, idx) => (
         <div
@@ -178,6 +180,14 @@ function ImageSlider() {
 export default function HomePage() {
   return (
     <div className="d-flex flex-column min-vh-100 bg-light">
+      <Helmet>
+        <link rel="icon" href="/logo.png" />
+        <title>Learnitfy: Best Corporate IT Training Platform for Tech Skills
+        </title>
+        <meta name="description" content="Master in-demand IT skills with Learnitfy. Get Access to flexible, hands-on training and certification programs tailored for IT professionals and Corporates.
+" />
+        <meta name="keywords" content="Learnitfy, courses, education" />
+      </Helmet>
       {/* Hero Section with Image Slider */}
       <div className="bg-white text-white position-relative overflow-hidden" style={{ minHeight: '70vh', height: '90vh', maxHeight: '800px' }}>
         <ImageSlider />
@@ -256,9 +266,9 @@ export default function HomePage() {
                     </div>
                     <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
-                      Work On Live Project 
+                      Work On Live Project
                     </div>
-                    
+
                     <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
                       Live Interactive Instructor-led Training
@@ -311,7 +321,7 @@ export default function HomePage() {
                 <div className="position-absolute bottom-0 start-0 w-100 p-4 text-white">
                   <h3 className="fw-bold fs-3 mb-4 text-white"
                     style={{
-                      marginTop:'0px',
+                      marginTop: '0px',
                       fontSize: '2 rem',
                       fontFamily: 'Ubuntu, sans-serif',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
@@ -331,7 +341,7 @@ export default function HomePage() {
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
                       Customized Learning Paths
                     </div>
-                    
+
                     <div className="feature-item d-flex align-items-center mb-2" style={{ fontSize: '0.95rem', opacity: '0.95' }}>
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
                       Enhanced Interaction and Collaboration
@@ -348,7 +358,7 @@ export default function HomePage() {
                       <span className="me-2" style={{ color: '#fff', fontSize: '1.2rem' }}>✅</span>
                       Peer-to-peer Learning
                     </div>
-                  </div>  
+                  </div>
                 </div>
 
                 {/* Overlay Gradient */}
@@ -417,3 +427,4 @@ export default function HomePage() {
     </div>
   );
 }
+

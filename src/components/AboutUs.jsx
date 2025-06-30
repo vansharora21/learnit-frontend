@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from './Assets/Learnitfy_Logo (2).jpg';
+import { Helmet } from 'react-helmet';
+
 
 function AboutUsPage() {
   const [isMobile, setIsMobile] = useState(false);
@@ -18,6 +20,7 @@ function AboutUsPage() {
   }, []);
 
   return (
+    
     <div className="about-us-page" style={{
       fontFamily: "'Open Sans', sans-serif",
       color: '#333',
@@ -35,6 +38,16 @@ function AboutUsPage() {
         gap: isMobile ? '1.5rem' : '2rem',
         background: '#fff',
       }}>
+              <Helmet>
+        <link rel="icon" href="/logo.png" />
+        <title>About Us | Learnitfy – Corporate IT Training Platform
+
+        </title>
+        <meta name="description" content="Learnitfy is a Corporate IT training platform focused to empowering learners with job-ready digital skills. Discover our mission, core values, and philosophy to make tech education accessible and practical for all.
+
+" />
+        <meta name="keywords" content="Learnitfy, courses, education" />
+      </Helmet>
         <div className="hero-text" style={{ 
           flex: 1,
           order: isMobile ? 2 : 1,

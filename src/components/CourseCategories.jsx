@@ -3,6 +3,9 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { reverseGenerateSlug } from './CourseCards';
+import { Helmet } from 'react-helmet';
+
+
 
 const CourseCard = ({ title, description, data, image }) => {
   const slug = title.replace(/\s+/g, '-').toLowerCase(); // e.g., React JS => react-js
@@ -45,6 +48,7 @@ const CourseCategories = () => {
   // let name = params.courseSlug;
   let name = params.courseSlug.toLowerCase();
 
+  const categoryName = params.courseSlug.replace(/-/g, ' '); // Convert slug back to readable format
 
   const fetchCourses = async () => {
     console.log("here is the name of slug:", name);
@@ -67,7 +71,13 @@ const CourseCategories = () => {
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', background: "#f5f5f5" }}>
-      <p style={{
+      <Helmet>
+        <link rel="icon" href="./logo.png" />
+        <title>Learnitfy {categoryName}</title>
+        <meta name="description" content={`Explore courses in the ${categoryName} category`} />
+        <meta name="keywords" content={`courses, ${categoryName}`} />
+      </Helmet>
+      {/* <p style={{
         fontWeight: 400,
         fontSize: '1.125rem',
         lineHeight: '1.7',
@@ -78,7 +88,7 @@ const CourseCategories = () => {
         padding: '0 1rem'
       }}>
         here is the course datadetials 
-      </p>
+      </p> */}
 
       <motion.div
         className="Course-img"
@@ -92,7 +102,7 @@ const CourseCategories = () => {
             <div className="country skeleton" key={i} />
           ))
         ) : slugData.length === 0 ? (
-          <div style={{ textAlign: 'center', width: '100%', padding: '2rem 1rem', color: '#555' }}>
+          <div style={{ textAlign: 'center', width: '100%', padding: '10rem 1rem', color: '#555' }}>
             <p>No courses available in this category at the moment. Please check back later.</p>
           </div>
         ) : (
