@@ -603,7 +603,7 @@ const CourseDescriptionComponent = () => {
                       (e.currentTarget.style.backgroundColor = openIndex === index ? '#eee' : '#dee2e6')
                     }
                   >
-                    📘 Lesson: {model.moduleTitle}
+                    📘 Lesson {index + 1}: {model.moduleTitle}
                   </div>
                   {openIndex === index && (
                     <div style={{ padding: '10px 18px', backgroundColor: '#fff' }}>
