@@ -21,7 +21,7 @@ const FAQItem = ({ question, answer }) => {
       </div>
       {open && (
         <div style={{ marginTop: '8px', fontSize: '14px', color: '#555', lineHeight: '1.4' }}>
-           <span style={{ fontSize: '20px', color: '#26A9E0', marginRight: '10px' }}>✅ </span>{answer}
+          <span style={{ fontSize: '20px', color: '#26A9E0', marginRight: '10px' }}>✅ </span>{answer}
         </div>
       )}
     </div>
@@ -123,7 +123,7 @@ const AboutSection = () => {
               {courseDetail.aboutCourse}
             </p>
           )}
-          
+
           {courseDetail.subHeading && (
             <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px', color: '#333' }}>
               {courseDetail.subHeading}
@@ -133,7 +133,7 @@ const AboutSection = () => {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {(() => {
                 // Gather all available points
-                const points = [1,2,3,4,5,6,7,8,9,10,11,12]
+                const points = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                   .map(num => courseDetail[`point${num}`])
                   .filter(Boolean);
                 const pointsToShow = showAllPoints ? points : points.slice(0, 3);
@@ -141,14 +141,14 @@ const AboutSection = () => {
                   <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>
                     <span style={{ backgroundColor: 'black', color: 'white', borderRadius: '50%', width: '8px', height: '8px', marginTop: '8px', marginRight: '12px', flexShrink: 0 }}></span>
                     <span style={{ fontSize: '16px', color: '#333', lineHeight: '1.5', flex: 1 }}>{pointValue}</span>
-                    
+
                   </li>
                 ));
               })()}
             </ul>
             {/* Read More button after 3rd point if there are more than 3 points and not showing all */}
             {(() => {
-              const points = [1,2,3,4,5,6,7,8,9,10,11,12]
+              const points = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                 .map(num => courseDetail[`point${num}`])
                 .filter(Boolean);
               return !showAllPoints && points.length > 3 ? (
@@ -167,7 +167,7 @@ const AboutSection = () => {
                 >
                   Read More
                 </button>
-                              ) : null;
+              ) : null;
             })()}
           </div>
           {/* Show these sections only if showAllPoints is true */}
@@ -178,20 +178,23 @@ const AboutSection = () => {
                   Who Should Enroll:
                 </h1>
                 <ul>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Aspiring cybersecurity professionals with no prior experience.</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>IT pros looking to level up in cybersecurity.</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Individuals interested in roles such as Security Analyst, Penetration Tester, Security Engineer, Network Administrator, and System Administrator.</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Professionals preparing for cybersecurity certifications like CompTIA Security+, CEH, CISSP, and CISA.</li>
-                </ul>
+                 
+                <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.whoShouldEnroll.point1}</li>
+                <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.whoShouldEnroll.point2}</li>
+                <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.whoShouldEnroll.point3}</li>
+                <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.whoShouldEnroll.point4}</li>
+                  </ul>
               </div>
               <div style={{ marginTop: '20px', marginBottom: '80px' }}>
                 <h1 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '15px', color: '#222' }}>
                   Prerequisites:
                 </h1>
                 <ul>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Basic computer literacy is recommended.</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>Familiarity with Linux command-line is beneficial for advanced modules.</li>
-                </ul>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.Prerequisites.point1}</li>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.Prerequisites.point2}</li>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.Prerequisites.point3}</li>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.Prerequisites.point4}</li>
+                  </ul>
                 {/* Read Less button */}
                 <button
                   style={{
@@ -430,7 +433,7 @@ const CourseDescriptionComponent = () => {
   useEffect(() => {
     function handleClickOutside(event) {
       if (formRef.current && !formRef.current.contains(event.target)) {
-        setIsFormOpen(false); 
+        setIsFormOpen(false);
       }
       if (brochureFormRef.current && !brochureFormRef.current.contains(event.target)) {
         setIsBrochureFormOpen(false);
@@ -1120,7 +1123,7 @@ const CourseDescriptionComponent = () => {
                 )}
 
                 {/* Dynamic rendering for any additional fields */}
-                {moreCourseContent && 
+                {moreCourseContent &&
                   Object.entries(moreCourseContent)
                     .filter(([key]) => !['duration', 'noOfModules', 'Activities'].includes(key))
                     .map(([key, value], index) => {
@@ -1136,7 +1139,7 @@ const CourseDescriptionComponent = () => {
                       };
 
                       const Icon = getIconForKey(key);
-                      
+
                       return (
                         <li
                           key={key}
