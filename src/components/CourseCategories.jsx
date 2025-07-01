@@ -7,12 +7,12 @@ import { Helmet } from 'react-helmet';
 
 
 
-const CourseCard = ({ title, description, data, image }) => {
+const CourseCard = ({ title, description, data, image, url }) => {
   const slug = title.replace(/\s+/g, '-').toLowerCase(); // e.g., React JS => react-js
 
   return (
     <Link
-      to={`/${slug}`}
+      to={`/${url}`}
       className="infra-link"
       state={{
         courseName: title,
@@ -91,33 +91,34 @@ const CourseCategories = () => {
           here is the course datadetials 
         </p> */}
 
-        <motion.div
-          className="Course-img"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          style={{ marginBottom: '3rem' }}
-        >
-          {loading ? (
-            Array.from({ length: 8 }).map((_, i) => (
-              <div className="country skeleton" key={i} />
-            ))
-          ) : slugData.length === 0 ? (
-            <div style={{ textAlign: 'center', width: '100%', padding: '10rem 1rem', color: '#555' }}>
-              <p>No courses available in this category at the moment. Please check back later.</p>
-            </div>
-          ) : (
-            slugData.map((course, index) => (
-              <CourseCard
-                key={course.courseId || index}
-                image={course.image}
-                title={course.courseName}
-                description={course.description}
-                data={course}
-              />
-            ))
-          )}
-        </motion.div>
+      <motion.div
+        className="Course-img"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        style={{ marginBottom: '3rem' }}
+      >
+        {loading ? (
+          Array.from({ length: 8 }).map((_, i) => (
+            <div className="country skeleton" key={i} />
+          ))
+        ) : slugData.length === 0 ? (
+          <div style={{ textAlign: 'center', width: '100%', padding: '10rem 1rem', color: '#555' }}>
+            <p>No courses available in this category at the moment. Please check back later.</p>
+          </div>
+        ) : (
+          slugData.map((course, index) => (
+            <CourseCard
+              key={course.courseId || index}
+              image={course.image}
+              title={course.courseName}
+              description={course.description}
+              url={course.url}
+              data={course}
+            />
+          ))
+        )}
+      </motion.div>
 
         <style jsx>{`
           .Course-img {
