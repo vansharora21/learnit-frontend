@@ -58,10 +58,7 @@ const ContactUs = () => {
 
 
         </title>
-        <meta name="description" content="Connect with Learnitfy to learn more about our Corporate IT training programs or to get expert assistance from our support team.
-
-
-" />
+        <meta name="description" content="Connect with Learnitfy to learn more about our Corporate IT training programs or to get expert assistance from our support team." />
         <meta name="keywords" content="Learnitfy, courses, education" />
       </Helmet>
       <style jsx>{`

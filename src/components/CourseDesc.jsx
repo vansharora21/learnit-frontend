@@ -6,27 +6,6 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import { CheckCircle } from 'lucide-react';
-
-// CourseDropdown (unchanged)
-const CourseDropdown = ({ title, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div style={{ border: '1px solid #e0e0e0', borderRadius: '4px', marginBottom: '10px', overflow: 'hidden' }}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        style={{
-          width: '100%', padding: '15px', backgroundColor: '#f9f9f9', border: 'none', textAlign: 'left', fontSize: '16px',
-          fontWeight: '500', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-        }}
-      >
-        <span style={{ fontWeight: '500', color: '#333' }}>{title}</span>
-        {isOpen ? <FiChevronUp /> : <FiChevronDown />}
-      </button>
-      {isOpen && <div style={{ padding: '15px' }}>{children}</div>}
-    </div>
-  );
-};
 
 // FAQItem (accordion)
 const FAQItem = ({ question, answer }) => {
@@ -91,6 +70,8 @@ const AboutSection = () => {
   const [loading, setLoading] = useState(true);
   const [showAllPoints, setShowAllPoints] = useState(false);
   const courseId = location.state?.courseId;
+
+  console.log(courseNotes, "--=-=-=-==-=-=-=-=-")
 
   const aboutAPICall = async () => {
     try {
@@ -221,6 +202,35 @@ const AboutSection = () => {
           )}
         </div>
       )}
+      <div className="mb-4" style={{ maxWidth: '600px' }}>
+        {Array.isArray(courseNotes) &&
+          courseNotes.map((course, index) => {
+            const notes = course.notes || {};
+            return (
+              <div
+                key={index}
+                className="bg-light shadow-sm rounded p-3 mb-4 border"
+              >
+                <h6 className="fw-bold text-dark mb-3">
+                  Notes {index + 1}
+                </h6>
+                <ul className="list-group">
+                  {Object.entries(notes).map(([key, value]) => (
+                    <li
+                      key={key}
+                      className="list-group-item d-flex justify-content-between align-items-center border border-secondary-subtle rounded mb-2"
+                    >
+                      {/* <span className="text-dark fw-semibold text-capitalize">
+                        {key.replace(/([A-Z])/g, ' $1')}
+                      </span> */}
+                      <span className="text-muted text-end">{value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };
@@ -323,7 +333,7 @@ const CourseDescriptionComponent = () => {
 
   const courseName = location.state.courseName;
   const CourseDescription = location.state.description;
-  const courseContent = location.state.courseContent;
+  // const courseContent = location.state.courseContent;
   const SelectedCourseId = location.state.courseId;
   const courseSelectImage = location.state.image;
   const courseModel = location.state.courseContent;
@@ -490,41 +500,18 @@ const CourseDescriptionComponent = () => {
     setEnrollInquiry(courseData.title);
   }, [courseData.title]);
 
-  const getIconComponent = (iconType) => {
-    switch (iconType) {
-      case 'hours': return <FiClock />;
-      case 'modules': return <FiMonitor />;
-      case 'activities': return <FiFileText />;
-      case 'resources': return <FiDownload />;
-      case 'access': return <FiClock />;
-      case 'certificate': return <FiAward />;
-      default: return <FiClock />;
-    }
-  };
+  // const getIcon = (iconType) => {
+  //   switch (iconType) {
+  //     case 'hours': return <FiClock />;
+  //     case 'modules': return <FiMonitor />;
+  //     case 'activities': return <FiFileText />;
+  //     case 'resources': return <FiDownload />;
+  //     case 'access': return <FiClock />;
+  //     case 'certificate': return <FiAward />;
+  //     default: return <FiClock />;
+  //   }
+  // };
 
-  // Pricing section Enroll Now form submit
-  const handlePricingEnrollSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('https://api.learnitfy.com/api/user/enroll', {
-        name: enrollName,
-        mobile: enrollMobile,
-        email: enrollEmail,
-        inquiry: enrollInquiry,
-      });
-
-      alert(`Enrollment successful! Response: ${response.data.message}`);
-
-      setEnrollName('');
-      setEnrollMobile('');
-      setEnrollEmail('');
-      setIsEnrollDropdownOpen(false);
-    } catch (error) {
-      console.error('Error enrolling:', error);
-      alert('There was an error enrolling. Please try again later.');
-    }
-  };
 
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -535,10 +522,10 @@ const CourseDescriptionComponent = () => {
   return (
     <>
       <Helmet>
-        <link rel="icon" href="/logo.png" />
-        <title>{courseName}</title>
+        <title>{courseName} </title>
         <meta name="description" content={CourseDescription} />
-        <meta name="keywords" content={`courses, ${courseName}`} />
+        <meta name="keywords" content="course, learn, {courseName}" />
+        <link rel="icon" href="/favicon.ico" />
       </Helmet>
       <div style={{ fontFamily: 'Arial, sans-serif' }}>
         {/* Header Section */}
