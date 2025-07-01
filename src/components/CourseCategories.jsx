@@ -108,14 +108,25 @@ const CourseCategories = () => {
           </div>
         ) : (
           slugData.map((course, index) => (
-            <CourseCard
+            <div
               key={course.courseId || index}
-              image={course.image}
-              title={course.courseName}
-              description={course.description}
-              url={course.url}
-              data={course}
-            />
+              style={{
+                maxWidth: '300px',
+                margin: '0 auto',
+                borderRadius: '10px',
+                overflow: 'hidden',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
+                background: '#fff',
+              }}
+            >
+              <CourseCard
+                image={course.image}
+                title={course.courseName}
+                description={course.description}
+                url={course.url}
+                data={course}
+              />
+            </div>
           ))
         )}
       </motion.div>

@@ -104,9 +104,20 @@ const AboutSection = () => {
     <div style={{ padding: '20px 0' }}>
       {courseDetail && (
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '15px', color: '#222' }}>
-            {courseDetail.heading}
-          </h1>
+<h1
+  style={{
+    fontSize: '24px',
+    fontWeight: '700',
+    marginBottom: '15px',
+    color: '#222',
+    wordWrap: 'break-word',
+    maxWidth: 'ch', // use "ch" for character width approximation
+    maxWidth: '75ch', // roughly ~100 characters including spacing
+  }}
+>
+  {courseDetail.heading}
+</h1>
+
           {courseDetail.aboutCourse && (
             <p style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '20px', color: '#555' }}>
               {courseDetail.aboutCourse}
@@ -189,7 +200,7 @@ const AboutSection = () => {
                     color: 'white',
                     border: 'none',
                     borderRadius: '4px',
-                    marginBottom: '80px',
+                    marginBottom: '50px',
                     fontWeight: 'bold',
                     cursor: 'pointer',
                   }}
@@ -202,35 +213,92 @@ const AboutSection = () => {
           )}
         </div>
       )}
-      <div className="mb-4" style={{ maxWidth: '600px' }}>
-        {Array.isArray(courseNotes) &&
-          courseNotes.map((course, index) => {
-            const notes = course.notes || {};
-            return (
+<div
+  style={{
+    maxWidth: '800px',
+    borderRadius: '18px',
+    overflow: 'hidden',
+    boxShadow: '0 6px 32px rgba(0, 56, 255, 0.08)',
+    background: '#fff',
+    fontFamily: 'Inter, Arial, sans-serif',
+  }}
+>
+  {/* Blue Header Section */}
+  {/* <div
+    style={{
+      background: 'linear-gradient(90deg, #2563eb 60%, #1e40af 100%)',
+      color: '#fff',
+      padding: '32px 0 24px 0',
+      textAlign: 'center',
+    }}
+  >
+    <h2 style={{ margin: 0, fontWeight: 700, fontSize: '1.6rem', letterSpacing: '.02em' }}>
+      Course Notes
+    </h2>
+    <p style={{ margin: '8px 0 0 0', fontWeight: 400, fontSize: '1rem', opacity: 0.95 }}>
+      Key takeaways at a glance
+    </p>
+  </div> */}
+
+  {/* Notes Grid Section */}
+  {Array.isArray(courseNotes) && courseNotes.length > 0 ? (
+    courseNotes.map((course, idx) => {
+      const notes = course.notes || {};
+      const noteEntries = Object.entries(notes).slice(0, 4); // Only show first 4 points
+      return (
+        <div key={idx} style={{ padding: '28px 24px 32px 24px' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '20px',
+              alignItems: 'stretch', // Ensures all grid items stretch to fill row height
+              minHeight: '220px',
+            }}
+          >
+            {noteEntries.map(([key, value]) => (
               <div
-                key={index}
-                className="bg-light shadow-sm rounded p-3 mb-4 border"
+                key={key}
+                style={{
+                  background: '#f1f5fd',
+                  border: '1.5px solid #2563eb22',
+                  borderRadius: '14px',
+                  boxShadow: '0 2px 8px rgba(37,99,235,0.04)',
+                  padding: '16px 14px',
+                  minHeight: '120px', // Ensures all boxes are even
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
+                  height: '100%', // Stretch to fill grid cell
+                  transition: 'box-shadow .2s',
+                  cursor: 'default',
+                }}
+                onMouseOver={e => (e.currentTarget.style.boxShadow = '0 4px 16px rgba(37,99,235,0.10)')}
+                onMouseOut={e => (e.currentTarget.style.boxShadow = '0 2px 8px rgba(37,99,235,0.04)')}
               >
-                <h6 className="fw-bold text-dark mb-3">
-                  Notes {index + 1}
-                </h6>
-                <ul className="list-group">
-                  {Object.entries(notes).map(([key, value]) => (
-                    <li
-                      key={key}
-                      className="list-group-item d-flex justify-content-between align-items-center border border-secondary-subtle rounded mb-2"
-                    >
-                      {/* <span className="text-dark fw-semibold text-capitalize">
-                        {key.replace(/([A-Z])/g, ' $1')}
-                      </span> */}
-                      <span className="text-muted text-end">{value}</span>
-                    </li>
-                  ))}
-                </ul>
+                <span
+                  style={{
+                    color: '#1e293b',
+                    fontSize: '0.99rem',
+                    fontWeight: 500,
+                    opacity: 0.92,
+                  }}
+                >
+                  {value}
+                </span>
               </div>
-            );
-          })}
-      </div>
+            ))}
+          </div>
+        </div>
+      );
+    })
+  ) : (
+    <div style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>
+      No course notes available.
+    </div>
+  )}
+</div>
+
     </div>
   );
 };
