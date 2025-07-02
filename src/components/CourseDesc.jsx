@@ -326,6 +326,11 @@ const CourseDescriptionComponent = () => {
   const courseModel = location.state.courseContent;
   const courseList = location.state.coursesList;
   const courseID = location.state.courseId;
+  const metaTag = location.state.metaTag;
+
+
+
+  console.log("location.state", location.state)
 
   console.log("ksjdbkljslkjd", courseList)
 
@@ -509,10 +514,10 @@ const CourseDescriptionComponent = () => {
   return (
     <>
       <Helmet>
-        <title>{courseName} </title>
+        <title>{metaTag} </title>
         <meta name="description" content={CourseDescription} />
         <meta name="keywords" content="course, learn, {courseName}" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.png" />
       </Helmet>
       <div style={{ fontFamily: 'Arial, sans-serif' }}>
         {/* Header Section */}
@@ -955,7 +960,7 @@ const CourseDescriptionComponent = () => {
                   </div>
 
                   <button
-                    onClick={() => navigate('/contact')}
+                    onClick={() => navigate('/Contact-Us')}
                     style={{
                       width: '100%',
                       padding: '14px 0',

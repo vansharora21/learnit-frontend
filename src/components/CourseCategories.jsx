@@ -7,8 +7,8 @@ import { Helmet } from 'react-helmet';
 
 
 
-const CourseCard = ({ title, description, data, image, url }) => {
-  const slug = title.replace(/\s+/g, '-').toLowerCase(); // e.g., React JS => react-js
+const CourseCard = ({ title, description, data, image, url ,metaTag }) => {
+  // const slug = title.replace(/\s+/g, '-').toLowerCase(); // e.g., React JS => react-js
 
   return (
     <Link
@@ -20,6 +20,7 @@ const CourseCard = ({ title, description, data, image, url }) => {
         courseContent: data.courseContent,
         courseId: data.courseId,
         image: image,
+        metaTag: metaTag
       }}
     >
       <div
@@ -28,7 +29,7 @@ const CourseCard = ({ title, description, data, image, url }) => {
         role="button"
         aria-label={title}
       >
-        <img src={image} alt={`${title} icon`} style={{ width: '350px', height: '200px' }}/>
+        <img src={image} alt={`${title} icon`}/>
         <div className="country-text">{title}</div>
       </div>
     </Link>
@@ -40,7 +41,7 @@ const CourseCategories = () => {
   const [loading, setLoading] = useState(true);
   const [slugData, setSlugData] = useState([]);
   
-  console.log("here is the slug data", slugData);
+  // console.log("here is the slug data", slugData);
 
   const params = useParams();
   console.log("params.courseSlug:", params.courseSlug);
@@ -48,7 +49,7 @@ const CourseCategories = () => {
   // let name = params.courseSlug;
   let name = params.courseSlug.toLowerCase();
 
-  const categoryName = params.courseSlug.replace(/-/g, ' '); // Convert slug back to readable format
+  // const categoryName = params.courseSlug.replace(/-/g, ' '); // Convert slug back to readable format
 
   const fetchCourses = async () => {
     console.log("here is the name of slug:", name);
@@ -69,34 +70,23 @@ const CourseCategories = () => {
     fetchCourses();
   }, [params.courseSlug]);
 
+
+  console.log("slugData", slugData)
   return (
     <>
       <Helmet>
-        <title>Course Categories - Learnitfy</title>
+        <title>{params.courseSlug}</title>
         <meta name="description" content="Explore various course categories available on Learnitfy." />
         <meta name="keywords" content="courses, categories, learn" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.png" />
       </Helmet>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', background: "#f5f5f5" }}>
-        {/* <p style={{
-          fontWeight: 400,
-          fontSize: '1.125rem',
-          lineHeight: '1.7',
-          margin: '1.5rem auto 2.5rem',
-          color: '#444',
-          maxWidth: '800px',
-          textAlign: 'center',
-          padding: '0 1rem'
-        }}>
-          here is the course datadetials 
-        </p> */}
-
       <motion.div
         className="Course-img"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        style={{ marginBottom: '3rem' }}
+        style={{ marginBottom: '3rem',marginTop: '2rem'  }}
       >
         {loading ? (
           Array.from({ length: 8 }).map((_, i) => (
@@ -108,6 +98,7 @@ const CourseCategories = () => {
           </div>
         ) : (
           slugData.map((course, index) => (
+
             <div
               key={course.courseId || index}
               style={{
@@ -125,6 +116,7 @@ const CourseCategories = () => {
                 description={course.description}
                 url={course.url}
                 data={course}
+                metaTag={course.metaTag}
               />
             </div>
           ))
@@ -134,7 +126,7 @@ const CourseCategories = () => {
         <style jsx>{`
           .Course-img {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 24px;
             background: #f5f5f5;
           }
@@ -148,11 +140,10 @@ const CourseCategories = () => {
             position: relative;
             border-radius: 12px;
             overflow: hidden;
-            height: 220px;
+            height: 200px;
             cursor: pointer;
             transition: all 0.25s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border: 1px solid #e1e4e8;
           }
           
           .country:focus,

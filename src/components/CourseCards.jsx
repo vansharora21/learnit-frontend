@@ -24,11 +24,11 @@ export default function CategoryCards() {
     const getCategoryData = async () => {
       try {
         const response = await axios.get('https://api.learnitfy.com/api/admin/get/category');
-        console.log('API Response:', response.data); 
+        console.log('API Response:', response.data);
         const data = response.data.data;
 
         if (Array.isArray(data)) {
-          console.log('Number of courses:', data.length); 
+          console.log('Number of courses:', data.length);
           const processedData = data.map(item => ({
             title: item.categoryName,
             icon: item.logo || null,
@@ -38,8 +38,8 @@ export default function CategoryCards() {
           }));
           setInfra(processedData);
         } else {
-          console.warn('API response data is not an array:', data); 
-          setInfra([]); 
+          console.warn('API response data is not an array:', data);
+          setInfra([]);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -95,7 +95,7 @@ export default function CategoryCards() {
                 role="button"
                 aria-label={item.categoryName}
               >
-                <img src={item.icon} alt={`${item.title} icon`} style={{ width: '350px', height: '200px' }} />
+                <img src={item.icon} alt={`${item.title} icon`} />
                 <div className="country-text">{item.title}</div>
                 {item.badge && (
                   <span className="infra-badge">{item.badge}</span>
@@ -120,15 +120,15 @@ export default function CategoryCards() {
         }
         
         .country {
-          position: relative;
-          border-radius: 12px;
+          width: 100%;
+          max-width: 400px;
+          height: 200px;
+          margin: 0 ; 
           overflow: hidden;
-          height: 220px;
-          cursor: pointer;
-          transition: all 0.25s ease;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-          border: 1px solid #e1e4e8;
+          border-radius: 12px;
+          position: relative;
         }
+
         
         .country:focus,
         .country:hover {
@@ -141,8 +141,10 @@ export default function CategoryCards() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.25s ease;
+          object-position: center;
+          display: block;
         }
+
         
         .country:hover img {
           transform: scale(1.05);
