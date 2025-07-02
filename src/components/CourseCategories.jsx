@@ -123,9 +123,16 @@ const CourseCategories = () => {
 
         <style>{`
           .Course-img {
+<<<<<<< Updated upstream
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 10px; /* Reduced gap for tighter grid */
+=======
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+>>>>>>> Stashed changes
             background: #f5f5f5;
           }
           

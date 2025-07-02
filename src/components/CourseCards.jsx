@@ -4,15 +4,24 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export function generateSlug(title) {
-  return title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
+  // return title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
+  // return title.toLowerCase().replace(/\s+/g, '-');
+  console.log("here is the ttitle -=-=-=-==-", title.toLowerCase().replace(/\s+/g, '-'))
+  return title.toLowerCase().replace(/\s+/g, '-');
 }
 
+// export function reverseGenerateSlug(slug) {
+//   return slug
+//     .split('-')
+//     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+//     .join(' ');
+// }
+
 export function reverseGenerateSlug(slug) {
-  return slug
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  const result = slug.replace(/-/g, ' ');
+  return result.charAt(0).toUpperCase() + result.slice(1);
 }
+
 
 export default function CategoryCards() {
   const [infra, setInfra] = useState([]);
@@ -120,6 +129,7 @@ export default function CategoryCards() {
         }
         
         .country {
+<<<<<<< Updated upstream
           width: 100%;
           max-width: 400px;
           height: 200px;
@@ -127,16 +137,31 @@ export default function CategoryCards() {
           overflow: hidden;
           border-radius: 12px;
           position: relative;
+=======
+          position: relative;
+          width: 300px;
+          height: 200px;
+          overflow: hidden;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+          border: 1px solid #e1e4e8;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+>>>>>>> Stashed changes
         }
 
         
         .country:focus,
-        .country:hover {
-          box-shadow: 0 20px 18px rgba(44, 62, 80, 0.15);
-          border: 3px solid #FBB03B;
-          transform: translateY(-4px);
-        }
+          .country:hover {
+            box-shadow: 0 20px 18px rgba(44, 62, 80, 0.15);
+            border: 3px solid #FBB03B;
+            transform: translateY(-4px);
+          }
         
+<<<<<<< Updated upstream
         .country img {
           width: 100%;
           height: 100%;
@@ -146,6 +171,16 @@ export default function CategoryCards() {
         }
 
         
+=======
+       .Course-img {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 24px;
+          background: #f5f5f5;
+        }
+                
+>>>>>>> Stashed changes
         .country:hover img {
           transform: scale(1.05);
         }
@@ -153,21 +188,14 @@ export default function CategoryCards() {
         .country-text {
           position: absolute;
           bottom: 0;
-          left: 0;
-          right: 0;
-          top: 0;
-          background: linear-gradient(transparent, rgba(0,0,0,0.7));
+          width: 100%;
+          background: rgba(0, 0, 0, 0.6);
           color: white;
-          padding: 20px;
-          font-size: 1.1rem;
+          padding: 8px;
+          font-size: 1rem;
           font-weight: 600;
           text-align: center;
-          letter-spacing: 0.5px;
           text-transform: uppercase;
-          display: flex;
-          align-items: flex-end;
-          justify-content: center;
-          transition: all 0.3s ease;
         }
         
         .country:hover .country-text {
