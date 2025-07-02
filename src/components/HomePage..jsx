@@ -228,7 +228,7 @@ export default function HomePage() {
               <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100"
                 style={{
                   minHeight: '350px',
-                  marginTop: '0',
+                  marginTop: '10px',
                   background: 'linear-gradient(135deg, rgba(249, 169, 30, 0.9), rgba(255, 140, 0, 0.8)), url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -301,7 +301,7 @@ export default function HomePage() {
               <div className="training-card position-relative overflow-hidden rounded-4 shadow-lg h-100"
                 style={{
                   minHeight: '350px',
-                  marginTop: '0',
+                  marginTop: '10px',
                   background: 'linear-gradient(135deg, rgba(0, 201, 255, 0.7), rgba(0, 201, 255, 0.9)), url("https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -411,7 +411,7 @@ export default function HomePage() {
     
     @media (max-width: 576px) {
       .training-card {
-        min-height: 360px !important;
+        min-height: 400px !important;
       }
       
       .training-card .p-4 {
