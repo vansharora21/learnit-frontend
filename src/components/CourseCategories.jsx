@@ -2,65 +2,51 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import { reverseGenerateSlug } from './CourseCards';
 import { Helmet } from 'react-helmet';
 
+// If you need to reverse slug to readable text
+export function reverseGenerateSlug(slug) {
+  return slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
 
-
-const CourseCard = ({ title, description, data, image, url ,metaTag }) => {
-  // const slug = title.replace(/\s+/g, '-').toLowerCase(); // e.g., React JS => react-js
-
-  return (
-    <Link
-      to={`/${url}`}
-      className="infra-link"
-      state={{
-        courseName: title,
-        description: description,
-        courseContent: data.courseContent,
-        courseId: data.courseId,
-        image: image,
-        metaTag: metaTag
-      }}
-    >
-      <div
-        className="country"
-        tabIndex={0}
-        role="button"
-        aria-label={title}
-      >
-        <img src={image} alt={`${title} icon`}/>
-        <div className="country-text">{title}</div>
-      </div>
-    </Link>
-  );
-};
-
+const CourseCard = ({ title, description, data, image, url, metaTag }) => (
+  <Link
+    to={`/${url}`}
+    className="infra-link"
+    state={{
+      courseName: title,
+      description: description,
+      courseContent: data.courseContent,
+      courseId: data.courseId,
+      image: image,
+      metaTag: metaTag,
+    }}
+  >
+    <div className="country" tabIndex={0} role="button" aria-label={title}>
+      <img src={image} alt={`${title} icon`} />
+      <div className="country-text">{title}</div>
+    </div>
+  </Link>
+);
 
 const CourseCategories = () => {
   const [loading, setLoading] = useState(true);
   const [slugData, setSlugData] = useState([]);
-  
-  // console.log("here is the slug data", slugData);
-
   const params = useParams();
-  console.log("params.courseSlug:", params.courseSlug);
-
-  // let name = params.courseSlug;
-  let name = params.courseSlug.toLowerCase();
-
-  // const categoryName = params.courseSlug.replace(/-/g, ' '); // Convert slug back to readable format
+  const name = params.courseSlug.toLowerCase();
 
   const fetchCourses = async () => {
-    console.log("here is the name of slug:", name);
-
     try {
-      let res = name;
-      const response = await axios.get(`https://api.learnitfy.com/api/admin/get/courses?categoryName=${res}`);
-      console.log("-----------response", response);
+      const response = await axios.get(
+        `https://api.learnitfy.com/api/admin/get/courses?categoryName=${name}`
+      );
       setSlugData(response.data.data.coursesList);
     } catch (error) {
       console.error('Error fetching courses:', error);
+      setSlugData([]);
     } finally {
       setLoading(false);
     }
@@ -68,10 +54,9 @@ const CourseCategories = () => {
 
   useEffect(() => {
     fetchCourses();
+    // eslint-disable-next-line
   }, [params.courseSlug]);
 
-
-  console.log("slugData", slugData)
   return (
     <>
       <Helmet>
@@ -80,54 +65,67 @@ const CourseCategories = () => {
         <meta name="keywords" content="courses, categories, learn" />
         <link rel="icon" href="/logo.png" />
       </Helmet>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', background: "#f5f5f5" }}>
-      <motion.div
-        className="Course-img"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        style={{ marginBottom: '3rem',marginTop: '2rem'  }}
+      <div
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 1rem',
+          background: '#f5f5f5',
+        }}
       >
-        {loading ? (
-          Array.from({ length: 8 }).map((_, i) => (
-            <div className="country skeleton" key={i} />
-          ))
-        ) : slugData.length === 0 ? (
-          <div style={{ textAlign: 'center', width: '100%', padding: '10rem 1rem', color: '#555' }}>
-            <p>No courses available in this category at the moment. Please check back later.</p>
-          </div>
-        ) : (
-          slugData.map((course, index) => (
-
+        <motion.div
+          className="Course-img"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{ marginBottom: '3rem', marginTop: '2rem' }}
+        >
+          {loading ? (
+            Array.from({ length: 8 }).map((_, i) => (
+              <div className="country skeleton" key={i} />
+            ))
+          ) : slugData.length === 0 ? (
             <div
-              key={course.courseId || index}
               style={{
-                maxWidth: '300px',
-                margin: '0 auto',
-                borderRadius: '10px',
-                overflow: 'hidden',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
-                background: '#fff',
+                textAlign: 'center',
+                width: '100%',
+                padding: '10rem 1rem',
+                color: '#555',
               }}
             >
-              <CourseCard
-                image={course.image}
-                title={course.courseName}
-                description={course.description}
-                url={course.url}
-                data={course}
-                metaTag={course.metaTag}
-              />
+              <p>No courses available in this category at the moment. Please check back later.</p>
             </div>
-          ))
-        )}
-      </motion.div>
+          ) : (
+            slugData.map((course, index) => (
+              <div
+                key={course.courseId || index}
+                style={{
+                  maxWidth: '300px',
+                  margin: '0 auto',
+                  borderRadius: '10px',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
+                  background: '#fff',
+                }}
+              >
+                <CourseCard
+                  image={course.image}
+                  title={course.courseName}
+                  description={course.description}
+                  url={course.url}
+                  data={course}
+                  metaTag={course.metaTag}
+                />
+              </div>
+            ))
+          )}
+        </motion.div>
 
-        <style jsx>{`
+        <style>{`
           .Course-img {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
+            gap: 10px; /* Reduced gap for tighter grid */
             background: #f5f5f5;
           }
           
@@ -141,6 +139,7 @@ const CourseCategories = () => {
             border-radius: 12px;
             overflow: hidden;
             height: 200px;
+            object-fit:cover;
             cursor: pointer;
             transition: all 0.25s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -194,8 +193,7 @@ const CourseCategories = () => {
             background: linear-gradient(90deg, #f5f5f5 25%, #e0e0e0 37%, #f5f5f5 63%);
             background-size: 400% 100%;
             animation: skeleton-loading 1.4s ease infinite;
-            height: 220px;
-            border: 1px solid #e1e4e8;
+            border: 1px solid rgb(255, 255, 255);
             border-radius: 12px;
           }
           
@@ -208,7 +206,7 @@ const CourseCategories = () => {
           @media (max-width: 1200px) {
             .Course-img {
               grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-              gap: 20px;
+              gap: 10px;
             }
           }
           
@@ -216,7 +214,7 @@ const CourseCategories = () => {
           @media (max-width: 1024px) {
             .Course-img {
               grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-              gap: 18px;
+              gap: 8px;
             }
             .country {
               height: 200px;
@@ -230,7 +228,7 @@ const CourseCategories = () => {
           @media (max-width: 768px) {
             .Course-img {
               grid-template-columns: repeat(2, 1fr);
-              gap: 16px;
+              gap: 8px;
             }
             .country {
               height: 180px;
@@ -251,7 +249,7 @@ const CourseCategories = () => {
           @media (max-width: 640px) {
             .Course-img {
               grid-template-columns: repeat(2, 1fr);
-              gap: 12px;
+              gap: 8px;
             }
             .country {
               height: 160px;
@@ -272,7 +270,7 @@ const CourseCategories = () => {
           @media (max-width: 480px) {
             .Course-img {
               grid-template-columns: 1fr;
-              gap: 16px;
+              gap: 10px;
             }
             .country {
               height: 200px;
@@ -292,7 +290,7 @@ const CourseCategories = () => {
           /* Small Mobile */
           @media (max-width: 360px) {
             .Course-img {
-              gap: 12px;
+              gap: 8px;
             }
             .country {
               height: 180px;
