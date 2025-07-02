@@ -626,7 +626,7 @@ const CourseDescriptionComponent = () => {
               margin: '40px 0',
               flexWrap: 'wrap',
               justifyContent: 'flex-start',
-              alignItems: 'stretch'
+              alignItems: 'flex-start'
             }}>
               {/* Live Virtual Training Card */}
               <div style={{
@@ -766,7 +766,7 @@ const CourseDescriptionComponent = () => {
                               id="fullName"
                               value={fullName}
                               onChange={(e) => setFullName(e.target.value)}
-                              placeholder="John Doe"
+                              placeholder="Name"
                               required
                               style={{
                                 width: '100%',
@@ -983,10 +983,12 @@ const CourseDescriptionComponent = () => {
           </div>
 
           {/* Right Column - Course Details */}
-          <div style={{ flex: '1 1 300px' }}>
+          <div style={{ flex: '1 1 300px', }}>
             <div style={{
               border: '1px solid #e0e0e0',
               borderRadius: '5px',
+              position: 'sticky',
+              top: '100px',
               padding: '20px',
               marginBottom: '30px',
               backgroundColor: '#f9f9f9'
