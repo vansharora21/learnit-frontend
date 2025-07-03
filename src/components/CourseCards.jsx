@@ -4,30 +4,17 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export function generateSlug(title) {
-  // return title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
-  // return title.toLowerCase().replace(/\s+/g, '-');
-  console.log("here is the ttitle -=-=-=-==-", title.toLowerCase().replace(/\s+/g, '-'))
   return title.toLowerCase().replace(/\s+/g, '-');
 }
-
-// export function reverseGenerateSlug(slug) {
-//   return slug
-//     .split('-')
-//     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-//     .join(' ');
-// }
 
 export function reverseGenerateSlug(slug) {
   const result = slug.replace(/-/g, ' ');
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
-
 export default function CategoryCards() {
   const [infra, setInfra] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  console.log("innfraa infra", infra);
 
   useEffect(() => {
     const getCategoryData = async () => {
@@ -42,7 +29,6 @@ export default function CategoryCards() {
             title: item.categoryName,
             icon: item.logo || null,
             slug: item.slug || generateSlug(item.categoryName),
-            slug: item.slug || reverseGenerateSlug(item.categoryName),
             badge: item.badge || null,
           }));
           setInfra(processedData);
@@ -94,7 +80,7 @@ export default function CategoryCards() {
         ) : (
           infra.map((item, index) => (
             <Link
-              key={item.categoryId}
+              key={item.categoryId || index}
               to={`/courses/${item.slug}`}
               className="infra-link"
             >
@@ -102,7 +88,7 @@ export default function CategoryCards() {
                 className="country"
                 tabIndex={0}
                 role="button"
-                aria-label={item.categoryName}
+                aria-label={item.title}
               >
                 <img src={item.icon} alt={`${item.title} icon`} />
                 <div className="country-text">{item.title}</div>
@@ -119,8 +105,9 @@ export default function CategoryCards() {
         .Course-img {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 24px;
+          gap: 20px;
           background: #f5f5f5;
+          padding: 0 10px;
         }
         
         .infra-link {
@@ -129,17 +116,8 @@ export default function CategoryCards() {
         }
         
         .country {
-<<<<<<< Updated upstream
+          position: relative;
           width: 100%;
-          max-width: 400px;
-          height: 200px;
-          margin: 0 ; 
-          overflow: hidden;
-          border-radius: 12px;
-          position: relative;
-=======
-          position: relative;
-          width: 300px;
           height: 200px;
           overflow: hidden;
           border-radius: 12px;
@@ -150,37 +128,24 @@ export default function CategoryCards() {
           display: flex;
           align-items: center;
           justify-content: center;
->>>>>>> Stashed changes
         }
-
         
         .country:focus,
-          .country:hover {
-            box-shadow: 0 20px 18px rgba(44, 62, 80, 0.15);
-            border: 3px solid #FBB03B;
-            transform: translateY(-4px);
-          }
+        .country:hover {
+          box-shadow: 0 20px 18px rgba(44, 62, 80, 0.15);
+          border: 4px solid rgb(247, 165, 32);
+          transform: translateY(-4px);
+        }
         
-<<<<<<< Updated upstream
         .country img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: center;
           display: block;
+          transition: transform 0.25s ease;
         }
-
         
-=======
-       .Course-img {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 24px;
-          background: #f5f5f5;
-        }
-                
->>>>>>> Stashed changes
         .country:hover img {
           transform: scale(1.05);
         }
@@ -188,14 +153,21 @@ export default function CategoryCards() {
         .country-text {
           position: absolute;
           bottom: 0;
-          width: 100%;
-          background: rgba(0, 0, 0, 0.6);
+          left: 0;
+          right: 0;
+          top: 0;
+          background: linear-gradient(transparent, rgba(0,0,0,0.7));
           color: white;
-          padding: 8px;
-          font-size: 1rem;
+          padding: 20px;
+          font-size: 1.1rem;
           font-weight: 600;
           text-align: center;
+          letter-spacing: 0.5px;
           text-transform: uppercase;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          transition: all 0.3s ease;
         }
         
         .country:hover .country-text {
@@ -223,7 +195,8 @@ export default function CategoryCards() {
           background: linear-gradient(90deg, #f5f5f5 25%, #e0e0e0 37%, #f5f5f5 63%);
           background-size: 400% 100%;
           animation: skeleton-loading 1.4s ease infinite;
-          height: 220px;
+          width: 100%;
+          height: 200px;
           border: 1px solid #e1e4e8;
           border-radius: 12px;
         }
@@ -233,19 +206,39 @@ export default function CategoryCards() {
           100% { background-position: 0 50%; }
         }
         
+        /* Extra Large Desktop */
+        @media (min-width: 1400px) {
+          .Course-img {
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+          }
+          .country {
+            height: 200px;
+          }
+          .skeleton {
+            height: 200px;
+          }
+        }
+        
         /* Large Desktop */
         @media (max-width: 1200px) {
           .Course-img {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+          }
+          .country {
+            height: 200px;
+          }
+          .skeleton {
+            height: 200px;
           }
         }
         
         /* Desktop */
         @media (max-width: 1024px) {
           .Course-img {
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
           }
           .country {
             height: 200px;
@@ -258,11 +251,12 @@ export default function CategoryCards() {
         /* Tablet */
         @media (max-width: 768px) {
           .Course-img {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            padding: 0 5px;
           }
           .country {
-            height: 180px;
+            height: 200px;
           }
           .country-text {
             font-size: 1rem;
@@ -272,18 +266,19 @@ export default function CategoryCards() {
             font-size: 1.1rem;
           }
           .skeleton {
-            height: 180px;
+            height: 200px;
           }
         }
         
         /* Mobile Large */
         @media (max-width: 640px) {
           .Course-img {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            padding: 0;
           }
           .country {
-            height: 160px;
+            height: 200px;
           }
           .country-text {
             font-size: 0.9rem;
@@ -293,7 +288,7 @@ export default function CategoryCards() {
             font-size: 1rem;
           }
           .skeleton {
-            height: 160px;
+            height: 200px;
           }
         }
         
@@ -301,10 +296,12 @@ export default function CategoryCards() {
         @media (max-width: 480px) {
           .Course-img {
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 20px;
+            padding: 0;
           }
           .country {
             height: 200px;
+            max-width: 100%;
           }
           .country-text {
             font-size: 1rem;
@@ -321,10 +318,10 @@ export default function CategoryCards() {
         /* Small Mobile */
         @media (max-width: 360px) {
           .Course-img {
-            gap: 12px;
+            gap: 15px;
           }
           .country {
-            height: 180px;
+            height: 200px;
           }
           .country-text {
             font-size: 0.9rem;
@@ -334,7 +331,7 @@ export default function CategoryCards() {
             font-size: 1rem;
           }
           .skeleton {
-            height: 180px;
+            height: 200px;
           }
           .infra-badge {
             font-size: 10px;

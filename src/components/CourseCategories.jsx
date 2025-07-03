@@ -60,80 +60,51 @@ const CourseCategories = () => {
   return (
     <>
       <Helmet>
-        <title>{params.courseSlug}</title>
-        <meta name="description" content="Explore various course categories available on Learnitfy." />
+        <title>{reverseGenerateSlug(params.courseSlug)} - Learnitfy</title>
+        <meta name="description" content={`Explore ${reverseGenerateSlug(params.courseSlug)} courses available on Learnitfy.`} />
         <meta name="keywords" content="courses, categories, learn" />
         <link rel="icon" href="/logo.png" />
       </Helmet>
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 1rem',
-          background: '#f5f5f5',
-        }}
-      >
+      
+      <div style={{ maxWidth: '1200px', margin: '0 auto',marginTop:'10px', padding: '0 1rem', background: "white" }}>
+
         <motion.div
           className="Course-img"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          style={{ marginBottom: '3rem', marginTop: '2rem' }}
+          style={{ marginBottom: '3rem' }}
         >
           {loading ? (
             Array.from({ length: 8 }).map((_, i) => (
               <div className="country skeleton" key={i} />
             ))
           ) : slugData.length === 0 ? (
-            <div
-              style={{
-                textAlign: 'center',
-                width: '100%',
-                padding: '10rem 1rem',
-                color: '#555',
-              }}
-            >
+            <div style={{ textAlign: 'center', width: '100%', padding: '2rem 1rem', color: '#555' }}>
               <p>No courses available in this category at the moment. Please check back later.</p>
             </div>
           ) : (
             slugData.map((course, index) => (
-              <div
+              <CourseCard
                 key={course.courseId || index}
-                style={{
-                  maxWidth: '300px',
-                  margin: '0 auto',
-                  borderRadius: '10px',
-                  overflow: 'hidden',
-                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
-                  background: '#fff',
-                }}
-              >
-                <CourseCard
-                  image={course.image}
-                  title={course.courseName}
-                  description={course.description}
-                  url={course.url}
-                  data={course}
-                  metaTag={course.metaTag}
-                />
-              </div>
+                image={course.image}
+                title={course.courseName}
+                description={course.description}
+                url={course.url}
+                data={course}
+                metaTag={course.metaTag}
+              />
             ))
           )}
         </motion.div>
 
-        <style>{`
+        <style jsx>{`
           .Course-img {
-<<<<<<< Updated upstream
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px; /* Reduced gap for tighter grid */
-=======
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 24px;
->>>>>>> Stashed changes
-            background: #f5f5f5;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            background:rgb(255, 255, 255);
+            padding: 0 10px;
           }
           
           .infra-link {
@@ -143,19 +114,23 @@ const CourseCategories = () => {
           
           .country {
             position: relative;
-            border-radius: 12px;
-            overflow: hidden;
+            width: 100%;
             height: 200px;
-            object-fit:cover;
+            overflow: hidden;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.25s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e1e4e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
           
           .country:focus,
           .country:hover {
             box-shadow: 0 20px 18px rgba(44, 62, 80, 0.15);
-            border: 3px solid #FBB03B;
+            border: 4px solid rgb(247, 165, 32);
             transform: translateY(-4px);
           }
           
@@ -163,6 +138,8 @@ const CourseCategories = () => {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            display: block;
             transition: transform 0.25s ease;
           }
           
@@ -200,7 +177,9 @@ const CourseCategories = () => {
             background: linear-gradient(90deg, #f5f5f5 25%, #e0e0e0 37%, #f5f5f5 63%);
             background-size: 400% 100%;
             animation: skeleton-loading 1.4s ease infinite;
-            border: 1px solid rgb(255, 255, 255);
+            width: 100%;
+            height: 200px;
+            border: 1px solid #e1e4e8;
             border-radius: 12px;
           }
           
@@ -209,33 +188,36 @@ const CourseCategories = () => {
             100% { background-position: 0 50%; }
           }
           
+          /* Extra Large Desktop */
+          @media (min-width: 1400px) {
+            .Course-img {
+              grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+              gap: 30px;
+            }
+          }
+          
           /* Large Desktop */
           @media (max-width: 1200px) {
             .Course-img {
-              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-              gap: 10px;
+              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+              gap: 25px;
             }
           }
           
           /* Desktop */
           @media (max-width: 1024px) {
             .Course-img {
-              grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-              gap: 8px;
-            }
-            .country {
-              height: 200px;
-            }
-            .skeleton {
-              height: 200px;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 20px;
             }
           }
           
           /* Tablet */
           @media (max-width: 768px) {
             .Course-img {
-              grid-template-columns: repeat(2, 1fr);
-              gap: 8px;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 18px;
+              padding: 0 5px;
             }
             .country {
               height: 180px;
@@ -255,8 +237,9 @@ const CourseCategories = () => {
           /* Mobile Large */
           @media (max-width: 640px) {
             .Course-img {
-              grid-template-columns: repeat(2, 1fr);
-              gap: 8px;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 15px;
+              padding: 0;
             }
             .country {
               height: 160px;
@@ -277,10 +260,12 @@ const CourseCategories = () => {
           @media (max-width: 480px) {
             .Course-img {
               grid-template-columns: 1fr;
-              gap: 10px;
+              gap: 20px;
+              padding: 0;
             }
             .country {
               height: 200px;
+              max-width: 100%;
             }
             .country-text {
               font-size: 1rem;
@@ -297,7 +282,7 @@ const CourseCategories = () => {
           /* Small Mobile */
           @media (max-width: 360px) {
             .Course-img {
-              gap: 8px;
+              gap: 15px;
             }
             .country {
               height: 180px;
