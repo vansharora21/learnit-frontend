@@ -100,11 +100,19 @@ const CourseCategories = () => {
 
         <style jsx>{`
           .Course-img {
+<<<<<<< Updated upstream
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             background:rgb(255, 255, 255);
             padding: 0 10px;
+=======
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            background: #f5f5f5;
+>>>>>>> Stashed changes
           }
           
           .infra-link {

@@ -101,7 +101,7 @@ const AboutSection = () => {
   };
 
   return (
-    <div style={{ padding: '20px 0' }}>
+    <div style={{ padding: '5px 0' }}>
       {courseDetail && (
         <div>
           <h1
@@ -198,7 +198,7 @@ const AboutSection = () => {
                 {/* Read Less button */}
                 <button
                   style={{
-                    marginTop: '10px',
+                    marginTop: '2px',
                     background: '#FF5733',
                     color: 'white',
                     border: 'none',
@@ -561,12 +561,12 @@ const CourseDescriptionComponent = () => {
         </div>
 
         {/* Main Content */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', padding: '30px 20px', maxWidth: '1200px', margin: '0 auto', gap: '30px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', padding: '10px 20px', maxWidth: '1200px', margin: '0 auto', gap: '10px' }}>
           {/* Left Column - About and FAQs */}
           <div style={{ flex: '1 1 650px' }}>
             <TabbedSection />
             <div ref={courseContentRef}>
-              <h2 style={{ marginBottom: '20px', fontSize: '22px', color: '#222' }}>Course Content</h2>
+              <h2 style={{ marginBottom: '10px', fontSize: '22px', color: '#222' }}>Course Content</h2>
               {courseModel.map((model, index) => (
                 <div
                   key={index}

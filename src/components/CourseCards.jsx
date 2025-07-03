@@ -82,6 +82,8 @@ export default function CategoryCards() {
             <Link
               key={item.categoryId || index}
               to={`/courses/${item.slug}`}
+              // to={`/courses/${item.slug.replace(' ', '-')}`}
+
               className="infra-link"
             >
               <div
