@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faLinkedin, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import logo from './Assets/PNG-01.png';
 
+
 const SocialMediaIcon = ({ platform }) => {
   const icons = {
     instagram: faInstagram,
@@ -41,9 +42,16 @@ const SocialMediaIcon = ({ platform }) => {
   );
 };
 
+
 export default function Footer() {
   return (
-    <footer style={{ background: '#2c2e34', color: '#fff', padding: '0' }}>
+    <footer style={{ 
+      background: '#2c2e34', 
+      color: '#fff', 
+      padding: '0',
+      marginTop: 'auto',
+      flexShrink: 0
+    }}>
       {/* Main Footer Content */}
       <div style={{ padding: '40px 0' }}>
         <div className="container">
@@ -75,6 +83,7 @@ export default function Footer() {
               </div>
             </div>
 
+
             {/* About Us */}
             <div className="col-12 col-sm-6 col-lg-2 mb-4 mb-lg-0">
               <div style={{ textAlign: 'center' }}>
@@ -98,6 +107,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
+
 
             {/* Contact Us */}  
             <div className="col-12 col-sm-6 col-lg-2 mb-4 mb-lg-0">
@@ -127,6 +137,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
+
 
             {/* Map and Social */}
             <div className="col-12 col-lg-4">
@@ -164,6 +175,7 @@ export default function Footer() {
         </div>
       </div>
 
+
       {/* Copyright */}
       <div style={{ 
         borderTop: '1px solid #444', 
@@ -180,8 +192,28 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Mobile-First CSS */}
+
+      {/* Mobile-First CSS + Sticky Footer CSS */}
       <style>{`
+        /* Sticky Footer Global Styles */
+        html, body, #root {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        
+        /* App container should be flex */
+        #root > div:first-child {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+        
+        /* Main content should grow */
+        main, .main-content {
+          flex: 1;
+        }
+        
         @media (max-width: 991.98px) {
           footer .col-12:not(:last-child) {
             border-bottom: 1px solid #444;
