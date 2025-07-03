@@ -101,14 +101,14 @@ const AboutSection = () => {
   };
 
   return (
-    <div style={{ padding: '5px 0' }}>
+    <div style={{ padding: '0px 0'}}>
       {courseDetail && (
         <div>
           <h1
             style={{
               fontSize: '24px',
               fontWeight: '700',
-              marginBottom: '15px',
+              marginBottom: '0px',
               color: '#222',
               wordWrap: 'break-word',
               maxWidth: 'ch', // use "ch" for character width approximation
@@ -159,7 +159,7 @@ const AboutSection = () => {
                     color: 'white',
                     border: 'none',
                     borderRadius: '4px',
-                    marginBottom: '80px',
+                    marginBottom: '30px',
                     fontWeight: 'bold',
                     cursor: 'pointer',
                   }}
@@ -199,11 +199,11 @@ const AboutSection = () => {
                 <button
                   style={{
                     marginTop: '2px',
-                    background: '#FF5733',
+                    background: '#ee9b00',
                     color: 'white',
                     border: 'none',
                     borderRadius: '4px',
-                    marginBottom: '50px',
+                    marginBottom: '0px',
                     fontWeight: 'bold',
                     cursor: 'pointer',
                   }}
@@ -368,9 +368,11 @@ const CourseDescriptionComponent = () => {
 
   const scrollToCourseContent = (e) => {
     e.preventDefault();
-    if (courseContentRef.current) {
-      courseContentRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+    const halfPageHeight = window.innerHeight / 2;
+    window.scrollTo({
+      top: halfPageHeight,
+      behavior: 'smooth'
+    });
   };
 
   const handleFormSubmit = async (event) => {
@@ -561,7 +563,7 @@ const CourseDescriptionComponent = () => {
         </div>
 
         {/* Main Content */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', padding: '10px 20px', maxWidth: '1200px', margin: '0 auto', gap: '10px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', padding: '0px 20px', maxWidth: '1200px', margin: '0 auto', gap: '10px' }}>
           {/* Left Column - About and FAQs */}
           <div style={{ flex: '1 1 650px' }}>
             <TabbedSection />
