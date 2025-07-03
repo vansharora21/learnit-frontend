@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Helmet} from 'react-helmet';
 
 export function generateSlug(title) {
   return title.toLowerCase().replace(/\s+/g, '-');
@@ -9,8 +10,6 @@ export function generateSlug(title) {
 
 export function reverseGenerateSlug(slug) {
   const result = slug.replace(/-/g, ' ');
-  // const result = slug.replace(' ', /-/g);
-
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
@@ -84,7 +83,6 @@ export default function CategoryCards() {
             <Link
               key={item.categoryId || index}
               to={`/courses/${item.slug}`}
-              // to={`/courses/${item.slug.replace(' ', '-')}`}
               className="infra-link"
             >
               <div
@@ -103,12 +101,17 @@ export default function CategoryCards() {
           ))
         )}
       </motion.div>
+      
+      <Helmet>
+        <link rel="icon" href="/logo.png" />
+        <title>Learnitfy - IT Training Courses</title>
+        <meta name="description" content="Learnitfy is a Corporate IT training platform focused to empowering learners with job-ready digital skills. Discover our mission, core values, and philosophy to make tech education accessible and practical for all." />
+        <meta name="keywords" content="Learnitfy, courses, education" />
+      </Helmet>
 
       <style jsx>{`
         .Course-img {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          display: grid;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 20px;
           background: #f5f5f5;
@@ -122,7 +125,7 @@ export default function CategoryCards() {
         
         .country {
           position: relative;
-          width: 300px;
+          width: 100%;
           height: 200px;
           overflow: hidden;
           border-radius: 12px;
@@ -217,12 +220,6 @@ export default function CategoryCards() {
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
           }
-          .country {
-            height: 200px;
-          }
-          .skeleton {
-            height: 200px;
-          }
         }
         
         /* Large Desktop */
@@ -231,12 +228,6 @@ export default function CategoryCards() {
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
           }
-          .country {
-            height: 200px;
-          }
-          .skeleton {
-            height: 200px;
-          }
         }
         
         /* Desktop */
@@ -244,12 +235,6 @@ export default function CategoryCards() {
           .Course-img {
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-          }
-          .country {
-            height: 200px;
-          }
-          .skeleton {
-            height: 200px;
           }
         }
         
@@ -261,7 +246,7 @@ export default function CategoryCards() {
             padding: 0 5px;
           }
           .country {
-            height: 200px;
+            height: 180px;
           }
           .country-text {
             font-size: 1rem;
@@ -271,7 +256,7 @@ export default function CategoryCards() {
             font-size: 1.1rem;
           }
           .skeleton {
-            height: 200px;
+            height: 180px;
           }
         }
         
@@ -283,7 +268,7 @@ export default function CategoryCards() {
             padding: 0;
           }
           .country {
-            height: 200px;
+            height: 160px;
           }
           .country-text {
             font-size: 0.9rem;
@@ -293,7 +278,7 @@ export default function CategoryCards() {
             font-size: 1rem;
           }
           .skeleton {
-            height: 200px;
+            height: 160px;
           }
         }
         
@@ -326,7 +311,7 @@ export default function CategoryCards() {
             gap: 15px;
           }
           .country {
-            height: 200px;
+            height: 180px;
           }
           .country-text {
             font-size: 0.9rem;
@@ -336,7 +321,7 @@ export default function CategoryCards() {
             font-size: 1rem;
           }
           .skeleton {
-            height: 200px;
+            height: 180px;
           }
           .infra-badge {
             font-size: 10px;
