@@ -9,6 +9,8 @@ export function generateSlug(title) {
 
 export function reverseGenerateSlug(slug) {
   const result = slug.replace(/-/g, ' ');
+  // const result = slug.replace(' ', /-/g);
+
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
@@ -105,7 +107,9 @@ export default function CategoryCards() {
 
       <style jsx>{`
         .Course-img {
-          display: grid;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 20px;
           background: #f5f5f5;
@@ -119,7 +123,7 @@ export default function CategoryCards() {
         
         .country {
           position: relative;
-          width: 100%;
+          width: 300px;
           height: 200px;
           overflow: hidden;
           border-radius: 12px;
