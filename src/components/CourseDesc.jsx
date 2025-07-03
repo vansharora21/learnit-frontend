@@ -308,7 +308,6 @@ const CourseDescriptionComponent = () => {
 
   const { title } = useParams();
   const location = useLocation();
-  // console.log("-=-=-=-==--==--=courseDataList-=-=-=-=-=-=", location.state);
 
   const navigate = useNavigate();
 
