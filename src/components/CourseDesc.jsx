@@ -101,7 +101,7 @@ const AboutSection = () => {
   };
 
   return (
-    <div style={{ padding: '0px 0'}}>
+    <div style={{ padding: '0px 0' }}>
       {courseDetail && (
         <div>
           <h1
@@ -119,13 +119,15 @@ const AboutSection = () => {
           </h1>
 
           {courseDetail.aboutCourse && (
-            <p style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '20px', color: '#555' }}>
-              {courseDetail.aboutCourse}
-            </p>
+            <div style={{width:"200px"}}>
+              <p style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '20px', color: '#555' }}>
+                {courseDetail.aboutCourse}
+              </p>
+            </div>
           )}
 
           {courseDetail.subHeading && (
-            <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px', color: '#333' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px', color: '#333', maxWidth:"100px" }}>
               {courseDetail.subHeading}
             </h2>
           )}

@@ -112,6 +112,8 @@ export default function CategoryCards() {
       <style jsx>{`
         .Course-img {
           display: grid;
+          align-items: center;
+          justify-content: center;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 20px;
           background: #f5f5f5;
