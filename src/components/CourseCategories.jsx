@@ -41,7 +41,7 @@ const CourseCategories = () => {
   const fetchCourses = async () => {
     try {
       const response = await axios.get(
-        `https://api.learnitfy.com/api/admin/get/courses?categoryName=${name}`
+        `https://api.learnitfy.com/api/admin/get/courses?categoryName=${name.replace('-', ' ')}`
       );
       setSlugData(response.data.data.coursesList);
     } catch (error) {
