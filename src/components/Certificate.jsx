@@ -55,14 +55,14 @@ const tabContent = [
           </ul>
         </div>
         <div>
-          <b>Popular Course Categories:</b>
+          {/* <b>Popular Course Categories:</b>
           <ul>
             <li>Cloud & DevOps</li>
             <li>Software Development</li>
             <li>Data & Business Analytics</li>
             <li>Project & Product Management</li>
             <li>Cybersecurity & IT Fundamentals</li>
-          </ul>
+          </ul> */}
         </div>
       </>
     ),

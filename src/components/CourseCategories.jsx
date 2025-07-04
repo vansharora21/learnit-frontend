@@ -37,7 +37,6 @@ const CourseCategories = () => {
   const [slugData, setSlugData] = useState([]);
   const params = useParams();
   const name = params.courseSlug.toLowerCase();
-
   const fetchCourses = async () => {
     try {
       const response = await axios.get(
