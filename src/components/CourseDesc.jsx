@@ -127,7 +127,7 @@ const AboutSection = () => {
           )}
 
           {courseDetail.subHeading && (
-            <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px', color: '#333', maxWidth: "100px" }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px', color: '#333', maxWidth: "400px" }}>
               {courseDetail.subHeading}
             </h2>
           )}
