@@ -82,7 +82,7 @@ export default function CategoryCards() {
           infra.map((item, index) => (
             <Link
               key={item.categoryId || index}
-              to={`/courses/${item.slug}`}
+              to={`/${item.slug}`}
               className="infra-link"
             >
               <div

@@ -29,7 +29,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/About-Us" element={<AboutUs />} />
         <Route path="/Contact-Us" element={<ContactUs />} />
-        <Route path="/courses/:courseSlug" element={<CourseCategories />} /> {/* Dynamic route for course categories */}
+        <Route path="/:courseSlug" element={<CourseCategories />} /> {/* Dynamic route for course categories */}
         <Route path="/:title" element={<CourseDescription />} /> {/* New route for course description */}
       </Routes>
       <Footer/>
