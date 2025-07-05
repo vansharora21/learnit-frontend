@@ -84,6 +84,7 @@ const CourseCategories = () => {
             </div>
           ) : (
             slugData.map((course, index) => (
+              <>
               <CourseCard
                 key={course.courseId || index}
                 image={course.image}
@@ -93,6 +94,8 @@ const CourseCategories = () => {
                 data={course}
                 metaTag={course.metaTag}
               />
+      <p>lkfnksvbnkldsfbnvlndslfv</p>
+</>
             ))
           )}
         </motion.div>
