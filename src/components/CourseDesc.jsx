@@ -119,7 +119,7 @@ const AboutSection = () => {
           </h1>
 
           {courseDetail.aboutCourse && (
-            <div style={{width:"200px"}}>
+            <div style={{ width: "600px" }}>
               <p style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '20px', color: '#555' }}>
                 {courseDetail.aboutCourse}
               </p>
@@ -127,7 +127,7 @@ const AboutSection = () => {
           )}
 
           {courseDetail.subHeading && (
-            <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px', color: '#333', maxWidth:"100px" }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px', color: '#333', maxWidth: "100px" }}>
               {courseDetail.subHeading}
             </h2>
           )}
@@ -179,23 +179,38 @@ const AboutSection = () => {
                 <h1 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '15px', color: '#222' }}>
                   Who Should Enroll:
                 </h1>
-                <ul>
-
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.whoShouldEnroll.point1}</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.whoShouldEnroll.point2}</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.whoShouldEnroll.point3}</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.whoShouldEnroll.point4}</li>
+                <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
+                    {courseDetail.whoShouldEnroll.point1}
+                  </li>
+                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
+                    {courseDetail.whoShouldEnroll.point2}
+                  </li>
+                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
+                    {courseDetail.whoShouldEnroll.point3}
+                  </li>
+                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
+                    {courseDetail.whoShouldEnroll.point4}
+                  </li>
                 </ul>
               </div>
               <div style={{ marginTop: '20px', marginBottom: '80px' }}>
                 <h1 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '15px', color: '#222' }}>
                   Prerequisites:
                 </h1>
-                <ul>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.Prerequisites.point1}</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.Prerequisites.point2}</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.Prerequisites.point3}</li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1px', padding: '8px 0px 0px 20px' }}>{courseDetail.Prerequisites.point4}</li>
+                <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
+                    {courseDetail.Prerequisites.point1}
+                  </li>
+                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
+                    {courseDetail.Prerequisites.point2}
+                  </li>
+                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
+                    {courseDetail.Prerequisites.point3}
+                  </li>
+                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
+                    {courseDetail.Prerequisites.point4}
+                  </li>
                 </ul>
                 {/* Read Less button */}
                 <button
