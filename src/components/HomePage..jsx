@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CourseCards from './CourseCards';
+import CourseCards from './CategoryCard';
 import Timeline from './Tmeline';
 import SearchBar from './SearchBar';
 import img1 from './Assets/ImageSlider/img1 (1).jpg';
