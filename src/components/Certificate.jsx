@@ -69,7 +69,6 @@ const tabContent = [
   },
 ];
 
-
 const CertificateSection = () => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -129,7 +128,7 @@ const CertificateSection = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap:100px;
+          gap: 100px;
           margin: 48px 0;
           flex-wrap: wrap;
           background: #fff;
@@ -137,6 +136,7 @@ const CertificateSection = () => {
           padding: 0px;
           border: none;
         }
+        
         .cert-card-with-tabs {
           flex: 1 1 420px;
           min-width: 320px;
@@ -149,23 +149,27 @@ const CertificateSection = () => {
           display: flex;
           flex-direction: column;
         }
+        
         .cert-card-header h2 {
           font-size: 1.5rem;
           font-weight: 700;
           color: #222;
           margin-bottom: 8px;
         }
+        
         .cert-card-header p {
           color: #444;
           font-size: 1.08rem;
           margin-bottom: 18px;
         }
+        
         .cert-tabs-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
           gap: 14px;
           margin-bottom: 18px;
         }
+        
         .cert-tab-btn {
           background: #f6f8fa;
           border: 1px solid #e1e4e8;
@@ -178,6 +182,7 @@ const CertificateSection = () => {
           transition: all 0.2s;
           outline: none;
         }
+        
         .cert-tab-btn.active,
         .cert-tab-btn:focus,
         .cert-tab-btn:hover {
@@ -186,6 +191,7 @@ const CertificateSection = () => {
           color: #ff6b00;
           box-shadow: 0 4px 12px rgba(255,107,0,0.08);
         }
+        
         .cert-tab-content {
           background: #fafbfc;
           border-radius: 10px;
@@ -196,17 +202,20 @@ const CertificateSection = () => {
           color: #222;
           font-size: 1rem;
         }
+        
         .cert-card-footer h4 {
           font-size: 1.08rem;
           color: #333;
           font-weight: 600;
           margin-bottom: 8px;
         }
+        
         .cert-card-footer ul {
           margin: 0 0 0 18px;
           color: #444;
           font-size: 1rem;
         }
+        
         .cert-demo-col {
           flex: 0 0 340px;
           max-width: 360px;
@@ -220,9 +229,10 @@ const CertificateSection = () => {
           border: none;
           box-shadow: none;
         }
+        
         .cert-demo-img-frame {
           border: 6px solid #2d3242;
-          height:350px;
+          height: 350px;
           border-radius: 6px;
           width: 400px;
           padding: 10px;
@@ -232,6 +242,7 @@ const CertificateSection = () => {
           align-items: center;
           justify-content: center;
         }
+        
         .cert-demo-img {
           height: 300px;
           border-radius: 6px;
@@ -239,44 +250,238 @@ const CertificateSection = () => {
           max-width: 400px;
           border-radius: 2px;
           display: block;
+          object-fit: contain;
+          object-position: center;
         }
+        
         .cert-demo-caption {
           font-size: 0.92rem;
           color: #888;
           margin-top: 10px;
           text-align: center;
         }
+        
+        /* Enhanced responsive design */
+        @media (max-width: 1200px) {
+          .cert-main-flex {
+            gap: 60px;
+          }
+        }
+        
         @media (max-width: 1000px) {
           .cert-main-flex {
             flex-direction: column;
-            align-items: stretch;
-            gap: 28px;
-            padding: 22px 6px;
+            align-items: center;
+            gap: 40px;
+            padding: 20px 16px;
           }
+          
           .cert-demo-col,
           .cert-card-with-tabs {
             max-width: 100%;
+            width: 100%;
           }
+          
           .cert-demo-img-frame {
             margin: 0 auto;
+            width: min(400px, 90vw);
+            height: auto;
+            aspect-ratio: 400/350;
+          }
+          
+          .cert-demo-img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            object-position: center;
           }
         }
-       @media (max-width: 600px) {
+        
+        @media (max-width: 768px) {
+          .cert-main-flex {
+            gap: 30px;
+            padding: 15px 12px;
+          }
+          
           .cert-card-with-tabs {
-            padding: 18px 6px 14px 6px;
+            padding: 24px 16px;
           }
+          
+          .cert-card-header h2 {
+            font-size: 1.3rem;
+          }
+          
+          .cert-card-header p {
+            font-size: 1rem;
+          }
+          
           .cert-tabs-grid {
-            gap: 8px;
+            grid-template-columns: 1fr;
+            gap: 12px;
           }
+          
           .cert-tab-btn {
-            font-size: 0.97rem;
-            padding: 12px 6px;
+            font-size: 1rem;
+            padding: 14px 12px;
           }
+          
           .cert-tab-content {
-            padding: 12px 6px;
+            padding: 16px 12px;
+            font-size: 0.95rem;
           }
+          
           .cert-demo-img-frame {
+            width: min(350px, 85vw);
+            padding: 8px;
+          }
+          
+          .cert-demo-img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            object-position: center;
+          }
+        }
+        
+        @media (max-width: 600px) {
+          .cert-main-flex {
+            margin: 24px 0;
+            padding: 12px 8px;
+            gap: 24px;
+          }
+          
+          .cert-card-with-tabs {
+            padding: 20px 12px;
+            min-width: 280px;
+          }
+          
+          .cert-card-header h2 {
+            font-size: 1.2rem;
+          }
+          
+          .cert-card-header p {
+            font-size: 0.95rem;
+          }
+          
+          .cert-tabs-grid {
+            gap: 10px;
+          }
+          
+          .cert-tab-btn {
+            font-size: 0.95rem;
+            padding: 12px 8px;
+          }
+          
+          .cert-tab-content {
+            padding: 14px 10px;
+            min-height: 100px;
+            font-size: 0.9rem;
+          }
+          
+          .cert-card-footer h4 {
+            font-size: 1rem;
+          }
+          
+          .cert-card-footer ul {
+            font-size: 0.95rem;
+          }
+          
+          .cert-demo-img-frame {
+            width: min(300px, 80vw);
+            padding: 6px;
+          }
+          
+          .cert-demo-img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            object-position: center;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .cert-main-flex {
+            padding: 8px 4px;
+          }
+          
+          .cert-card-with-tabs {
+            padding: 16px 8px;
+            min-width: 260px;
+          }
+          
+          .cert-card-header h2 {
+            font-size: 1.1rem;
+          }
+          
+          .cert-card-header p {
+            font-size: 0.9rem;
+          }
+          
+          .cert-tab-btn {
+            font-size: 0.9rem;
+            padding: 10px 6px;
+          }
+          
+          .cert-tab-content {
+            padding: 12px 8px;
+            font-size: 0.85rem;
+          }
+          
+          .cert-card-footer h4 {
+            font-size: 0.95rem;
+          }
+          
+          .cert-card-footer ul {
+            font-size: 0.9rem;
+          }
+          
+          .cert-demo-img-frame {
+            width: min(280px, 75vw);
+            border-width: 4px;
             padding: 5px;
+          }
+        }
+        
+        @media (max-width: 360px) {
+          .cert-main-flex {
+            margin: 16px 0;
+            padding: 4px 2px;
+          }
+          
+          .cert-card-with-tabs {
+            padding: 12px 6px;
+            min-width: 240px;
+          }
+          
+          .cert-card-header h2 {
+            font-size: 1rem;
+          }
+          
+          .cert-card-header p {
+            font-size: 0.85rem;
+          }
+          
+          .cert-tab-btn {
+            font-size: 0.85rem;
+            padding: 8px 4px;
+          }
+          
+          .cert-tab-content {
+            padding: 10px 6px;
+            font-size: 0.8rem;
+          }
+          
+          .cert-card-footer h4 {
+            font-size: 0.9rem;
+          }
+          
+          .cert-card-footer ul {
+            font-size: 0.85rem;
+          }
+          
+          .cert-demo-img-frame {
+            width: min(260px, 70vw);
+            border-width: 3px;
           }
         }
       `}</style>
