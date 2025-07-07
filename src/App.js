@@ -1,4 +1,4 @@
-import React, { useEffect ,useState }  from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -15,7 +15,7 @@ import CourseCategories from './components/CourseCategories.jsx';
 function App() {
   const location = useLocation();
 
-  console.log(location,"app location");
+  console.log(location, "app location");
 
   const [slugData, setSlugData] = useState([]);
 
@@ -28,7 +28,7 @@ function App() {
   }, [location]); // Scro
   // 
   // 
-   const fetchCourses = async () => {
+  const fetchCourses = async () => {
     try {
       const response = await axios.get(
         `https://api.learnitfy.com/api/admin/get/category`
@@ -38,7 +38,7 @@ function App() {
       console.error('Error fetching courses:', error);
       setSlugData([]);
     } finally {
-      console.log("finally"); 
+      console.log("finally");
     }
   };
 
@@ -46,14 +46,7 @@ function App() {
     fetchCourses();
     // eslint-disable-next-line
   }, []);
-
-
-
- const test= location?.state?.test;
-
-
-  // ll to top on route change
-
+  const test = location?.state?.test;
   return (
     <div className="App">
       <Navbar />
@@ -61,20 +54,14 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/About-Us" element={<AboutUs />} />
         <Route path="/Contact-Us" element={<ContactUs />} />
-
-
-{
-  test === 'test' &&  <>
-  
-  <Route path="/:title" element={<CourseDescription />} /> {/* New route for course description */}
-
-  </>       
- 
-}
-
+        {
+          test === 'test' && <>
+            <Route path="/:title" element={<CourseDescription />} />
+          </>
+        }
         <Route path="/:courseSlug" element={<CourseCategories />} /> Dynamic route for course categories
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

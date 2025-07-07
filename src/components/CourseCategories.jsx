@@ -71,7 +71,7 @@ const CourseCategories = () => {
         <link rel="icon" href="/logo.png" />
       </Helmet>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', marginTop: '10px', padding: '0 1rem', background: "white" }}>
+      <div style={{ maxWidth: '1200px', margin: '10px auto', marginTop: '10px', padding: '0 1rem', background: "white" }}>
 
         <motion.div
           className="Course-img"
@@ -107,12 +107,15 @@ const CourseCategories = () => {
 
         <style jsx>{`
           .Course-img {
-            display: grid;
+            display: flex;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             background:rgb(255, 255, 255);
-            padding: 0 10px;
+            padding: 10 10px;
           }
+          .country skeleton{
+            display: grid;
+            }
           
           .infra-link {
             text-decoration: none;
