@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
+import CourseNotFound from './CourseNotFounnd';
 
 // If you need to reverse slug to readable text
 export function reverseGenerateSlug(slug) {
@@ -85,21 +86,34 @@ const CourseCategories = () => {
               <div className="country skeleton" key={i} />
             ))
           ) : slugData.length === 0 ? (
-            <div style={{ textAlign: 'center', width: '100%', padding: '2rem 1rem', color: '#555' }}>
-              <p>No courses available in this category at the moment. Please check back later.</p>
+            <div style={{ textAlign: 'center', width: '100%', padding: '2rem 1rem', color: '#555', fontWeight: "bold" }}>
+              {/* <p>No courses available in this category at the moment. Please check back later.</p> */}
+              <CourseNotFound />
             </div>
           ) : (
             slugData.map((course, index) => (
               <>
-                <CourseCard
-                  key={course.courseId || index}
-                  image={course.image}
-                  title={course.courseName}
-                  description={course.description}
-                  url={course.url}
-                  data={course}
-                  metaTag={course.metaTag}
-                />
+                <div style={{ display: "flex", flexDirection: "column"}}>
+                  <p style={{
+                    fontWeight: 400,
+                    fontSize: '1.125rem',
+                    lineHeight: '1.7',
+                    margin: '1.5rem auto 2.5rem',
+                    color: '#444',
+                    maxWidth: '800px',
+                    textAlign: 'center',
+                    padding: '0 1rem'
+                    }}>At Learnitfy, we offer hands-on, career-focused tech training to help you start or grow your IT career. Learn from experts, build real projects, and stay industry-ready.</p>
+                    <CourseCard
+                    key={course.courseId || index}
+                    image={course.image}
+                    title={course.courseName}
+                    description={course.description}
+                    url={course.url}
+                    data={course}
+                    metaTag={course.metaTag}
+                  />
+                </div>
               </>
             ))
           )}
@@ -120,11 +134,14 @@ const CourseCategories = () => {
           .infra-link {
             text-decoration: none;
             outline: none;
+            align-items: center;
+            justify-content: center;
+            padding-left: 14.5rem;
           }
           
           .country {
             position: relative;
-            width: 100%;
+            width: 350px;
             height: 220px;
             overflow: hidden;
             border-radius: 12px;
