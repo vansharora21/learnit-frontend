@@ -527,8 +527,6 @@ const     CourseDescriptionComponent = () => {
 
   return (
     <>
-
-    <h1>hello world</h1>
       <Helmet>
         <title>{metaTag} </title>
         <meta name="description" content={CourseDescription} />
