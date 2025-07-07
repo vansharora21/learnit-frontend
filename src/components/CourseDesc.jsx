@@ -378,11 +378,13 @@ const     CourseDescriptionComponent = () => {
     };
   }, [formRef, brochureFormRef]);
 
-  const scrollToCourseContent = (e) => {
-    e.preventDefault();
-    const halfPageHeight = window.innerHeight / 2;
+  const scrollToCourseContent = () => {
+    const offset = -100; // Adjust this number based on your header height (e.g. 80px)
+    const element = courseContentRef.current;
+    const top = element.getBoundingClientRect().top + window.pageYOffset + offset;
+
     window.scrollTo({
-      top: halfPageHeight,
+      top,
       behavior: 'smooth'
     });
   };
@@ -546,7 +548,8 @@ const     CourseDescriptionComponent = () => {
         }}>
           <div style={{ flex: '1 1 500px', paddingRight: '20px' }}>
             <h1 style={{ fontSize: '28px', marginBottom: '15px', fontWeight: 'normal' }}>{courseName}</h1>
-            <p style={{ fontSize: '16px', lineHeight: '1.5', marginBottom: '20px', opacity: '0.9' }}>{CourseDescription}</p>
+            <p style={{ fontSize: '16px', lineHeight: '1.5', marginBottom: '20px', opacity: '0.9' }}>
+              {CourseDescription}</p>
             <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'center' }}>
               <button
                 onClick={scrollToCourseContent}
