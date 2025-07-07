@@ -177,7 +177,7 @@ function ImageSlider() {
   );
 }
 
-export default function HomePage() {
+export default function     HomePage() {
   return (
     <div className="d-flex flex-column min-vh-100 bg-light">
       <Helmet>
@@ -201,7 +201,7 @@ export default function HomePage() {
       <div style={{ background: "#f5f5f5", paddingTop: '1.5rem', paddingBottom: '1.5rem' }}>
         <div className="container">
           <h3 className="text-center fw-semibold mb-5 text-dark">
-            Explore Our Popular Course Categories
+            Explore Our Popular Course Categories test
           </h3>
           <CourseCards />
           <Timeline />

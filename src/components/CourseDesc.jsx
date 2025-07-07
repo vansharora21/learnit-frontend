@@ -287,7 +287,7 @@ const TabbedSection = () => {
   );
 };
 
-const CourseDescriptionComponent = () => {
+const     CourseDescriptionComponent = () => {
   // For sidebar forms
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isBrochureFormOpen, setIsBrochureFormOpen] = useState(false);
@@ -527,6 +527,8 @@ const CourseDescriptionComponent = () => {
 
   return (
     <>
+
+    <h1>hello world</h1>
       <Helmet>
         <title>{metaTag} </title>
         <meta name="description" content={CourseDescription} />

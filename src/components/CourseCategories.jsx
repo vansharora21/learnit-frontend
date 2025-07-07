@@ -13,8 +13,9 @@ export function reverseGenerateSlug(slug) {
 }
 
 const CourseCard = ({ title, description, data, image, url, metaTag }) => (
+
   <Link
-    to={`/${url}`}
+    to={`/${url.toLowerCase().replaceAll(' ', '-')}`}
     className="infra-link"
     state={{
       courseName: title,
@@ -23,6 +24,8 @@ const CourseCard = ({ title, description, data, image, url, metaTag }) => (
       courseId: data.courseId,
       image: image,
       metaTag: metaTag,
+
+      test: "test"
     }}
   >
     <div className="country" tabIndex={0} role="button" aria-label={title}>
@@ -56,6 +59,9 @@ const CourseCategories = () => {
     // eslint-disable-next-line
   }, [params.courseSlug]);
 
+
+  const { slug } = useParams();
+
   return (
     <>
       <Helmet>
@@ -64,8 +70,8 @@ const CourseCategories = () => {
         <meta name="keywords" content="courses, categories, learn" />
         <link rel="icon" href="/logo.png" />
       </Helmet>
-      
-      <div style={{ maxWidth: '1200px', margin: '0 auto',marginTop:'10px', padding: '0 1rem', background: "white" }}>
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto', marginTop: '10px', padding: '0 1rem', background: "white" }}>
 
         <motion.div
           className="Course-img"
@@ -85,17 +91,16 @@ const CourseCategories = () => {
           ) : (
             slugData.map((course, index) => (
               <>
-              <CourseCard
-                key={course.courseId || index}
-                image={course.image}
-                title={course.courseName}
-                description={course.description}
-                url={course.url}
-                data={course}
-                metaTag={course.metaTag}
-              />
-      <p>lkfnksvbnkldsfbnvlndslfv</p>
-</>
+                <CourseCard
+                  key={course.courseId || index}
+                  image={course.image}
+                  title={course.courseName}
+                  description={course.description}
+                  url={course.url}
+                  data={course}
+                  metaTag={course.metaTag}
+                />
+              </>
             ))
           )}
         </motion.div>

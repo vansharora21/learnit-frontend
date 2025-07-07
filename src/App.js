@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect ,useState }  from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -14,13 +15,44 @@ import CourseCategories from './components/CourseCategories.jsx';
 function App() {
   const location = useLocation();
 
+  console.log(location,"app location");
+
+  const [slugData, setSlugData] = useState([]);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
     scrollToTop();
-  }, [location]); // Scroll to top on route change
+  }, [location]); // Scro
+  // 
+  // 
+   const fetchCourses = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.learnitfy.com/api/admin/get/category`
+      );
+      console.log(response.data.data.coursesList);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      setSlugData([]);
+    } finally {
+      console.log("finally"); 
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
+    // eslint-disable-next-line
+  }, []);
+
+
+
+ const test= location?.state?.test;
+
+
+  // ll to top on route change
 
   return (
     <div className="App">
@@ -29,8 +61,18 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/About-Us" element={<AboutUs />} />
         <Route path="/Contact-Us" element={<ContactUs />} />
-        <Route path="/:courseSlug/courses" element={<CourseCategories />} /> {/* Dynamic route for course categories */}
-        <Route path="/:title" element={<CourseDescription />} /> {/* New route for course description */}
+
+
+{
+  test === 'test' &&  <>
+  
+  <Route path="/:title" element={<CourseDescription />} /> {/* New route for course description */}
+
+  </>       
+ 
+}
+
+        <Route path="/:courseSlug" element={<CourseCategories />} /> Dynamic route for course categories
       </Routes>
       <Footer/>
     </div>
