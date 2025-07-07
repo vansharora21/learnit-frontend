@@ -117,7 +117,7 @@ const CourseCategories = () => {
           .country {
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 220px;
             overflow: hidden;
             border-radius: 12px;
             cursor: pointer;

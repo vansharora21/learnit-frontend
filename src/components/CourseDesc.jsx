@@ -573,7 +573,7 @@ const CourseDescriptionComponent = () => {
             <img
               src={courseSelectImage}
               alt="Course Preview"
-              style={{ width: '350px', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)', height: '200px', objectFit: 'cover' }}
+              style={{ width: '350px', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)', height: '220px', objectFit: 'cover' }}
             />
           </div>
         </div>
