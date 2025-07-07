@@ -397,7 +397,7 @@ const CourseDescriptionComponent = () => {
         courseId: SelectedCourseId,
         inquiry: courseInquiry,
       });
-      alert(`Enrollment successful! Response: ${response.data.message}`);
+      alert(`Enrollment successful! for the course ${courseName}`);
       setEmail('');
       setFullName('');
       setMobile('');
