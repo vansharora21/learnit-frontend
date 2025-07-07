@@ -1006,7 +1006,7 @@ const     CourseDescriptionComponent = () => {
           </div>
 
           {/* Right Column - Course Details */}
-          <div style={{ flex: '1 1 300px', }}>
+          <div style={{ flex: '1 1 300px',paddingTop: "11.4rem" }}>
             <div style={{
               border: '1px solid #e0e0e0',
               borderRadius: '5px',
