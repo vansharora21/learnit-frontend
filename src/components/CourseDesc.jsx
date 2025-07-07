@@ -180,18 +180,14 @@ const AboutSection = () => {
                   Who Should Enroll:
                 </h1>
                 <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
-                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
-                    {courseDetail.whoShouldEnroll.point1}
-                  </li>
-                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
-                    {courseDetail.whoShouldEnroll.point2}
-                  </li>
-                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
-                    {courseDetail.whoShouldEnroll.point3}
-                  </li>
-                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
-                    {courseDetail.whoShouldEnroll.point4}
-                  </li>
+                  {[1, 2, 3, 4]
+                    .map(num => courseDetail.whoShouldEnroll[`point${num}`])
+                    .filter(Boolean)
+                    .map((point, index) => (
+                      <li key={index} style={{ marginBottom: '8px', color: '#222' }}>
+                        {point}
+                      </li>
+                    ))}
                 </ul>
               </div>
               <div style={{ marginTop: '20px', marginBottom: '80px' }}>
@@ -199,18 +195,14 @@ const AboutSection = () => {
                   Prerequisites:
                 </h1>
                 <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
-                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
-                    {courseDetail.Prerequisites.point1}
-                  </li>
-                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
-                    {courseDetail.Prerequisites.point2}
-                  </li>
-                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
-                    {courseDetail.Prerequisites.point3}
-                  </li>
-                  <li style={{ display: 'list-item', marginBottom: '8px', color: '#222' }}>
-                    {courseDetail.Prerequisites.point4}
-                  </li>
+                  {[1, 2, 3, 4]
+                    .map(num => courseDetail.Prerequisites[`point${num}`])
+                    .filter(Boolean)
+                    .map((point, index) => (
+                      <li key={index} style={{ marginBottom: '8px', color: '#222' }}>
+                        {point}
+                      </li>
+                    ))}
                 </ul>
                 {/* Read Less button */}
                 <button
@@ -333,6 +325,7 @@ const CourseDescriptionComponent = () => {
       setCourseDataList(location.state.courseContent || []);
     }
   }, [location.state]);
+  console.log("location staet is here CC ", location.state.courseContent);
 
   const courseName = location.state.courseName;
   const CourseDescription = location.state.description;
@@ -340,9 +333,12 @@ const CourseDescriptionComponent = () => {
   const SelectedCourseId = location.state.courseId;
   const courseSelectImage = location.state.image;
   const courseModel = location.state.courseContent;
+  // const courseModelPoints = location.state.courseConten[;
   const courseList = location.state.coursesList;
   const courseID = location.state.courseId;
   const metaTag = location.state.metaTag;
+
+  // console.log("here is the curse contect model point s", courseModelPoints)
 
 
 
@@ -616,20 +612,29 @@ const CourseDescriptionComponent = () => {
                     📘 Lesson {index + 1}: {model.moduleTitle}
                   </div>
                   {openIndex === index && (
-                    <div style={{ padding: '10px 18px', backgroundColor: '#fff' }}>
-                      {['point1', 'point2', 'point3', 'point4', 'point5', 'point6']
-                        .map((key, idx) => model?.[key] && (
-                          <div
-                            key={key}
-                            style={{
-                              fontSize: '14px',
-                              padding: '6px 0',
-                              color: '#444',
-                            }}
-                          >
-                            {idx + 1}. {model[key]}
-                          </div>
-                        ))}
+                    // <div style={{ padding: '10px 18px', backgroundColor: '#fff' }}>
+                    //   {model.points.map((point, idx) => model?.[key] && (
+                    //       <div
+                    //         key={idx}
+                    //         style={{
+                    //           fontSize: '14px',
+                    //           padding: '6px 0',
+                    //           color: '#444',
+                    //         }}
+                    //       >
+                    //         {idx + 1}. {point}
+                    //       </div>
+                    //     ))}
+                    // </div>
+                    <div style={{ paddingLeft: "20px", paddingTop: "10px", gap: "5px" }}>
+                      {model.points.map((poi, index) => {
+                        return (
+                          <h6 key={index}>
+                            {index + 1}. {poi}
+                          </h6>
+                        )
+
+                      })}
                     </div>
                   )}
                 </div>
