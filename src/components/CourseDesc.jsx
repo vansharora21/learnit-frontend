@@ -139,7 +139,6 @@ const FAQsSectionIntegrated = () => {
   );
 };
 
-
 // AboutSection
 const AboutSection = () => {
   const { courseSlug, title } = useParams();
@@ -392,7 +391,6 @@ const AboutSection = () => {
   );
 };
 
-
 // TabbedSection (About/FAQs)
 const TabbedSection = () => {
   const [activeTab, setActiveTab] = useState('About');
@@ -610,16 +608,6 @@ const CourseDescriptionComponent = () => {
     return <div>Loading...</div>;
   }
 
-  // Show error state if no course data
-  // if (!courseData) {
-  //   return <div>Course not found dfds</div>;
-  // }
-
-
- 
-
-  
-
   return (
     <>
       <Helmet>
@@ -630,46 +618,55 @@ const CourseDescriptionComponent = () => {
       </Helmet>
       
       <style jsx>{`
-        /* Mobile First Approach - Base styles for mobile */
+        /* Enhanced Mobile First Approach - Base styles for mobile */
         .main-container {
-          padding: 0 15px;
+          padding: 0 10px;
+          max-width: 100%;
+          overflow-x: hidden;
         }
         
         .header-section {
           background-color: #26A9E0;
           color: white;
-          padding: 20px 10px 30px;
+          padding: 15px 10px 25px;
           display: flex;
           flex-direction: column;
           text-align: center;
-          gap: 20px;
+          gap: 15px;
+          align-items: center;
         }
         
         .header-content {
           flex: 1;
-          padding-right: 0;
-          margin-bottom: 20px;
+          width: 100%;
+          max-width: 100%;
+          margin-bottom: 15px;
         }
         
         .header-title {
-          font-size: 24px;
-          margin-bottom: 15px;
-          font-weight: normal;
+          font-size: 20px;
+          margin-bottom: 12px;
+          font-weight: 700;
+          line-height: 1.3;
+          word-wrap: break-word;
+          hyphens: auto;
         }
         
         .header-description {
           font-size: 14px;
           line-height: 1.5;
-          margin-bottom: 20px;
-          opacity: 1.5;
+          margin-bottom: 15px;
+          opacity: 0.95;
+          word-wrap: break-word;
         }
         
         .header-image {
           width: 100%;
-          max-width: 350px;
-          border-radius: 5px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-          height: 235px;
+          max-width: 300px;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          height: auto;
+          aspect-ratio: 16/9;
           object-fit: cover;
         }
         
@@ -677,72 +674,84 @@ const CourseDescriptionComponent = () => {
           background-color: #FBB03B;
           color: white;
           border: none;
-          padding: 8px 20px;
-          border-radius: 4px;
+          padding: 10px 18px;
+          border-radius: 6px;
           cursor: pointer;
           font-weight: bold;
           font-size: 14px;
+          transition: background-color 0.3s ease;
+          white-space: nowrap;
+        }
+        
+        .view-syllabus-btn:hover {
+          background-color: #e09a2a;
         }
         
         .main-content {
           display: flex;
           flex-direction: column;
-          padding: 0px 20px;
-          max-width: 1200px;
+          padding: 15px 10px;
+          max-width: 1400px;
           margin: 0 auto;
-          gap: 10px;
+          gap: 20px;
         }
         
         .left-column {
           flex: 1;
-          margin-bottom: 30px;
+          width: 100%;
+          order: 1;
         }
         
         .right-column {
           flex: 1;
+          width: 100%;
+          order: 2;
           padding-top: 0;
         }
         
         .tabbed-section {
+          width: 100%;
           max-width: 100%;
           margin-top: 20px;
         }
         
         .tab-buttons {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           border-bottom: 2px solid #ddd;
           margin-bottom: 20px;
+          width: 100%;
         }
         
         .tab-button {
           flex: 1;
-          padding: 10px 0;
+          padding: 12px 8px;
           border: none;
-          border-left: 3px solid transparent;
+          border-bottom: 3px solid transparent;
           background-color: transparent;
           font-weight: 500;
           font-size: 14px;
           cursor: pointer;
           color: #555;
-          transition: color 0.3s, border-left 0.3s;
-          text-align: left;
-          padding-left: 10px;
+          transition: all 0.3s ease;
+          text-align: center;
+          white-space: nowrap;
         }
         
         .tab-button.active {
-          border-left: 3px solid #26A9E0;
+          border-bottom: 3px solid #26A9E0;
           font-weight: 700;
           color: #26A9E0;
         }
         
         .course-heading {
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 700;
-          margin-bottom: 0px;
+          margin-bottom: 15px;
           color: #222;
           word-wrap: break-word;
-          max-width: 100%;
+          line-height: 1.4;
+          hyphens: auto;
         }
         
         .about-course-container {
@@ -754,21 +763,24 @@ const CourseDescriptionComponent = () => {
           line-height: 1.6;
           margin-bottom: 20px;
           color: #555;
+          text-align: justify;
+          word-wrap: break-word;
         }
         
         .course-subheading {
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 600;
           margin-bottom: 15px;
           color: #333;
-          max-width: 100%;
+          word-wrap: break-word;
+          line-height: 1.4;
         }
         
         .course-point-item {
           display: flex;
           align-items: flex-start;
-          margin-bottom: 1px;
-          padding: 8px 0px 0px 10px;
+          margin-bottom: 8px;
+          padding: 6px 0px 0px 15px;
         }
         
         .course-point-text {
@@ -776,35 +788,49 @@ const CourseDescriptionComponent = () => {
           color: #333;
           line-height: 1.5;
           flex: 1;
+          word-wrap: break-word;
         }
         
         .read-more-btn, .read-less-btn {
-          margin-top: 10px;
+          margin-top: 15px;
           border: none;
-          border-radius: 4px;
-          margin-bottom: 30px;
+          border-radius: 6px;
+          margin-bottom: 25px;
           font-weight: bold;
           cursor: pointer;
-          padding: 6px 12px;
+          padding: 8px 16px;
           font-size: 14px;
+          transition: all 0.3s ease;
+        }
+        
+        .read-more-btn:hover {
+          background: #1e90d0 !important;
+        }
+        
+        .read-less-btn:hover {
+          background: #d48806 !important;
         }
         
         .section-title {
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 700;
           margin-bottom: 15px;
           color: #222;
+          word-wrap: break-word;
         }
         
         .enroll-list, .prerequisites-list {
           list-style-type: disc;
-          padding-left: 15px;
+          padding-left: 20px;
+          margin-bottom: 20px;
         }
         
         .enroll-item, .prerequisites-item {
           margin-bottom: 8px;
           color: #222;
           font-size: 14px;
+          line-height: 1.5;
+          word-wrap: break-word;
         }
         
         .faq-title {
@@ -815,18 +841,26 @@ const CourseDescriptionComponent = () => {
         }
         
         .faq-container {
-          border-top: 1px solid #ddd;
-          border-left: 1px solid #ddd;
-          border-right: 1px solid #ddd;
-          border-radius: 4px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
           overflow: hidden;
+          width: 100%;
           max-width: 100%;
         }
         
         .faq-item {
           border-bottom: 1px solid #ddd;
-          padding: 8px;
+          padding: 12px;
           cursor: pointer;
+          transition: background-color 0.2s ease;
+        }
+        
+        .faq-item:hover {
+          background-color: #f8f9fa;
+        }
+        
+        .faq-item:last-child {
+          border-bottom: none;
         }
         
         .faq-question {
@@ -836,212 +870,398 @@ const CourseDescriptionComponent = () => {
           font-weight: 600;
           font-size: 14px;
           color: #333;
+          word-wrap: break-word;
+          line-height: 1.4;
         }
         
         .faq-answer {
-          margin-top: 8px;
-          font-size: 12px;
+          margin-top: 10px;
+          font-size: 13px;
           color: #555;
-          line-height: 1.4;
+          line-height: 1.5;
+          word-wrap: break-word;
         }
         
         .training-cards {
           display: flex;
           flex-direction: column;
-          gap: 16px;
-          margin: 40px 0;
+          gap: 20px;
+          margin: 30px 0;
+          width: 100%;
         }
         
         .training-card {
-          flex: 1;
-          min-width: 100%;
+          width: 100%;
           background: linear-gradient(135deg, #FFA726 0%, #FF8F00 100%);
           border-radius: 16px;
-          padding: 24px 20px;
+          padding: 20px;
           color: white;
           position: relative;
           overflow: hidden;
-          min-height: 280px;
+          min-height: 300px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          margin-bottom: 20px;
         }
         
         .training-card-title {
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 700;
-          margin-bottom: 24px;
+          margin-bottom: 20px;
           letter-spacing: 0.5px;
-          line-height: 1.2;
+          line-height: 1.3;
+          word-wrap: break-word;
         }
         
         .training-card-feature {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           margin-bottom: 12px;
           font-size: 14px;
+          line-height: 1.4;
+          word-wrap: break-word;
         }
         
         .course-content-item {
-          margin-bottom: 8px;
-          border-radius: 10px;
-          border: 1px solid #ccc;
+          margin-bottom: 12px;
+          border-radius: 8px;
+          border: 1px solid #ddd;
           background-color: #fff;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+          overflow: hidden;
         }
         
         .course-content-header {
-          padding: 12px 15px;
-          background-color: #dee2e6;
+          padding: 15px;
+          background-color: #f8f9fa;
           cursor: pointer;
           font-weight: 600;
           font-size: 14px;
           color: #333;
-          transition: background 0.2s ease;
+          transition: background-color 0.2s ease;
+          word-wrap: break-word;
+          line-height: 1.4;
+        }
+        
+        .course-content-header:hover {
+          background-color: #e9ecef;
         }
         
         .course-content-points {
-          padding-left: 15px;
-          padding-top: 10px;
-          gap: 5px;
+          padding: 15px 20px;
+          background-color: #fff;
+        }
+        
+        .course-content-points h6 {
+          margin-bottom: 8px;
+          font-size: 13px;
+          color: #555;
+          line-height: 1.4;
+          word-wrap: break-word;
         }
         
         .sticky-sidebar {
           border: 1px solid #e0e0e0;
-          border-radius: 5px;
-          position: relative;
-          top: auto;
+          border-radius: 8px;
           padding: 20px;
-          margin-bottom: 30px;
           background-color: #f9f9f9;
+          width: 100%;
         }
         
         .sidebar-title {
-          margin-bottom: 25px;
+          margin-bottom: 20px;
           font-size: 18px;
-          font-weight: 500;
+          font-weight: 600;
           color: #333;
+          word-wrap: break-word;
+        }
+        
+        .list-group {
+          margin-bottom: 20px;
         }
         
         .list-group-item {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
           font-size: 14px;
+          border-radius: 6px !important;
+          margin-bottom: 8px;
+          padding: 12px;
+          word-wrap: break-word;
         }
         
         .list-group-item:hover {
-          transform: translateY(-2px);
+          transform: translateY(-1px);
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
         .badge {
-          font-size: 12px;
+          font-size: 11px;
           padding: 4px 8px;
+          border-radius: 12px;
+          white-space: nowrap;
         }
         
         .form-input {
           width: 100%;
-          padding: 8px;
+          padding: 10px;
           border: 1px solid #ddd;
-          border-radius: 4px;
+          border-radius: 6px;
           font-size: 14px;
+          transition: border-color 0.3s ease;
+          box-sizing: border-box;
+        }
+        
+        .form-input:focus {
+          outline: none;
+          border-color: #26A9E0;
+          box-shadow: 0 0 0 2px rgba(38, 169, 224, 0.2);
         }
         
         .submit-btn {
-          background-color: orange;
+          background-color: #ff8c00;
           color: white;
           border: none;
-          padding: 12px;
-          border-radius: 4px;
+          padding: 12px 20px;
+          border-radius: 6px;
           cursor: pointer;
           font-weight: bold;
-          align-self: flex-start;
           font-size: 14px;
+          transition: background-color 0.3s ease;
+          width: 100%;
         }
         
-        /* Tablet Styles */
-        @media (min-width: 768px) {
+        .submit-btn:hover {
+          background-color: #e07b00;
+        }
+        
+        /* Small Mobile Styles (320px - 480px) */
+        @media (max-width: 480px) {
+          .main-container {
+            padding: 0 8px;
+          }
+          
+          .header-section {
+            padding: 12px 8px 20px;
+            gap: 12px;
+          }
+          
+          .header-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+          }
+          
+          .header-description {
+            font-size: 13px;
+            margin-bottom: 12px;
+          }
+          
+          .header-image {
+            max-width: 280px;
+          }
+          
+          .view-syllabus-btn {
+            padding: 8px 16px;
+            font-size: 13px;
+          }
+          
+          .main-content {
+            padding: 12px 8px;
+            gap: 15px;
+          }
+          
+          .course-heading {
+            font-size: 16px;
+          }
+          
+          .about-course-text {
+            font-size: 13px;
+          }
+          
+          .course-subheading {
+            font-size: 15px;
+          }
+          
+          .course-point-text {
+            font-size: 13px;
+          }
+          
+          .training-card {
+            padding: 16px;
+            min-height: 280px;
+          }
+          
+          .training-card-title {
+            font-size: 16px;
+            margin-bottom: 16px;
+          }
+          
+          .training-card-feature {
+            font-size: 13px;
+            margin-bottom: 10px;
+          }
+          
+          .course-content-header {
+            padding: 12px;
+            font-size: 13px;
+          }
+          
+          .course-content-points {
+            padding: 12px 16px;
+          }
+          
+          .course-content-points h6 {
+            font-size: 12px;
+          }
+          
+          .sticky-sidebar {
+            padding: 16px;
+          }
+          
+          .sidebar-title {
+            font-size: 16px;
+          }
+          
+          .list-group-item {
+            font-size: 13px;
+            padding: 10px;
+          }
+          
+          .badge {
+            font-size: 10px;
+            padding: 3px 6px;
+          }
+        }
+        
+        /* Large Mobile / Small Tablet Styles (481px - 767px) */
+        @media (min-width: 481px) and (max-width: 767px) {
+          .main-container {
+            padding: 0 12px;
+          }
+          
+          .header-section {
+            padding: 18px 12px 28px;
+            gap: 18px;
+          }
+          
+          .header-title {
+            font-size: 22px;
+          }
+          
+          .header-description {
+            font-size: 15px;
+          }
+          
+          .header-image {
+            max-width: 320px;
+          }
+          
+          .view-syllabus-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+          }
+          
+          .main-content {
+            padding: 18px 12px;
+          }
+          
+          .course-heading {
+            font-size: 20px;
+          }
+          
+          .about-course-text {
+            font-size: 15px;
+          }
+          
+          .course-subheading {
+            font-size: 18px;
+          }
+          
+          .course-point-text {
+            font-size: 15px;
+          }
+          
+          .training-card-title {
+            font-size: 20px;
+          }
+          
+          .training-card-feature {
+            font-size: 15px;
+          }
+        }
+        
+        /* Tablet Styles (768px - 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
           .main-container {
             padding: 0 20px;
           }
           
           .header-section {
-            padding: 30px 20px 40px;
+            padding: 25px 20px 35px;
             flex-direction: row;
             text-align: left;
             justify-content: space-between;
+            align-items: center;
           }
           
           .header-content {
-            flex: 1 1 500px;
-            padding-right: 20px;
+            flex: 1;
+            max-width: 60%;
             margin-bottom: 0;
+            padding-right: 20px;
           }
           
           .header-title {
-            font-size: 28px;
+            font-size: 26px;
+            text-align: left;
           }
           
           .header-description {
             font-size: 16px;
+            text-align: left;
           }
           
           .header-image {
-            flex: 0 1 350px;
-            width: 350px;
+            flex: 0 0 300px;
+            max-width: 300px;
+            width: 300px;
           }
           
           .view-syllabus-btn {
-            padding: 10px 25px;
+            padding: 12px 24px;
             font-size: 15px;
           }
           
           .main-content {
             flex-direction: row;
-            flex-wrap: wrap;
+            padding: 25px 20px;
+            gap: 30px;
           }
           
           .left-column {
-            flex: 1 1 650px;
-            margin-bottom: 0;
+            flex: 2;
+            max-width: 65%;
+            order: 1;
           }
           
           .right-column {
-            flex: 1 1 300px;
-            padding-top: 11.4rem;
+            flex: 1;
+            max-width: 35%;
+            order: 2;
+            padding-top: 0;
           }
           
           .tabbed-section {
-            max-width: 800px;
-            margin-top: 40px;
-          }
-          
-          .tab-buttons {
-            flex-direction: row;
+            max-width: 100%;
+            margin-top: 30px;
           }
           
           .tab-button {
-            flex: 1;
-            padding: 12px 0;
-            border-left: none;
-            border-bottom: 3px solid transparent;
-            text-align: center;
-            padding-left: 0;
             font-size: 16px;
-          }
-          
-          .tab-button.active {
-            border-left: none;
-            border-bottom: 3px solid #26A9E0;
+            padding: 14px 0;
           }
           
           .course-heading {
             font-size: 24px;
-            max-width: 75ch;
-          }
-          
-          .about-course-container {
-            width: 600px;
           }
           
           .about-course-text {
@@ -1050,7 +1270,6 @@ const CourseDescriptionComponent = () => {
           
           .course-subheading {
             font-size: 20px;
-            max-width: 400px;
           }
           
           .course-point-item {
@@ -1061,36 +1280,20 @@ const CourseDescriptionComponent = () => {
             font-size: 16px;
           }
           
-          .read-more-btn, .read-less-btn {
-            padding: 8px 16px;
-          }
-          
           .section-title {
-            font-size: 24px;
-          }
-          
-          .enroll-list, .prerequisites-list {
-            padding-left: 20px;
+            font-size: 22px;
           }
           
           .enroll-item, .prerequisites-item {
-            font-size: 16px;
+            font-size: 15px;
           }
           
           .faq-title {
             font-size: 20px;
           }
           
-          .faq-container {
-            max-width: 700px;
-          }
-          
-          .faq-item {
-            padding: 12px;
-          }
-          
           .faq-question {
-            font-size: 16px;
+            font-size: 15px;
           }
           
           .faq-answer {
@@ -1098,43 +1301,43 @@ const CourseDescriptionComponent = () => {
           }
           
           .training-cards {
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 25px;
+            margin: 40px 0;
           }
           
           .training-card {
-            flex: 1 1 320px;
-            min-width: 320px;
-            padding: 32px 28px;
+            padding: 28px;
             min-height: 320px;
-            margin-bottom: 0;
           }
           
           .training-card-title {
-            font-size: 24px;
+            font-size: 22px;
+            margin-bottom: 24px;
           }
           
           .training-card-feature {
             font-size: 16px;
-          }
-          
-          .course-content-item {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
           }
           
           .course-content-header {
-            padding: 14px 18px;
+            padding: 16px 20px;
             font-size: 16px;
           }
           
           .course-content-points {
-            padding-left: 20px;
+            padding: 16px 24px;
+          }
+          
+          .course-content-points h6 {
+            font-size: 14px;
           }
           
           .sticky-sidebar {
             position: sticky;
-            top: 100px;
+            top: 20px;
+            padding: 24px;
           }
           
           .sidebar-title {
@@ -1142,37 +1345,184 @@ const CourseDescriptionComponent = () => {
           }
           
           .list-group-item {
-            font-size: 16px;
+            font-size: 15px;
+            padding: 14px;
           }
           
           .badge {
-            font-size: 14px;
-            padding: 6px 12px;
-          }
-          
-          .form-input {
-            padding: 10px;
-          }
-          
-          .submit-btn {
-            padding: 15px;
+            font-size: 12px;
+            padding: 6px 10px;
           }
         }
         
-        /* Desktop Styles */
+        /* Desktop Styles (1024px - 1199px) */
+        @media (min-width: 1024px) and (max-width: 1199px) {
+          .main-container {
+            padding: 0 30px;
+          }
+          
+          .header-section {
+            padding: 30px 30px 40px;
+          }
+          
+          .header-content {
+            max-width: 65%;
+          }
+          
+          .header-title {
+            font-size: 28px;
+          }
+          
+          .header-image {
+            flex: 0 0 350px;
+            max-width: 350px;
+            width: 350px;
+          }
+          
+          .main-content {
+            padding: 30px;
+            gap: 40px;
+          }
+          
+          .left-column {
+            max-width: 68%;
+          }
+          
+          .right-column {
+            max-width: 32%;
+          }
+          
+          .training-cards {
+            flex-direction: row;
+            gap: 20px;
+          }
+          
+          .training-card {
+            flex: 1;
+            min-width: 300px;
+            padding: 32px;
+            min-height: 350px;
+          }
+          
+          .training-card-title {
+            font-size: 24px;
+          }
+          
+          .sticky-sidebar {
+            top: 30px;
+          }
+        }
+        
+        /* Large Desktop Styles (1200px+) */
         @media (min-width: 1200px) {
           .main-container {
             padding: 0 40px;
           }
+          
+          .header-section {
+            padding: 35px 40px 45px;
+          }
+          
+          .header-title {
+            font-size: 32px;
+          }
+          
+          .header-description {
+            font-size: 18px;
+          }
+          
+          .main-content {
+            padding: 40px;
+            gap: 50px;
+          }
+          
+          .left-column {
+            max-width: 70%;
+          }
+          
+          .right-column {
+            max-width: 30%;
+          }
+          
+          .tabbed-section {
+            margin-top: 50px;
+          }
+          
+          .course-heading {
+            font-size: 28px;
+          }
+          
+          .about-course-text {
+            font-size: 17px;
+          }
+          
+          .course-subheading {
+            font-size: 22px;
+          }
+          
+          .section-title {
+            font-size: 26px;
+          }
+          
+          .training-cards {
+            margin: 50px 0;
+            gap: 30px;
+          }
+          
+          .training-card {
+            padding: 36px;
+            min-height: 380px;
+          }
+          
+          .training-card-title {
+            font-size: 26px;
+            margin-bottom: 28px;
+          }
+          
+          .training-card-feature {
+            font-size: 17px;
+            margin-bottom: 16px;
+          }
+          
+          .sticky-sidebar {
+            top: 40px;
+            padding: 28px;
+          }
+          
+          .sidebar-title {
+            font-size: 22px;
+          }
+          
+          .list-group-item {
+            font-size: 16px;
+            padding: 16px;
+          }
+          
+          .badge {
+            font-size: 13px;
+            padding: 8px 12px;
+          }
         }
         
-        /* Hover effects for interactive elements */
+        /* Ultra Wide Screens (1400px+) */
+        @media (min-width: 1400px) {
+          .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+          }
+          
+          .header-section {
+            padding: 40px 50px 50px;
+          }
+          
+          .main-content {
+            padding: 50px;
+          }
+        }
+        
+        /* Hover and Focus Effects */
         .hover-effect:hover {
           background-color: #f8f9fa;
-        }
-        
-        .course-content-header:hover {
-          background-color: #eaeaea;
         }
         
         .training-card .background-pattern-1 {
@@ -1201,6 +1551,39 @@ const CourseDescriptionComponent = () => {
           position: relative;
           z-index: 2;
         }
+        
+        /* Accessibility improvements */
+        .tab-button:focus,
+        .view-syllabus-btn:focus,
+        .submit-btn:focus,
+        .form-input:focus {
+          outline: 2px solid #26A9E0;
+          outline-offset: 2px;
+        }
+        
+        /* Print styles */
+        @media print {
+          .training-cards,
+          .sticky-sidebar {
+            display: none;
+          }
+          
+          .main-content {
+            flex-direction: column;
+          }
+          
+          .left-column {
+            max-width: 100%;
+          }
+        }
+        
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+          .header-image {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+          }
+        }
       `}</style>
       
       <div style={{ fontFamily: 'Arial, sans-serif' }}>
@@ -1213,7 +1596,7 @@ const CourseDescriptionComponent = () => {
             <p className="header-description">
               {CourseDescription}
             </p>
-            <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
               <button
                 className="view-syllabus-btn"
                 onClick={scrollToCourseContent}
@@ -1238,9 +1621,10 @@ const CourseDescriptionComponent = () => {
             <TabbedSection />
             <div ref={courseContentRef}>
               <h2 style={{ 
-                marginBottom: '10px', 
+                marginBottom: '20px', 
                 fontSize: '22px', 
-                color: '#222'
+                color: '#222',
+                wordWrap: 'break-word'
               }}>
                 Course Content
               </h2>
@@ -1253,7 +1637,7 @@ const CourseDescriptionComponent = () => {
                     className="course-content-header"
                     onClick={() => toggleDropdown(index)}
                     style={{
-                      backgroundColor: openIndex === index ? '#fff' : '#dee2e6',
+                      backgroundColor: openIndex === index ? '#fff' : '#f8f9fa',
                       borderBottom: openIndex === index ? '1px solid #ddd' : 'none'
                     }}
                   >
@@ -1315,7 +1699,7 @@ const CourseDescriptionComponent = () => {
                       onClick={() => setIsFormOpen(!isFormOpen)}
                       style={{
                         width: '100%',
-                        padding: '10px',
+                        padding: '12px',
                         backgroundColor: 'white',
                         color: '#FF8F00',
                         border: 'none',
@@ -1326,7 +1710,8 @@ const CourseDescriptionComponent = () => {
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                        transition: 'all 0.3s ease'
                       }}
                     >
                       <span>Enroll Now</span>
@@ -1335,20 +1720,21 @@ const CourseDescriptionComponent = () => {
 
                     {isFormOpen && (
                       <div style={{
-                        marginTop: '10px',
-                        padding: '15px',
+                        marginTop: '12px',
+                        padding: '16px',
                         backgroundColor: 'white',
                         border: '1px solid #e0e0e0',
-                        borderRadius: '4px',
+                        borderRadius: '8px',
                         boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
                       }}>
                         <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
                           <div style={{ marginBottom: '15px' }}>
                             <label htmlFor="fullName" style={{ 
                               display: 'block', 
-                              marginBottom: '5px', 
+                              marginBottom: '6px', 
                               fontSize: '14px', 
-                              color: '#333' 
+                              color: '#333',
+                              fontWeight: '500'
                             }}>
                               Full Name:
                             </label>
@@ -1358,7 +1744,7 @@ const CourseDescriptionComponent = () => {
                               id="fullName"
                               value={fullName}
                               onChange={(e) => setFullName(e.target.value)}
-                              placeholder="Name"
+                              placeholder="Enter your full name"
                               required
                             />
                           </div>
@@ -1366,9 +1752,10 @@ const CourseDescriptionComponent = () => {
                           <div style={{ marginBottom: '15px' }}>
                             <label htmlFor="email" style={{ 
                               display: 'block', 
-                              marginBottom: '5px', 
+                              marginBottom: '6px', 
                               fontSize: '14px', 
-                              color: '#333' 
+                              color: '#333',
+                              fontWeight: '500'
                             }}>
                               Email Address:
                             </label>
@@ -1386,9 +1773,10 @@ const CourseDescriptionComponent = () => {
                           <div style={{ marginBottom: '15px' }}>
                             <label htmlFor="mobile" style={{ 
                               display: 'block', 
-                              marginBottom: '5px', 
+                              marginBottom: '6px', 
                               fontSize: '14px', 
-                              color: '#333' 
+                              color: '#333',
+                              fontWeight: '500'
                             }}>
                               Mobile Number:
                             </label>
@@ -1403,12 +1791,13 @@ const CourseDescriptionComponent = () => {
                             />
                           </div>
 
-                          <div style={{ marginBottom: '15px' }}>
+                          <div style={{ marginBottom: '20px' }}>
                             <label htmlFor="courseInquiry" style={{ 
                               display: 'block', 
-                              marginBottom: '5px', 
+                              marginBottom: '6px', 
                               fontSize: '14px', 
-                              color: '#333' 
+                              color: '#333',
+                              fontWeight: '500'
                             }}>
                               Inquiry About:
                             </label>
@@ -1485,7 +1874,8 @@ const CourseDescriptionComponent = () => {
                       borderRadius: '8px',
                       cursor: 'pointer',
                       marginTop: 'auto',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                      transition: 'all 0.3s ease'
                     }}
                   >
                     Contact Us
@@ -1516,146 +1906,110 @@ const CourseDescriptionComponent = () => {
                     </span>
                   </li>
                 )}
-
                 {/* Number of Modules */}
                 {moreCourseContent?.noOfModules && (
                   <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
-                    <span className="text-capitalize fw-semibold text-dark">
-                      <FiMonitor className="me-2" /> Modules
+                    <span className="text-capitalize fw-semibold text-dark d-flex align-items-center">
+                      <FiFileText className="me-2" /> Modules
                     </span>
-                    <span
-                      className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
-                      style={{
-                        background: "linear-gradient(45deg, #6a11cb, #2575fc)",
-                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
-                      }}
-                    >
-                      {moreCourseContent.noOfModules}+ Modules
+                    <span className="badge bg-gradient text-white rounded-pill p-2 shadow-sm" style={{ 
+                      background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)', 
+                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                    }}>
+                      {moreCourseContent.noOfModules}
                     </span>
                   </li>
                 )}
 
-                {/* Activities */}
-                {moreCourseContent?.Activities && (
+                {/* Certificate */}
+                {moreCourseContent?.certificate && (
                   <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
-                    <span className="text-capitalize fw-semibold text-dark">
-                      <FiFileText className="me-2" /> Activities
+                    <span className="text-capitalize fw-semibold text-dark d-flex align-items-center">
+                      <FiAward className="me-2" /> Certificate
                     </span>
-                    <span
-                      className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
-                      style={{
-                        background: "linear-gradient(45deg, #6a11cb, #2575fc)",
-                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
-                      }}
-                    >
-                      {moreCourseContent.Activities}+ Activities
+                    <span className="badge bg-gradient text-white rounded-pill p-2 shadow-sm" style={{ 
+                      background: 'linear-gradient(45deg, #10ac84, #00d2d3)', 
+                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                    }}>
+                      {moreCourseContent.certificate}
                     </span>
                   </li>
                 )}
 
-                {/* Dynamic rendering for any additional fields */}
-                {moreCourseContent &&
-                  Object.entries(moreCourseContent)
-                    .filter(([key]) => !['duration', 'noOfModules', 'Activities'].includes(key))
-                    .map(([key, value], index) => {
-                      // Get icon based on key name or use default
-                      const getIconForKey = (keyName) => {
-                        const lowerKey = keyName.toLowerCase();
-                        if (lowerKey.includes('time') || lowerKey.includes('duration')) return FiClock;
-                        if (lowerKey.includes('module') || lowerKey.includes('course')) return FiMonitor;
-                        if (lowerKey.includes('activity') || lowerKey.includes('exercise')) return FiFileText;
-                        if (lowerKey.includes('download') || lowerKey.includes('resource')) return FiDownload;
-                        if (lowerKey.includes('certificate') || lowerKey.includes('award')) return FiAward;
-                        return FiClock; // Default icon
-                      };
+                {/* Access */}
+                {moreCourseContent?.access && (
+                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
+                    <span className="text-capitalize fw-semibold text-dark d-flex align-items-center">
+                      <FiMonitor className="me-2" /> Access
+                    </span>
+                    <span className="badge bg-gradient text-white rounded-pill p-2 shadow-sm" style={{ 
+                      background: 'linear-gradient(45deg, #a55eea, #26de81)', 
+                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                    }}>
+                      {moreCourseContent.access}
+                    </span>
+                  </li>
+                )}
 
-                      const Icon = getIconForKey(key);
-
-                      return (
-                        <li
-                          key={key}
-                          className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect"
-                        >
-                          <span className="text-capitalize fw-semibold text-dark">
-                            <Icon className="me-2" /> {key.replace(/([A-Z])/g, " $1").trim()}
-                          </span>
-                          <span
-                            className="badge bg-gradient text-black rounded-pill p-2 shadow-sm d-flex align-items-center gap-2"
-                            style={{
-                              background: "linear-gradient(45deg, #6a11cb, #2575fc)",
-                              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
-                            }}
-                          >
-                            {value}
-                          </span>
-                        </li>
-                      );
-                    })
-                }
-
-                {/* Static Lifetime Access */}
-                <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3">
-                  <span className="fw-semibold">
-                    <FiClock className="me-2" />Access
-                  </span>
-                  <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ 
-                    background: 'linear-gradient(45deg, #6a11cb, #2575fc)', 
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
-                  }}>
-                    Lifetime access
-                  </span>
-                </li>
+                {/* Downloads */}
+                {moreCourseContent?.downloads && (
+                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 bg-light shadow-sm rounded mb-3 hover-effect">
+                    <span className="text-capitalize fw-semibold text-dark d-flex align-items-center">
+                      <FiDownload className="me-2" /> Downloads
+                    </span>
+                    <span className="badge bg-gradient text-white rounded-pill p-2 shadow-sm" style={{ 
+                      background: 'linear-gradient(45deg, #fd79a8, #fdcb6e)', 
+                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                    }}>
+                      {moreCourseContent.downloads}
+                    </span>
+                  </li>
+                )}
               </ul>
 
-              {/* Brochure Request Dropdown */}
-              <div ref={brochureFormRef} style={{ 
-                marginTop: '20px', 
-                borderTop: '1px solid #e0e0e0', 
-                paddingTop: '20px' 
-              }}>
+              {/* Brochure Download Section */}
+              <div ref={brochureFormRef}>
                 <button
                   onClick={() => setIsBrochureFormOpen(!isBrochureFormOpen)}
                   style={{
                     width: '100%',
-                    padding: '12px 15px',
+                    padding: '14px',
                     backgroundColor: '#26A9E0',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    fontWeight: '500',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    fontWeight: '600',
                     cursor: 'pointer',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    marginBottom: '15px'
+                    boxShadow: '0 4px 12px rgba(38, 169, 224, 0.3)',
+                    transition: 'all 0.3s ease',
+                    marginBottom: '10px'
                   }}
                 >
-                  <span>Course Brochure</span>
+                  <span>Download Brochure</span>
                   {isBrochureFormOpen ? <FiChevronUp /> : <FiChevronDown />}
                 </button>
+
                 {isBrochureFormOpen && (
-                  <div style={{ 
-                    padding: '15px', 
-                    backgroundColor: 'white', 
-                    border: '1px solid #e0e0e0', 
-                    borderRadius: '4px', 
-                    marginBottom: '15px' 
+                  <div style={{
+                    marginTop: '12px',
+                    padding: '16px',
+                    backgroundColor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
                   }}>
-                    <p style={{ 
-                      marginBottom: '15px', 
-                      color: '#555', 
-                      fontSize: '14px'
-                    }}>
-                      Enter your email address to receive the course brochure.
-                    </p>
                     <form onSubmit={handleBrochureRequest} style={{ display: 'flex', flexDirection: 'column' }}>
                       <div style={{ marginBottom: '15px' }}>
                         <label htmlFor="brochureEmail" style={{ 
                           display: 'block', 
-                          marginBottom: '5px', 
+                          marginBottom: '6px', 
                           fontSize: '14px', 
-                          color: '#333' 
+                          color: '#333',
+                          fontWeight: '500'
                         }}>
                           Email Address:
                         </label>
@@ -1669,9 +2023,13 @@ const CourseDescriptionComponent = () => {
                           required
                         />
                       </div>
+
                       <button
                         className="submit-btn"
                         type="submit"
+                        style={{
+                          backgroundColor: '#26A9E0'
+                        }}
                       >
                         Send Brochure
                       </button>
@@ -1679,11 +2037,15 @@ const CourseDescriptionComponent = () => {
                   </div>
                 )}
               </div>
+
+              {/* Certificate Section */}
+              <div style={{ marginTop: '20px' }}>
+                <CertificateSection />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <CertificateSection />
     </>
   );
 };
