@@ -14,7 +14,6 @@ export function reverseGenerateSlug(slug) {
 }
 
 const CourseCard = ({ title, description, data, image, url, metaTag }) => (
-
   <Link
     to={`/${url.toLowerCase().replaceAll(' ', '-')}`}
     className="infra-link"
@@ -25,7 +24,6 @@ const CourseCard = ({ title, description, data, image, url, metaTag }) => (
       courseId: data.courseId,
       image: image,
       metaTag: metaTag,
-
       test: "test"
     }}
   >
@@ -41,6 +39,7 @@ const CourseCategories = () => {
   const [slugData, setSlugData] = useState([]);
   const params = useParams();
   const name = params.courseSlug.toLowerCase();
+  
   const fetchCourses = async () => {
     try {
       const response = await axios.get(
@@ -60,9 +59,6 @@ const CourseCategories = () => {
     // eslint-disable-next-line
   }, [params.courseSlug]);
 
-
-  const { slug } = useParams();
-
   return (
     <>
       <Helmet>
@@ -72,76 +68,93 @@ const CourseCategories = () => {
         <link rel="icon" href="/logo.png" />
       </Helmet>
 
-      <div style={{ maxWidth: '1200px', margin: '10px auto', marginTop: '10px', padding: '0 1rem', background: "white" }}>
+      <div className="main-container">
+        {/* Description Section */}
+        {!loading && slugData.length > 0 && (
+          <div className="description-section">
+            <p className="description-text">
+              At Learnitfy, we offer hands-on, career-focused tech training to help you start or grow your IT career. Learn from experts, build real projects, and stay industry-ready.
+            </p>
+          </div>
+        )}
 
         <motion.div
-          className="Course-img"
+          className="course-grid"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          style={{ marginBottom: '3rem' }}
         >
           {loading ? (
             Array.from({ length: 8 }).map((_, i) => (
               <div className="country skeleton" key={i} />
             ))
           ) : slugData.length === 0 ? (
-            <div style={{ textAlign: 'center', width: '100%', padding: '2rem 1rem', color: '#555', fontWeight: "bold" }}>
-              {/* <p>No courses available in this category at the moment. Please check back later.</p> */}
+            <div className="no-courses">
               <CourseNotFound />
             </div>
           ) : (
             slugData.map((course, index) => (
-              <>
-                <div style={{ display: "flex", flexDirection: "column"}}>
-                  <p style={{
-                    fontWeight: 400,
-                    fontSize: '1.125rem',
-                    lineHeight: '1.7',
-                    margin: '1.5rem auto 2.5rem',
-                    color: '#444',
-                    maxWidth: '800px',
-                    textAlign: 'center',
-                    padding: '0 1rem'
-                    }}>At Learnitfy, we offer hands-on, career-focused tech training to help you start or grow your IT career. Learn from experts, build real projects, and stay industry-ready.</p>
-                    <CourseCard
-                    key={course.courseId || index}
-                    image={course.image}
-                    title={course.courseName}
-                    description={course.description}
-                    url={course.url}
-                    data={course}
-                    metaTag={course.metaTag}
-                  />
-                </div>
-              </>
+              <CourseCard
+                key={course.courseId || index}
+                image={course.image}
+                title={course.courseName}
+                description={course.description}
+                url={course.url}
+                data={course}
+                metaTag={course.metaTag}
+              />
             ))
           )}
         </motion.div>
 
         <style jsx>{`
-          .Course-img {
-            display: flex;
+          .main-container {
+            max-width: 1200px;
+            margin: 10px auto;
+            padding: 0 1rem;
+            background: white;
+          }
+
+          .description-section {
+            margin-bottom: 2rem;
+            text-align: center;
+          }
+
+          .description-text {
+            font-weight: 400;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #444;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+          }
+
+          .course-grid {
+            display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            background:rgb(255, 255, 255);
-            padding: 10 10px;
+            margin-bottom: 3rem;
           }
-          .country skeleton{
-            display: grid;
-            }
-          
+
+          .no-courses {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #555;
+            font-weight: bold;
+          }
+
           .infra-link {
             text-decoration: none;
             outline: none;
-            align-items: center;
-            justify-content: center;
-            padding-left: 14.5rem;
+            display: block;
+            width: 100%;
           }
-          
+
           .country {
             position: relative;
-            width: 350px;
+            width: 100%;
             height: 220px;
             overflow: hidden;
             border-radius: 12px;
@@ -153,14 +166,14 @@ const CourseCategories = () => {
             align-items: center;
             justify-content: center;
           }
-          
+
           .country:focus,
           .country:hover {
             box-shadow: 0 20px 18px rgba(44, 62, 80, 0.15);
             border: 4px solid rgb(247, 165, 32);
             transform: translateY(-4px);
           }
-          
+
           .country img {
             width: 100%;
             height: 100%;
@@ -169,11 +182,11 @@ const CourseCategories = () => {
             display: block;
             transition: transform 0.25s ease;
           }
-          
+
           .country:hover img {
             transform: scale(1.05);
           }
-          
+
           .country-text {
             position: absolute;
             bottom: 0;
@@ -193,61 +206,81 @@ const CourseCategories = () => {
             justify-content: center;
             transition: all 0.3s ease;
           }
-          
+
           .country:hover .country-text {
             background: rgba(0,0,0,0.6);
             align-items: center;
             font-size: 1.2rem;
           }
-          
+
           .skeleton {
             background: linear-gradient(90deg, #f5f5f5 25%, #e0e0e0 37%, #f5f5f5 63%);
             background-size: 400% 100%;
             animation: skeleton-loading 1.4s ease infinite;
             width: 100%;
-            height: 200px;
+            height: 220px;
             border: 1px solid #e1e4e8;
             border-radius: 12px;
           }
-          
+
           @keyframes skeleton-loading {
             0% { background-position: 100% 50%; }
             100% { background-position: 0 50%; }
           }
-          
-          /* Extra Large Desktop */
+
+          /* Extra Large Desktop (1400px+) */
           @media (min-width: 1400px) {
-            .Course-img {
+            .course-grid {
               grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
               gap: 30px;
             }
+            .country {
+              height: 250px;
+            }
+            .skeleton {
+              height: 250px;
+            }
           }
-          
-          /* Large Desktop */
-          @media (max-width: 1200px) {
-            .Course-img {
-              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+          /* Large Desktop (1200px - 1399px) */
+          @media (max-width: 1399px) and (min-width: 1200px) {
+            .course-grid {
+              grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
               gap: 25px;
             }
+            .country {
+              height: 230px;
+            }
+            .skeleton {
+              height: 230px;
+            }
           }
-          
-          /* Desktop */
-          @media (max-width: 1024px) {
-            .Course-img {
-              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+          /* Desktop (1024px - 1199px) */
+          @media (max-width: 1199px) and (min-width: 1024px) {
+            .course-grid {
+              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
               gap: 20px;
             }
+            .country {
+              height: 220px;
+            }
+            .skeleton {
+              height: 220px;
+            }
           }
-          
-          /* Tablet */
-          @media (max-width: 768px) {
-            .Course-img {
-              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+          /* Tablet (768px - 1023px) */
+          @media (max-width: 1023px) and (min-width: 768px) {
+            .main-container {
+              padding: 0 0.75rem;
+            }
+            .course-grid {
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
               gap: 18px;
-              padding: 0 5px;
             }
             .country {
-              height: 180px;
+              height: 200px;
             }
             .country-text {
               font-size: 1rem;
@@ -257,72 +290,123 @@ const CourseCategories = () => {
               font-size: 1.1rem;
             }
             .skeleton {
-              height: 180px;
+              height: 200px;
+            }
+            .description-text {
+              font-size: 1rem;
+              padding: 0 0.5rem;
             }
           }
-          
-          /* Mobile Large */
-          @media (max-width: 640px) {
-            .Course-img {
-              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+          /* Mobile Large (640px - 767px) */
+          @media (max-width: 767px) and (min-width: 640px) {
+            .main-container {
+              padding: 0 0.5rem;
+            }
+            .course-grid {
+              grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
               gap: 15px;
-              padding: 0;
             }
             .country {
-              height: 160px;
+              height: 180px;
             }
             .country-text {
-              font-size: 0.9rem;
+              font-size: 0.95rem;
               padding: 12px;
             }
             .country:hover .country-text {
               font-size: 1rem;
             }
             .skeleton {
-              height: 160px;
+              height: 180px;
             }
-          }
-          
-          /* Mobile */
-          @media (max-width: 480px) {
-            .Course-img {
-              grid-template-columns: 1fr;
-              gap: 20px;
+            .description-text {
+              font-size: 0.95rem;
               padding: 0;
             }
-            .country {
-              height: 200px;
-              max-width: 100%;
-            }
-            .country-text {
-              font-size: 1rem;
-              padding: 16px;
-            }
-            .country:hover .country-text {
-              font-size: 1.1rem;
-            }
-            .skeleton {
-              height: 200px;
-            }
           }
-          
-          /* Small Mobile */
-          @media (max-width: 360px) {
-            .Course-img {
+
+          /* Mobile (480px - 639px) */
+          @media (max-width: 639px) and (min-width: 480px) {
+            .main-container {
+              padding: 0 0.5rem;
+            }
+            .course-grid {
+              grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
               gap: 15px;
             }
             .country {
-              height: 180px;
+              height: 170px;
             }
             .country-text {
               font-size: 0.9rem;
-              padding: 14px;
+              padding: 10px;
             }
             .country:hover .country-text {
-              font-size: 1rem;
+              font-size: 0.95rem;
             }
             .skeleton {
-              height: 180px;
+              height: 170px;
+            }
+            .description-text {
+              font-size: 0.9rem;
+              line-height: 1.6;
+            }
+          }
+
+          /* Small Mobile (360px - 479px) */
+          @media (max-width: 479px) and (min-width: 360px) {
+            .main-container {
+              padding: 0 0.5rem;
+            }
+            .course-grid {
+              grid-template-columns: 1fr;
+              gap: 15px;
+            }
+            .country {
+              height: 160px;
+            }
+            .country-text {
+              font-size: 0.85rem;
+              padding: 8px;
+            }
+            .country:hover .country-text {
+              font-size: 0.9rem;
+            }
+            .skeleton {
+              height: 160px;
+            }
+            .description-text {
+              font-size: 0.85rem;
+              line-height: 1.5;
+            }
+          }
+
+          /* Extra Small Mobile (below 360px) */
+          @media (max-width: 359px) {
+            .main-container {
+              padding: 0 0.25rem;
+            }
+            .course-grid {
+              grid-template-columns: 1fr;
+              gap: 12px;
+            }
+            .country {
+              height: 150px;
+            }
+            .country-text {
+              font-size: 0.8rem;
+              padding: 6px;
+            }
+            .country:hover .country-text {
+              font-size: 0.85rem;
+            }
+            .skeleton {
+              height: 150px;
+            }
+            .description-text {
+              font-size: 0.8rem;
+              line-height: 1.4;
             }
           }
         `}</style>
