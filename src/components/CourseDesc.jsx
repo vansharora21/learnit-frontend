@@ -225,7 +225,7 @@ const AboutSection = () => {
           </h1>
 
           {courseDetail.aboutCourse && (
-            <div className="about-course-container" style={{ width: "600px" }}>
+            <div className="about-course-container" >
               <p className="about-course-text" style={{ 
                 fontSize: '16px', 
                 lineHeight: '1.6', 
