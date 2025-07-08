@@ -149,7 +149,8 @@ const AboutSection = () => {
                 fontSize: '16px', 
                 lineHeight: '1.6', 
                 marginBottom: '20px', 
-                color: '#555'
+                color: '#555',
+                textAlign:'justify'
               }}>
                 {courseDetail.aboutCourse}
               </p>
@@ -630,7 +631,7 @@ const CourseDescriptionComponent = () => {
           font-size: 14px;
           line-height: 1.5;
           margin-bottom: 20px;
-          opacity: 0.9;
+          opacity: 1.5;
         }
         
         .header-image {
