@@ -15,10 +15,10 @@ export function reverseGenerateSlug(slug) {
 
 const CourseCard = ({ title, description, data, image, url, metaTag }) => {
   const { courseSlug } = useParams(); // Get the current courseSlug
-  
+
   // Generate a proper slug from the title
   const titleSlug = title.toLowerCase().replaceAll(' ', '-');
-  
+
   return (
     <Link
       to={`/${courseSlug}/${titleSlug}`} // Use the route structure
@@ -45,7 +45,7 @@ const CourseCategories = () => {
   const [loading, setLoading] = useState(true);
   const [slugData, setSlugData] = useState([]);
   const { courseSlug } = useParams(); // Use the exact parameter name from route
-  
+
   const fetchCourses = async () => {
     try {
       // Convert slug back to readable format for API call
@@ -324,9 +324,12 @@ const CourseCategories = () => {
               gap: 20px;
             }
             .country {
-              width: 360px;
-              height: 240px;
-            }
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  aspect-ratio: 3 / 2; /* or keep a fixed height with % padding trick */
+}
+
             .skeleton {
               width: 360px;
               height: 240px;

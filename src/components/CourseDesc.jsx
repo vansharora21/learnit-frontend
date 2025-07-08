@@ -11,29 +11,29 @@ const FAQItem = ({ question, answer }) => {
   return (
     <div
       className="faq-item"
-      style={{ 
-        borderBottom: '1px solid #ddd', 
-        padding: '12px', 
+      style={{
+        borderBottom: '1px solid #ddd',
+        padding: '12px',
         cursor: 'pointer'
       }}
       onClick={() => setOpen(!open)}
     >
-      <div className="faq-question" style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        fontWeight: '600', 
-        fontSize: '16px', 
+      <div className="faq-question" style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        fontWeight: '600',
+        fontSize: '16px',
         color: '#333'
       }}>
         {question}
         {open ? <FiChevronUp /> : <FiChevronDown />}
       </div>
       {open && (
-        <div className="faq-answer" style={{ 
-          marginTop: '8px', 
-          fontSize: '14px', 
-          color: '#555', 
+        <div className="faq-answer" style={{
+          marginTop: '8px',
+          fontSize: '14px',
+          color: '#555',
           lineHeight: '1.4'
         }}>
           <span style={{ fontSize: '20px', color: '#26A9E0', marginRight: '10px' }}>✅ </span>{answer}
@@ -49,38 +49,38 @@ const FAQsSectionIntegrated = () => {
   const location = useLocation();
   const [faqs, setFaqs] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // Get courseId from location.state or fetch it
   const courseId = location.state?.courseId;
 
   const getFaqGet = async () => {
     try {
       setLoading(true);
-      
+
       let finalCourseId = courseId;
-      
+
       // If no courseId from location.state, fetch it using slug and title
       if (!finalCourseId) {
         const categoryName = courseSlug.replace(/-/g, ' ');
         const courseTitleFormatted = title.replace(/-/g, ' ');
-        
+
         // First get all courses in the category
         const categoryResponse = await axios.get(
           `https://api.learnitfy.com/api/admin/get/courses?categoryName=${categoryName}`
         );
-        
+
         // Find the specific course by title
-        const courseData = categoryResponse.data?.data?.coursesList?.find(course => 
+        const courseData = categoryResponse.data?.data?.coursesList?.find(course =>
           course.courseName.toLowerCase().replace(/\s+/g, '-') === title.toLowerCase()
         );
-        
+
         if (courseData?.courseId) {
           finalCourseId = courseData.courseId;
         } else {
           throw new Error('Course not found');
         }
       }
-      
+
       // Fetch FAQs using the courseId
       const response = await axios.get(
         `https://api.learnitfy.com/api/faq/get?courseId=${finalCourseId}`
@@ -104,19 +104,19 @@ const FAQsSectionIntegrated = () => {
 
   return (
     <div style={{ padding: '20px 0' }}>
-      <h4 className="faq-title" style={{ 
-        fontSize: '20px', 
-        fontWeight: '700', 
-        marginBottom: '15px', 
+      <h4 className="faq-title" style={{
+        fontSize: '20px',
+        fontWeight: '700',
+        marginBottom: '15px',
         color: '#222'
       }}>FAQs</h4>
       {faqs.length > 0 ? (
-        <div className="faq-container" style={{ 
-          borderTop: '1px solid #ddd', 
-          borderLeft: '1px solid #ddd', 
-          borderRight: '1px solid #ddd', 
-          borderRadius: '4px', 
-          overflow: 'hidden', 
+        <div className="faq-container" style={{
+          borderTop: '1px solid #ddd',
+          borderLeft: '1px solid #ddd',
+          borderRight: '1px solid #ddd',
+          borderRadius: '4px',
+          overflow: 'hidden',
           maxWidth: '700px'
         }}>
           {faqs.map((faq, idx) => (
@@ -124,9 +124,9 @@ const FAQsSectionIntegrated = () => {
           ))}
         </div>
       ) : (
-        <div style={{ 
-          padding: '20px', 
-          textAlign: 'center', 
+        <div style={{
+          padding: '20px',
+          textAlign: 'center',
           color: '#666',
           border: '1px solid #ddd',
           borderRadius: '4px',
@@ -147,40 +147,35 @@ const AboutSection = () => {
   const [courseNotes, setCourseNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAllPoints, setShowAllPoints] = useState(false);
-  
-  // Get courseId from location.state or fetch it
+
   const courseId = location.state?.courseId;
 
   const aboutAPICall = async () => {
     try {
       setLoading(true);
-      
+
       let apiUrl;
       if (courseId) {
-        // Use existing courseId if available
         apiUrl = `https://api.learnitfy.com/api/admin/get/courses?courseId=${courseId}`;
       } else {
-        // Fetch course data using slug and title
         const categoryName = courseSlug.replace(/-/g, ' ');
         const courseTitleFormatted = title.replace(/-/g, ' ');
-        
-        // First get all courses in the category
+
         const categoryResponse = await axios.get(
           `https://api.learnitfy.com/api/admin/get/courses?categoryName=${categoryName}`
         );
-        
-        // Find the specific course by title
-        const courseData = categoryResponse.data?.data?.coursesList?.find(course => 
+
+        const courseData = categoryResponse.data?.data?.coursesList?.find(course =>
           course.courseName.toLowerCase().replace(/\s+/g, '-') === title.toLowerCase()
         );
-        
+
         if (courseData?.courseId) {
           apiUrl = `https://api.learnitfy.com/api/admin/get/courses?courseId=${courseData.courseId}`;
         } else {
           throw new Error('Course not found');
         }
       }
-      
+
       const response = await axios.get(apiUrl);
       const notes = response.data?.data?.coursesList || [];
       setCourseNotes(Array.isArray(notes) ? notes : []);
@@ -196,7 +191,6 @@ const AboutSection = () => {
     aboutAPICall();
   }, [courseSlug, title, courseId]);
 
-  // Rest of your AboutSection component remains the same...
   const firstCourse = courseNotes[0];
   const courseDetail = firstCourse?.courseDetail;
 
@@ -210,85 +204,105 @@ const AboutSection = () => {
   }
 
   return (
-    <div style={{ padding: '0px 0' }}>
+    <div style={{ padding: '0px 1rem', maxWidth: '1100px', margin: '0 auto' }}>
       {courseDetail && (
         <div>
-          <h1 className="course-heading" style={{
-            fontSize: '24px',
-            fontWeight: '700',
-            marginBottom: '0px',
-            color: '#222',
-            wordWrap: 'break-word',
-            maxWidth: '75ch'
-          }}>
+          <h1
+            className="course-heading"
+            style={{
+              fontSize: '24px',
+              fontWeight: '700',
+              marginBottom: '0px',
+              color: '#222',
+              wordWrap: 'break-word',
+              maxWidth: '100%',
+            }}
+          >
             {courseDetail.heading}
           </h1>
 
           {courseDetail.aboutCourse && (
-            <div className="about-course-container" >
-              <p className="about-course-text" style={{ 
-                fontSize: '16px', 
-                lineHeight: '1.6', 
-                marginBottom: '20px', 
-                color: '#555',
-                textAlign:'justify'
-              }}>
+            <div className="about-course-container">
+              <p
+                className="about-course-text"
+                style={{
+                  fontSize: '16px',
+                  lineHeight: '1.6',
+                  marginBottom: '20px',
+                  color: '#555',
+                  textAlign: 'justify',
+                  wordBreak: 'break-word',
+                }}
+              >
                 {courseDetail.aboutCourse}
               </p>
             </div>
           )}
 
           {courseDetail.subHeading && (
-            <h2 className="course-subheading" style={{ 
-              fontSize: '20px', 
-              fontWeight: '600', 
-              marginBottom: '15px', 
-              color: '#333', 
-              maxWidth: "400px"
-            }}>
+            <h2
+              className="course-subheading"
+              style={{
+                fontSize: '20px',
+                fontWeight: '600',
+                marginBottom: '15px',
+                color: '#333',
+                maxWidth: '100%',
+                wordWrap: 'break-word',
+              }}
+            >
               {courseDetail.subHeading}
             </h2>
           )}
-          
+
           <div style={{ marginTop: '20px' }}>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {(() => {
-                const points = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-                  .map(num => courseDetail[`point${num}`])
-                  .filter(Boolean);
+                const points = Array.from({ length: 12 }, (_, i) => courseDetail[`point${i + 1}`]).filter(Boolean);
                 const pointsToShow = showAllPoints ? points : points.slice(0, 3);
                 return pointsToShow.map((pointValue, idx) => (
-                  <li key={idx} className="course-point-item" style={{ 
-                    display: 'flex', 
-                    alignItems: 'flex-start', 
-                    marginBottom: '1px', 
-                    padding: '8px 0px 0px 20px'
-                  }}>
-                    <span style={{ 
-                      backgroundColor: 'black', 
-                      color: 'white', 
-                      borderRadius: '50%', 
-                      width: '8px', 
-                      height: '8px', 
-                      marginTop: '8px', 
-                      marginRight: '12px', 
-                      flexShrink: 0
-                    }}></span>
-                    <span className="course-point-text" style={{ 
-                      fontSize: '16px', 
-                      color: '#333', 
-                      lineHeight: '1.5', 
-                      flex: 1
-                    }}>{pointValue}</span>
+                  <li
+                    key={idx}
+                    className="course-point-item"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      flexWrap: 'wrap',
+                      marginBottom: '1px',
+                      padding: '8px 0px 0px 20px',
+                    }}
+                  >
+                    <span
+                      style={{
+                        backgroundColor: 'black',
+                        color: 'white',
+                        borderRadius: '50%',
+                        width: '8px',
+                        height: '8px',
+                        marginTop: '8px',
+                        marginRight: '12px',
+                        flexShrink: 0,
+                      }}
+                    ></span>
+                    <span
+                      className="course-point-text"
+                      style={{
+                        fontSize: '16px',
+                        color: '#333',
+                        lineHeight: '1.5',
+                        flex: 1,
+                        wordBreak: 'break-word',
+                      }}
+                    >
+                      {pointValue}
+                    </span>
                   </li>
                 ));
               })()}
             </ul>
-            
+
             {(() => {
-              const points = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-                .map(num => courseDetail[`point${num}`])
-                .filter(Boolean);
+              const points = Array.from({ length: 12 }, (_, i) => courseDetail[`point${i + 1}`]).filter(Boolean);
               return !showAllPoints && points.length > 3 ? (
                 <button
                   className="read-more-btn"
@@ -301,7 +315,9 @@ const AboutSection = () => {
                     marginBottom: '30px',
                     fontWeight: 'bold',
                     cursor: 'pointer',
-                    padding: '8px 16px'
+                    padding: '8px 16px',
+                    width: '100%',
+                    maxWidth: '200px',
                   }}
                   onClick={() => setShowAllPoints(true)}
                 >
@@ -310,62 +326,84 @@ const AboutSection = () => {
               ) : null;
             })()}
           </div>
-          
+
           {showAllPoints && (
             <>
               <div style={{ marginTop: '20px' }}>
-                <h1 className="section-title" style={{ 
-                  fontSize: '24px', 
-                  fontWeight: '700', 
-                  marginBottom: '15px', 
-                  color: '#222'
-                }}>
+                <h1
+                  className="section-title"
+                  style={{
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '15px',
+                    color: '#222',
+                  }}
+                >
                   Who Should Enroll:
                 </h1>
-                <ul className="enroll-list" style={{ 
-                  listStyleType: 'disc', 
-                  paddingLeft: '20px'
-                }}>
+                <ul
+                  className="enroll-list"
+                  style={{
+                    listStyleType: 'disc',
+                    paddingLeft: '20px',
+                    wordBreak: 'break-word',
+                  }}
+                >
                   {[1, 2, 3, 4]
                     .map(num => courseDetail.whoShouldEnroll?.[`point${num}`])
                     .filter(Boolean)
                     .map((point, index) => (
-                      <li key={index} className="enroll-item" style={{ 
-                        marginBottom: '8px', 
-                        color: '#222'
-                      }}>
+                      <li
+                        key={index}
+                        className="enroll-item"
+                        style={{
+                          marginBottom: '8px',
+                          color: '#222',
+                        }}
+                      >
                         {point}
                       </li>
                     ))}
                 </ul>
               </div>
-              
+
               <div style={{ marginTop: '20px', marginBottom: '80px' }}>
-                <h1 className="section-title" style={{ 
-                  fontSize: '24px', 
-                  fontWeight: '700', 
-                  marginBottom: '15px', 
-                  color: '#222'
-                }}>
+                <h1
+                  className="section-title"
+                  style={{
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '15px',
+                    color: '#222',
+                  }}
+                >
                   Prerequisites:
                 </h1>
-                <ul className="prerequisites-list" style={{ 
-                  listStyleType: 'disc', 
-                  paddingLeft: '20px'
-                }}>
+                <ul
+                  className="prerequisites-list"
+                  style={{
+                    listStyleType: 'disc',
+                    paddingLeft: '20px',
+                    wordBreak: 'break-word',
+                  }}
+                >
                   {[1, 2, 3, 4]
                     .map(num => courseDetail.Prerequisites?.[`point${num}`])
                     .filter(Boolean)
                     .map((point, index) => (
-                      <li key={index} className="prerequisites-item" style={{ 
-                        marginBottom: '8px', 
-                        color: '#222'
-                      }}>
+                      <li
+                        key={index}
+                        className="prerequisites-item"
+                        style={{
+                          marginBottom: '8px',
+                          color: '#222',
+                        }}
+                      >
                         {point}
                       </li>
                     ))}
                 </ul>
-                
+
                 <button
                   className="read-less-btn"
                   style={{
@@ -377,7 +415,9 @@ const AboutSection = () => {
                     marginBottom: '0px',
                     fontWeight: 'bold',
                     cursor: 'pointer',
-                    padding: '8px 16px'
+                    padding: '8px 16px',
+                    width: '100%',
+                    maxWidth: '200px',
                   }}
                   onClick={handleReadLess}
                 >
@@ -393,19 +433,20 @@ const AboutSection = () => {
 };
 
 
+
 // TabbedSection (About/FAQs)
 const TabbedSection = () => {
   const [activeTab, setActiveTab] = useState('About');
   const tabs = ['About', 'FAQs'];
 
   return (
-    <div className="tabbed-section" style={{ 
-      maxWidth: '800px', 
+    <div className="tabbed-section" style={{
+      maxWidth: '800px',
       marginTop: '40px'
     }}>
-      <div className="tab-buttons" style={{ 
-        display: 'flex', 
-        borderBottom: '2px solid #ddd', 
+      <div className="tab-buttons" style={{
+        display: 'flex',
+        borderBottom: '2px solid #ddd',
         marginBottom: '20px'
       }}>
         {tabs.map((tab) => (
@@ -414,14 +455,14 @@ const TabbedSection = () => {
             className="tab-button"
             onClick={() => setActiveTab(tab)}
             style={{
-              flex: 1, 
-              padding: '12px 0', 
+              flex: 1,
+              padding: '12px 0',
               border: 'none',
               borderBottom: activeTab === tab ? '3px solid #26A9E0' : '3px solid transparent',
-              backgroundColor: 'transparent', 
+              backgroundColor: 'transparent',
               fontWeight: activeTab === tab ? '700' : '500',
-              fontSize: '16px', 
-              cursor: 'pointer', 
+              fontSize: '16px',
+              cursor: 'pointer',
               color: activeTab === tab ? '#26A9E0' : '#555',
               transition: 'color 0.3s, border-bottom 0.3s'
             }}
@@ -489,13 +530,13 @@ const CourseDescriptionComponent = () => {
       const response = await axios.get(
         `https://api.learnitfy.com/api/admin/get/courses?categoryName=${categoryName}`
       );
-      
+
       // Filter courses by title slug
       const titleFormatted = title.replace(/-/g, ' ');
-      const courseData = response.data.data.coursesList.find(course => 
+      const courseData = response.data.data.coursesList.find(course =>
         course.courseName.toLowerCase().replace(/\s+/g, '-') === title
       );
-      
+
       if (courseData) {
         setCourseData(courseData);
         setCourseDataList(courseData.courseContent || []);
@@ -509,7 +550,7 @@ const CourseDescriptionComponent = () => {
       setLoading(false);
     }
   };
-  
+
 
   // Extract data with fallback
   const courseName = courseData?.courseName || 'Course Name';
@@ -616,9 +657,9 @@ const CourseDescriptionComponent = () => {
   // }
 
 
- 
 
-  
+
+
 
   return (
     <>
@@ -628,50 +669,49 @@ const CourseDescriptionComponent = () => {
         <meta name="keywords" content={`course, learn, ${courseName}`} />
         <link rel="icon" href="/logo.png" />
       </Helmet>
-      
+
       <style jsx>{`
         /* Mobile First Approach - Base styles for mobile */
         .main-container {
           padding: 0 15px;
         }
         
-        .header-section {
-          background-color: #26A9E0;
+.header-section {
+  display: flex;
+  background-color: #26A9E0;
           color: white;
-          padding: 20px 10px 30px;
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-          gap: 20px;
-        }
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+  padding: 20px;
+}
         
-        .header-content {
-          flex: 1;
-          padding-right: 0;
-          margin-bottom: 20px;
-        }
+.header-content {
+  flex: 1 1 300px;
+  min-width: 260px;
+}
         
-        .header-title {
-          font-size: 24px;
-          margin-bottom: 15px;
-          font-weight: normal;
-        }
+
+.header-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
         
-        .header-description {
-          font-size: 14px;
-          line-height: 1.5;
-          margin-bottom: 20px;
-          opacity: 1.5;
-        }
-        
-        .header-image {
-          width: 100%;
-          max-width: 350px;
-          border-radius: 5px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-          height: 235px;
-          object-fit: cover;
-        }
+
+.header-description {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.header-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  object-fit: cover;
+}
         
         .view-syllabus-btn {
           background-color: #FBB03B;
@@ -965,13 +1005,11 @@ const CourseDescriptionComponent = () => {
             padding: 0 20px;
           }
           
-          .header-section {
-            padding: 30px 20px 40px;
-            flex-direction: row;
-            text-align: left;
-            justify-content: space-between;
-          }
-          
+           .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
           .header-content {
             flex: 1 1 500px;
             padding-right: 20px;
@@ -986,15 +1024,15 @@ const CourseDescriptionComponent = () => {
             font-size: 16px;
           }
           
-          .header-image {
-            flex: 0 1 350px;
-            width: 350px;
-          }
-          
-          .view-syllabus-btn {
-            padding: 10px 25px;
-            font-size: 15px;
-          }
+ .header-image {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+
+  .view-syllabus-btn {
+    width: 100%;
+    max-width: 300px;
+  }
           
           .main-content {
             flex-direction: row;
@@ -1202,7 +1240,7 @@ const CourseDescriptionComponent = () => {
           z-index: 2;
         }
       `}</style>
-      
+
       <div style={{ fontFamily: 'Arial, sans-serif' }}>
         {/* Header Section */}
         <div className="header-section">
@@ -1231,15 +1269,16 @@ const CourseDescriptionComponent = () => {
           </div>
         </div>
 
+
         {/* Main Content */}
         <div className="main-container main-content">
           {/* Left Column - About and FAQs */}
           <div className="left-column">
             <TabbedSection />
             <div ref={courseContentRef}>
-              <h2 style={{ 
-                marginBottom: '10px', 
-                fontSize: '22px', 
+              <h2 style={{
+                marginBottom: '10px',
+                fontSize: '22px',
                 color: '#222'
               }}>
                 Course Content
@@ -1344,11 +1383,11 @@ const CourseDescriptionComponent = () => {
                       }}>
                         <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
                           <div style={{ marginBottom: '15px' }}>
-                            <label htmlFor="fullName" style={{ 
-                              display: 'block', 
-                              marginBottom: '5px', 
-                              fontSize: '14px', 
-                              color: '#333' 
+                            <label htmlFor="fullName" style={{
+                              display: 'block',
+                              marginBottom: '5px',
+                              fontSize: '14px',
+                              color: '#333'
                             }}>
                               Full Name:
                             </label>
@@ -1364,11 +1403,11 @@ const CourseDescriptionComponent = () => {
                           </div>
 
                           <div style={{ marginBottom: '15px' }}>
-                            <label htmlFor="email" style={{ 
-                              display: 'block', 
-                              marginBottom: '5px', 
-                              fontSize: '14px', 
-                              color: '#333' 
+                            <label htmlFor="email" style={{
+                              display: 'block',
+                              marginBottom: '5px',
+                              fontSize: '14px',
+                              color: '#333'
                             }}>
                               Email Address:
                             </label>
@@ -1384,11 +1423,11 @@ const CourseDescriptionComponent = () => {
                           </div>
 
                           <div style={{ marginBottom: '15px' }}>
-                            <label htmlFor="mobile" style={{ 
-                              display: 'block', 
-                              marginBottom: '5px', 
-                              fontSize: '14px', 
-                              color: '#333' 
+                            <label htmlFor="mobile" style={{
+                              display: 'block',
+                              marginBottom: '5px',
+                              fontSize: '14px',
+                              color: '#333'
                             }}>
                               Mobile Number:
                             </label>
@@ -1404,11 +1443,11 @@ const CourseDescriptionComponent = () => {
                           </div>
 
                           <div style={{ marginBottom: '15px' }}>
-                            <label htmlFor="courseInquiry" style={{ 
-                              display: 'block', 
-                              marginBottom: '5px', 
-                              fontSize: '14px', 
-                              color: '#333' 
+                            <label htmlFor="courseInquiry" style={{
+                              display: 'block',
+                              marginBottom: '5px',
+                              fontSize: '14px',
+                              color: '#333'
                             }}>
                               Inquiry About:
                             </label>
@@ -1508,8 +1547,8 @@ const CourseDescriptionComponent = () => {
                     <span className="fw-semibold d-flex align-items-center">
                       <FiClock className="me-2" /> Duration
                     </span>
-                    <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ 
-                      background: 'linear-gradient(45deg, #6a11cb, #2575fc)', 
+                    <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{
+                      background: 'linear-gradient(45deg, #6a11cb, #2575fc)',
                       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
                     }}>
                       {moreCourseContent.duration}
@@ -1598,8 +1637,8 @@ const CourseDescriptionComponent = () => {
                   <span className="fw-semibold">
                     <FiClock className="me-2" />Access
                   </span>
-                  <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{ 
-                    background: 'linear-gradient(45deg, #6a11cb, #2575fc)', 
+                  <span className="badge bg-gradient text-black rounded-pill p-2 shadow-sm" style={{
+                    background: 'linear-gradient(45deg, #6a11cb, #2575fc)',
                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
                   }}>
                     Lifetime access
@@ -1608,10 +1647,10 @@ const CourseDescriptionComponent = () => {
               </ul>
 
               {/* Brochure Request Dropdown */}
-              <div ref={brochureFormRef} style={{ 
-                marginTop: '20px', 
-                borderTop: '1px solid #e0e0e0', 
-                paddingTop: '20px' 
+              <div ref={brochureFormRef} style={{
+                marginTop: '20px',
+                borderTop: '1px solid #e0e0e0',
+                paddingTop: '20px'
               }}>
                 <button
                   onClick={() => setIsBrochureFormOpen(!isBrochureFormOpen)}
@@ -1635,27 +1674,27 @@ const CourseDescriptionComponent = () => {
                   {isBrochureFormOpen ? <FiChevronUp /> : <FiChevronDown />}
                 </button>
                 {isBrochureFormOpen && (
-                  <div style={{ 
-                    padding: '15px', 
-                    backgroundColor: 'white', 
-                    border: '1px solid #e0e0e0', 
-                    borderRadius: '4px', 
-                    marginBottom: '15px' 
+                  <div style={{
+                    padding: '15px',
+                    backgroundColor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '4px',
+                    marginBottom: '15px'
                   }}>
-                    <p style={{ 
-                      marginBottom: '15px', 
-                      color: '#555', 
+                    <p style={{
+                      marginBottom: '15px',
+                      color: '#555',
                       fontSize: '14px'
                     }}>
                       Enter your email address to receive the course brochure.
                     </p>
                     <form onSubmit={handleBrochureRequest} style={{ display: 'flex', flexDirection: 'column' }}>
                       <div style={{ marginBottom: '15px' }}>
-                        <label htmlFor="brochureEmail" style={{ 
-                          display: 'block', 
-                          marginBottom: '5px', 
-                          fontSize: '14px', 
-                          color: '#333' 
+                        <label htmlFor="brochureEmail" style={{
+                          display: 'block',
+                          marginBottom: '5px',
+                          fontSize: '14px',
+                          color: '#333'
                         }}>
                           Email Address:
                         </label>
