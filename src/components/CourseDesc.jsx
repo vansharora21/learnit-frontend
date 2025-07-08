@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { FiClock, FiDownload, FiMonitor, FiFileText, FiAward, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import CertificateSection from './Certificate';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 // FAQItem (accordion)
@@ -46,26 +45,62 @@ const FAQItem = ({ question, answer }) => {
 
 // FAQsSection (accordion)
 const FAQsSectionIntegrated = () => {
+  const { courseSlug, title } = useParams();
   const location = useLocation();
-  const courseId = location.state?.courseId;
   const [faqs, setFaqs] = useState([]);
-  console.log(courseId)
+  const [loading, setLoading] = useState(true);
+  
+  // Get courseId from location.state or fetch it
+  const courseId = location.state?.courseId;
 
   const getFaqGet = async () => {
     try {
-      const response = await axios.get(`https://api.learnitfy.com/api/faq/get?courseId=${courseId}`);
-      console.log("API response message:", response.data.message);
+      setLoading(true);
+      
+      let finalCourseId = courseId;
+      
+      // If no courseId from location.state, fetch it using slug and title
+      if (!finalCourseId) {
+        const categoryName = courseSlug.replace(/-/g, ' ');
+        const courseTitleFormatted = title.replace(/-/g, ' ');
+        
+        // First get all courses in the category
+        const categoryResponse = await axios.get(
+          `https://api.learnitfy.com/api/admin/get/courses?categoryName=${categoryName}`
+        );
+        
+        // Find the specific course by title
+        const courseData = categoryResponse.data?.data?.coursesList?.find(course => 
+          course.courseName.toLowerCase().replace(/\s+/g, '-') === title.toLowerCase()
+        );
+        
+        if (courseData?.courseId) {
+          finalCourseId = courseData.courseId;
+        } else {
+          throw new Error('Course not found');
+        }
+      }
+      
+      // Fetch FAQs using the courseId
+      const response = await axios.get(
+        `https://api.learnitfy.com/api/faq/get?courseId=${finalCourseId}`
+      );
       setFaqs(response.data.faqOfCourse?.[0]?.faq || []);
     } catch (error) {
       console.error("Error fetching FAQs:", error.message);
+      setFaqs([]);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (courseId) {
-      getFaqGet();
-    }
-  }, [courseId]);
+    getFaqGet();
+  }, [courseSlug, title, courseId]);
+
+  if (loading) {
+    return <div>Loading FAQs...</div>;
+  }
 
   return (
     <div style={{ padding: '20px 0' }}>
@@ -75,36 +110,78 @@ const FAQsSectionIntegrated = () => {
         marginBottom: '15px', 
         color: '#222'
       }}>FAQs</h4>
-      <div className="faq-container" style={{ 
-        borderTop: '1px solid #ddd', 
-        borderLeft: '1px solid #ddd', 
-        borderRight: '1px solid #ddd', 
-        borderRadius: '4px', 
-        overflow: 'hidden', 
-        maxWidth: '700px'
-      }}>
-        {faqs.map((faq, idx) => (
-          <FAQItem key={idx} question={faq.question} answer={faq.answer} />
-        ))}
-      </div>
+      {faqs.length > 0 ? (
+        <div className="faq-container" style={{ 
+          borderTop: '1px solid #ddd', 
+          borderLeft: '1px solid #ddd', 
+          borderRight: '1px solid #ddd', 
+          borderRadius: '4px', 
+          overflow: 'hidden', 
+          maxWidth: '700px'
+        }}>
+          {faqs.map((faq, idx) => (
+            <FAQItem key={idx} question={faq.question} answer={faq.answer} />
+          ))}
+        </div>
+      ) : (
+        <div style={{ 
+          padding: '20px', 
+          textAlign: 'center', 
+          color: '#666',
+          border: '1px solid #ddd',
+          borderRadius: '4px',
+          maxWidth: '700px'
+        }}>
+          No FAQs available for this course.
+        </div>
+      )}
     </div>
   );
 };
 
+
 // AboutSection
 const AboutSection = () => {
+  const { courseSlug, title } = useParams();
   const location = useLocation();
   const [courseNotes, setCourseNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAllPoints, setShowAllPoints] = useState(false);
+  
+  // Get courseId from location.state or fetch it
   const courseId = location.state?.courseId;
-
-  console.log(courseNotes, "--=-=-=-==-=-=-=-=-")
 
   const aboutAPICall = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://api.learnitfy.com/api/admin/get/courses?courseId=${courseId}`);
+      
+      let apiUrl;
+      if (courseId) {
+        // Use existing courseId if available
+        apiUrl = `https://api.learnitfy.com/api/admin/get/courses?courseId=${courseId}`;
+      } else {
+        // Fetch course data using slug and title
+        const categoryName = courseSlug.replace(/-/g, ' ');
+        const courseTitleFormatted = title.replace(/-/g, ' ');
+        
+        // First get all courses in the category
+        const categoryResponse = await axios.get(
+          `https://api.learnitfy.com/api/admin/get/courses?categoryName=${categoryName}`
+        );
+        
+        // Find the specific course by title
+        const courseData = categoryResponse.data?.data?.coursesList?.find(course => 
+          course.courseName.toLowerCase().replace(/\s+/g, '-') === title.toLowerCase()
+        );
+        
+        if (courseData?.courseId) {
+          apiUrl = `https://api.learnitfy.com/api/admin/get/courses?courseId=${courseData.courseId}`;
+        } else {
+          throw new Error('Course not found');
+        }
+      }
+      
+      const response = await axios.get(apiUrl);
       const notes = response.data?.data?.coursesList || [];
       setCourseNotes(Array.isArray(notes) ? notes : []);
     } catch (error) {
@@ -117,9 +194,9 @@ const AboutSection = () => {
 
   useEffect(() => {
     aboutAPICall();
-  }, []);
+  }, [courseSlug, title, courseId]);
 
-  // Get the first course from the array
+  // Rest of your AboutSection component remains the same...
   const firstCourse = courseNotes[0];
   const courseDetail = firstCourse?.courseDetail;
 
@@ -127,6 +204,10 @@ const AboutSection = () => {
     setShowAllPoints(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  if (loading) {
+    return <div>Loading course details...</div>;
+  }
 
   return (
     <div style={{ padding: '0px 0' }}>
@@ -168,10 +249,10 @@ const AboutSection = () => {
               {courseDetail.subHeading}
             </h2>
           )}
+          
           <div style={{ marginTop: '20px' }}>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {(() => {
-                // Gather all available points
                 const points = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                   .map(num => courseDetail[`point${num}`])
                   .filter(Boolean);
@@ -203,7 +284,7 @@ const AboutSection = () => {
                 ));
               })()}
             </ul>
-            {/* Read More button after 3rd point if there are more than 3 points and not showing all */}
+            
             {(() => {
               const points = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                 .map(num => courseDetail[`point${num}`])
@@ -229,7 +310,7 @@ const AboutSection = () => {
               ) : null;
             })()}
           </div>
-          {/* Show these sections only if showAllPoints is true */}
+          
           {showAllPoints && (
             <>
               <div style={{ marginTop: '20px' }}>
@@ -246,7 +327,7 @@ const AboutSection = () => {
                   paddingLeft: '20px'
                 }}>
                   {[1, 2, 3, 4]
-                    .map(num => courseDetail.whoShouldEnroll[`point${num}`])
+                    .map(num => courseDetail.whoShouldEnroll?.[`point${num}`])
                     .filter(Boolean)
                     .map((point, index) => (
                       <li key={index} className="enroll-item" style={{ 
@@ -258,6 +339,7 @@ const AboutSection = () => {
                     ))}
                 </ul>
               </div>
+              
               <div style={{ marginTop: '20px', marginBottom: '80px' }}>
                 <h1 className="section-title" style={{ 
                   fontSize: '24px', 
@@ -272,7 +354,7 @@ const AboutSection = () => {
                   paddingLeft: '20px'
                 }}>
                   {[1, 2, 3, 4]
-                    .map(num => courseDetail.Prerequisites[`point${num}`])
+                    .map(num => courseDetail.Prerequisites?.[`point${num}`])
                     .filter(Boolean)
                     .map((point, index) => (
                       <li key={index} className="prerequisites-item" style={{ 
@@ -283,7 +365,7 @@ const AboutSection = () => {
                       </li>
                     ))}
                 </ul>
-                {/* Read Less button */}
+                
                 <button
                   className="read-less-btn"
                   style={{
@@ -310,29 +392,11 @@ const AboutSection = () => {
   );
 };
 
+
 // TabbedSection (About/FAQs)
 const TabbedSection = () => {
   const [activeTab, setActiveTab] = useState('About');
   const tabs = ['About', 'FAQs'];
-  const location = useLocation();
-  const courseId = location.state?.courseId;
-  const [about, setAbout] = useState([]);
-  console.log(courseId)
-
-  const getFaqGet = async () => {
-    try {
-      const response = await axios.get(`https://api.learnitfy.com/api/get?courseId=${courseId}`);
-      console.log("API response message:", response);
-    } catch (error) {
-      console.error("Error fetching FAQs:", error.message);
-    }
-  };
-
-  useEffect(() => {
-    if (courseId) {
-      getFaqGet();
-    }
-  }, [courseId]);
 
   return (
     <div className="tabbed-section" style={{ 
@@ -397,38 +461,70 @@ const CourseDescriptionComponent = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const [moreCourseContent, setMoreCourseContent] = useState();
 
-  console.log("moreCourseContentmoreCourseContent----------", moreCourseContent)
-
-  const { title } = useParams();
+  const { courseSlug, title } = useParams(); // Get both parameters
   const location = useLocation();
   const navigate = useNavigate();
 
+  // State for course data
+  const [courseData, setCourseData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Try to get data from location.state first, then fetch if needed
   useEffect(() => {
     if (location.state) {
+      // Data passed from navigation
+      setCourseData(location.state);
       setCourseDataList(location.state.courseContent || []);
+      setLoading(false);
+    } else {
+      // Fetch data based on route parameters
+      fetchCourseData();
     }
-  }, [location.state]);
+  }, [courseSlug, title, location.state]);
 
-  console.log("location staet is here CC ", location.state.courseContent);
+  const fetchCourseData = async () => {
+    try {
+      // Convert slug back to readable format
+      const categoryName = courseSlug.replace(/-/g, ' ');
+      const response = await axios.get(
+        `https://api.learnitfy.com/api/admin/get/courses?categoryName=${categoryName}`
+      );
+      
+      // Filter courses by title slug
+      const titleFormatted = title.replace(/-/g, ' ');
+      const courseData = response.data.data.coursesList.find(course => 
+        course.courseName.toLowerCase().replace(/\s+/g, '-') === title
+      );
+      
+      if (courseData) {
+        setCourseData(courseData);
+        setCourseDataList(courseData.courseContent || []);
+      } else {
+        navigate(`/${courseSlug}`);
+      }
+    } catch (error) {
+      console.error('Error fetching course data:', error);
+      navigate(`/${courseSlug}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
-  const courseName = location.state.courseName;
-  const CourseDescription = location.state.description;
-  const SelectedCourseId = location.state.courseId;
-  const courseSelectImage = location.state.image;
-  const courseModel = location.state.courseContent;
-  const courseList = location.state.coursesList;
-  const courseID = location.state.courseId;
-  const metaTag = location.state.metaTag;
-
-  console.log("location.state", location.state)
-  console.log("ksjdbkljslkjd", courseList)
+  // Extract data with fallback
+  const courseName = courseData?.courseName || 'Course Name';
+  const CourseDescription = courseData?.description || 'Course Description';
+  const SelectedCourseId = courseData?.courseId || '';
+  const courseSelectImage = courseData?.image || '';
+  const courseModel = courseData?.courseContent || [];
+  const courseID = courseData?.courseId || '';
+  const metaTag = courseData?.metaTag || 'Course';
 
   const moreContent = async () => {
     try {
       const response = await axios.get(`https://api.learnitfy.com/api/admin/get/courses?courseId=${courseID}`);
       const notes = response.data?.data?.coursesList || [];
-      console.log('API notes value:', notes);
-      setMoreCourseContent(notes[0].moreAboutCourse);
+      setMoreCourseContent(notes[0]?.moreAboutCourse);
     } catch (error) {
       console.error('API call error:', error);
       setMoreCourseContent([]);
@@ -436,8 +532,10 @@ const CourseDescriptionComponent = () => {
   };
 
   useEffect(() => {
-    moreContent()
-  }, [])
+    if (courseID) {
+      moreContent();
+    }
+  }, [courseID]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -497,105 +595,37 @@ const CourseDescriptionComponent = () => {
       alert(`Brochure will be sent to: ${brochureEmail}`);
       setBrochureEmail('');
       setIsBrochureFormOpen(false);
-      console.log("here is the send data brochure:", response);
     } catch (error) {
       console.error('Error sending brochure:', error.response ? error.response.data : error.message);
       alert('There was an error sending the brochure. Please try again later.');
     }
   };
 
-  // Example courses data (use your real data here)
-  const courses = {
-    "sitecore-content-management-training-certification-course": {
-      title: "Sitecore Content Management Training",
-      description: "Are you ready to take your skills to the next level? Join our transformative course and embark on a journey of personal and professional growth like never before.",
-      rating: 4.8,
-      reviews: 132,
-      tutor: "Sarah Doe",
-      hours: 16,
-      price: "23,940.00",
-      modules: [
-        "Module 1 - About Content Hub / Exploring your sandbox",
-        "Module 2 - Assets and Their Lifecycle",
-        "Module 3 - Content Hub Schema and Architecture",
-        "Module 4 - Fulfilling the Requirements: Adding New Properties",
-        "Module 5 - Taxonomies and Categorization",
-        "Module 6 - Introduction to Security",
-        "Module 7 - Introduction to Scripting"
-      ],
-      moduleContents: [
-        "Learn about Content Hub basics and explore the sandbox environment.",
-        "Understand asset management and lifecycle stages in Sitecore.",
-        "Deep dive into Content Hub schema and architecture principles.",
-        "Learn how to add custom properties to fulfill business requirements.",
-        "Master taxonomy creation and content categorization strategies.",
-        "Understand security models and user permission management.",
-        "Introduction to basic scripting for automation in Content Hub."
-      ],
-      includes: [
-        { icon: "hours", text: "16+ hours video" },
-        { icon: "modules", text: "7+ Modules" },
-        { icon: "activities", text: "50+ activities" },
-        { icon: "resources", text: "100+ downloadable resources" },
-        { icon: "access", text: "Lifetime access" },
-        { icon: "certificate", text: "Certificate of completion" }
-      ]
-    },
-  };
-
-  const defaultCourse = {
-    title: "Sitecore Training Certification Course",
-    description: "Master the leading digital experience platform with our comprehensive Sitecore training. This program combines theory, labs, assignments, and projects to make you an expert in building cutting-edge content management solutions.",
-    rating: 4.7,
-    reviews: 132,
-    tutor: "Sarah Doe",
-    hours: 20,
-    price: "65,940.00",
-    modules: [
-      "Module 1 - Sitecore Fundamentals",
-      "Module 2 - Templates in Sitecore",
-      "Module 3 - Layout and sub-layouts",
-      "Module 4 - Items in Sitecore",
-      "Module 5 - Working with Items",
-      "Module 6 - Data Validation"
-    ],
-    moduleContents: [
-      "Introduction to Sitecore platform and core concepts.",
-      "Learn how to create and manage templates in Sitecore.",
-      "Master layout and sub-layout implementation techniques.",
-      "Understanding items and their properties in Sitecore.",
-      "Advanced item management and manipulation strategies.",
-      "Implementing data validation in Sitecore forms and fields."
-    ],
-    includes: [
-      { icon: "hours", text: "20+ hours video" },
-      { icon: "modules", text: "25+ Modules" },
-      { icon: "activities", text: "50+ activities" },
-      { icon: "resources", text: "100+ downloadable resources" },
-      { icon: "access", text: "Lifetime access" },
-      { icon: "certificate", text: "Certificate of completion" }
-    ]
-  };
-
-  const courseData = courses[title] || defaultCourse;
-
-  useEffect(() => {
-    setCourseInquiry(courseData.title);
-    setEnrollInquiry(courseData.title);
-  }, [courseData.title]);
-
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const iconList = [FiAward, FiMonitor, FiFileText]
+  // Show loading state
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Show error state if no course data
+  // if (!courseData) {
+  //   return <div>Course not found dfds</div>;
+  // }
+
+
+ 
+
+  
 
   return (
     <>
       <Helmet>
-        <title>{metaTag} </title>
+        <title>{metaTag}</title>
         <meta name="description" content={CourseDescription} />
-        <meta name="keywords" content="course, learn, {courseName}" />
+        <meta name="keywords" content={`course, learn, ${courseName}`} />
         <link rel="icon" href="/logo.png" />
       </Helmet>
       
@@ -1388,7 +1418,7 @@ const CourseDescriptionComponent = () => {
                               id="courseInquiry"
                               value={courseName}
                               onChange={(e) => setCourseInquiry(e.target.value)}
-                              placeholder={courseData.title}
+                              placeholder={courseName}
                               required
                             />
                           </div>

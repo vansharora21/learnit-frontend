@@ -54,12 +54,16 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/About-Us" element={<AboutUs />} />
         <Route path="/Contact-Us" element={<ContactUs />} />
-        {
+        {/* {
           test === 'test' && <>
             <Route path="/:title" element={<CourseDescription />} />
           </>
-        }
-        <Route path="/:courseSlug" element={<CourseCategories />} /> Dynamic route for course categories
+        } */}
+
+<Route path="/:courseSlug/:title" element={<CourseDescription />} />
+
+      <Route path="/:courseSlug" element={<CourseCategories />} />
+
       </Routes>
       <Footer />
     </div>

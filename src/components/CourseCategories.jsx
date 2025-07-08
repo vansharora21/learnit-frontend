@@ -13,37 +13,45 @@ export function reverseGenerateSlug(slug) {
     .join(' ');
 }
 
-const CourseCard = ({ title, description, data, image, url, metaTag }) => (
-  <Link
-    to={`/${url.toLowerCase().replaceAll(' ', '-')}`}
-    className="infra-link"
-    state={{
-      courseName: title,
-      description: description,
-      courseContent: data.courseContent,
-      courseId: data.courseId,
-      image: image,
-      metaTag: metaTag,
-      test: "test"
-    }}
-  >
-    <div className="country" tabIndex={0} role="button" aria-label={title}>
-      <img src={image} alt={`${title} icon`} />
-      <div className="country-text">{title}</div>
-    </div>
-  </Link>
-);
+const CourseCard = ({ title, description, data, image, url, metaTag }) => {
+  const { courseSlug } = useParams(); // Get the current courseSlug
+  
+  // Generate a proper slug from the title
+  const titleSlug = title.toLowerCase().replaceAll(' ', '-');
+  
+  return (
+    <Link
+      to={`/${courseSlug}/${titleSlug}`} // Use the route structure
+      className="infra-link"
+      state={{
+        courseName: title,
+        description: description,
+        courseContent: data.courseContent,
+        courseId: data.courseId,
+        image: image,
+        metaTag: metaTag,
+        test: "test"
+      }}
+    >
+      <div className="country" tabIndex={0} role="button" aria-label={title}>
+        <img src={image} alt={`${title} icon`} />
+        <div className="country-text">{title}</div>
+      </div>
+    </Link>
+  );
+};
 
 const CourseCategories = () => {
   const [loading, setLoading] = useState(true);
   const [slugData, setSlugData] = useState([]);
-  const params = useParams();
-  const name = params.courseSlug.toLowerCase();
+  const { courseSlug } = useParams(); // Use the exact parameter name from route
   
   const fetchCourses = async () => {
     try {
+      // Convert slug back to readable format for API call
+      const categoryName = courseSlug.replace(/-/g, ' ');
       const response = await axios.get(
-        `https://api.learnitfy.com/api/admin/get/courses?categoryName=${name.replace('-', ' ')}`
+        `https://api.learnitfy.com/api/admin/get/courses?categoryName=${categoryName}`
       );
       setSlugData(response.data.data.coursesList);
     } catch (error) {
@@ -55,15 +63,16 @@ const CourseCategories = () => {
   };
 
   useEffect(() => {
-    fetchCourses();
-    // eslint-disable-next-line
-  }, [params.courseSlug]);
+    if (courseSlug) {
+      fetchCourses();
+    }
+  }, [courseSlug]);
 
   return (
     <>
       <Helmet>
-        <title>{reverseGenerateSlug(params.courseSlug)} - Learnitfy</title>
-        <meta name="description" content={`Explore ${reverseGenerateSlug(params.courseSlug)} courses available on Learnitfy.`} />
+        <title>{reverseGenerateSlug(courseSlug)} - Learnitfy</title>
+        <meta name="description" content={`Explore ${reverseGenerateSlug(courseSlug)} courses available on Learnitfy.`} />
         <meta name="keywords" content="courses, categories, learn" />
         <link rel="icon" href="/logo.png" />
       </Helmet>
@@ -113,7 +122,7 @@ const CourseCategories = () => {
             margin: 0 auto;
             padding: 20px;
             background:rgb(255, 255, 255);
-            min-height: 100vh;
+            min-height: 50vh;
           }
 
           .description-section {

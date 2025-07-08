@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet} from 'react-helmet';
 
-export function generateSlug(title) {
-  return title.toLowerCase().replace(/\s+/g, '-');
+export function generateSlug(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single
+    .trim();
 }
 
 export function reverseGenerateSlug(slug) {
