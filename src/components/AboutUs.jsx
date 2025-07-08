@@ -326,7 +326,7 @@ function AboutUsPage() {
           marginBottom: '1rem', 
           fontSize: isMobile ? 'clamp(1.5rem, 6vw, 2rem)' : 'clamp(2rem, 4vw, 2.5rem)'
         }}>Ready to Level Up Your Team?</h2>
-        <Link to="/contact" style={{
+        <Link to="/Contact-Us" style={{
           display: 'inline-block',
           background: '#FF6B00',
           color: '#fff',
