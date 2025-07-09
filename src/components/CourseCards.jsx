@@ -141,12 +141,12 @@ const CourseCategories = () => {
           }
 
           .Course-img {
-            display: grid;
+            display: flex;
             grid-template-columns: repeat(3, 1fr);
             grid-auto-rows: minmax(220px, auto);
             grid-auto-flow: row;
             gap: 25px;
-            margin-bottom: 3rem;
+            margin-bottom: 30rem;
             align-items: stretch;
           }
           

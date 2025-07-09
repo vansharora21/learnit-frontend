@@ -112,6 +112,7 @@ const CourseCategories = () => {
                 data={course}
                 metaTag={course.metaTag}
               />
+              // <p>lkwenfv</p>
             ))
           )}
         </motion.div>
@@ -141,10 +142,10 @@ const CourseCategories = () => {
           }
 
           .Course-img {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            justify-items: center;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
             margin-bottom: 3rem;
           }
           
