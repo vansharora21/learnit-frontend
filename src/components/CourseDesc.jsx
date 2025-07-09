@@ -1006,7 +1006,7 @@ const CourseDescriptionComponent = () => {
           }
           
            .header-section {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
   }
   
