@@ -20,7 +20,7 @@ function App() {
   const [slugData, setSlugData] = useState([]);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 100, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
