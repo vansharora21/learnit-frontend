@@ -44,7 +44,14 @@ const CourseCard = ({ title, description, data, image, url, metaTag }) => {
 const CourseCategories = () => {
   const [loading, setLoading] = useState(true);
   const [slugData, setSlugData] = useState([]);
-  const { courseSlug } = useParams(); // Use the exact parameter name from route
+  const { courseSlug } = useParams(); // Use the exact parameter name from routet 
+
+  const handletop =()=>{
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    };
+
   
   const fetchCourses = async () => {
     try {
@@ -103,6 +110,7 @@ const CourseCategories = () => {
             </div>
           ) : (
             slugData.map((course, index) => (
+              <spann onClick={handletop}>
               <CourseCard
                 key={course.courseId || index}
                 image={course.image}
@@ -112,6 +120,7 @@ const CourseCategories = () => {
                 data={course}
                 metaTag={course.metaTag}
               />
+              </spann>
             ))
           )}
         </motion.div>
